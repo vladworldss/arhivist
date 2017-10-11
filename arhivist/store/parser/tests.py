@@ -4,7 +4,6 @@ import sys
 sys.dont_write_bytecode = True
 
 import subprocess as sp
-import pytest
 from collections import namedtuple
 
 from . import local
@@ -39,3 +38,17 @@ def test_all_books(capsys):
     res = len(list(local.get_book_title()))
     with capsys.disabled():
         print(f'\nlen:{res}')
+
+
+def test_exec_task(capsys):
+    from pprint import pprint
+
+    from .executor import foo
+    res = foo()
+    assert res != []
+    with capsys.disabled():
+        for r in res:
+            pprint(r)
+        pprint(len(res))
+
+

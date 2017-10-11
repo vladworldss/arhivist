@@ -1,39 +1,37 @@
 # coding: utf-8
 import os
-import re
-from itertools import chain
 
-from .settings import BASE_PATH, SUPPORTED
+from .settings import BASE_PATH, SUPPORT_TYPES, UNICODE_NAME_MASK
+
+__author__     = "Vladimir Gerasimenko"
+__copyright__  = "Copyright 2017, Vladimir Gerasimenko"
+__version__    = "0.0.1"
+__maintainer__ = "Vladimir Gerasimenko"
+__email__      = "vladworldss@yandex.ru"
 
 
-book_name_mask = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
-unicode_name_mask = lambda f: re.findall(r'(?u)\w+', f)
-
-
-def get_book_title(base_path=BASE_PATH):
+def book_raw_data(base_path=BASE_PATH):
     """
-    Get book title from store folder.
+    Iterator who's returned raw data for books from store folder.
 
     :param base_path: source path for searching books
-    :return: iterator of (path, file_name)
+    :yield: dict(path, name, type)
     """
 
     for path, folders, files in os.walk(base_path):
         for f in files:
-            if any(f.endswith(s) for s in SUPPORTED):
+            if any(f.endswith(s) for s in SUPPORT_TYPES):
 
-                # Для юникодовых названий
-                match = unicode_name_mask(f)
+                # For unicode titles (cyrillic)
+                match = UNICODE_NAME_MASK(f)
                 if match:
                     book_name,  book_type = ' '.join(match[:-1]), match[-1]
-
-                    yield ({'path': path, 'name': book_name, 'type': book_type})
+                    yield {'path': path, 'name': book_name, 'type': book_type}
                 else:
-                    print(f)
                     raise NameError('Something wrong')
 
 
-def load_to_json(titles):
+def load_to_json(titles, out_file='books'):
     pass
 
 

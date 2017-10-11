@@ -1,14 +1,23 @@
 # coding: utf-8
+"""
+Module for composite PoolExecutor and tasks.
+"""
 from concurrent.futures import ThreadPoolExecutor, as_completed, wait
-
-from .local import get_book_title
-from .api.google import Api
 from time import time
+
+from .api.google import Api
+from .local import book_raw_data
+
+__author__     = "Vladimir Gerasimenko"
+__copyright__  = "Copyright 2017, Vladimir Gerasimenko"
+__version__    = "0.0.1"
+__maintainer__ = "Vladimir Gerasimenko"
+__email__      = "vladworldss@yandex.ru"
 
 
 class Executor(object):
 
-    def __init__(self, max_workers, task, callback=None, *args, **kw):
+    def __init__(self, max_workers, task, callback=None, *args):
 
         self.__task = None
         self.__args = []

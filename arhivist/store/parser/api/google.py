@@ -1,13 +1,19 @@
 import requests
 import json
 
+__author__     = "Vladimir Gerasimenko"
+__copyright__  = "Copyright 2017, Vladimir Gerasimenko"
+__version__    = "0.0.1"
+__maintainer__ = "Vladimir Gerasimenko"
+__email__      = "vladworldss@yandex.ru"
+
 
 class Api(object):
     """Google Books Api
 
     See: https://developers.google.com/books/
     """
-    __BASEURL = 'https://www.googleapis.com/books/v1'
+    BASEURL = 'https://www.googleapis.com/books/v1'
 
     def __init__(self):
         pass
@@ -15,7 +21,7 @@ class Api(object):
     def _get(self, path, params=None):
         if params is None:
             params = {}
-        resp = requests.get(self.__BASEURL + path, params=params)
+        resp = requests.get(self.BASEURL + path, params=params)
         if resp.status_code == 200:
             return json.loads(resp.content)
 
@@ -102,7 +108,11 @@ class Api(object):
         """
         path = '/volumes'
         params = dict(q=q)
-        for p in 'download filter langRestrict libraryRestrict maxResults orderBy partner printType projection showPreorders source startIndex'.split():
+        attrs = {'maxResults', 'showPreorders', 'langRestrict', 'libraryRestrict', 'download',
+                 'printType', 'orderBy', 'startIndex', 'source', 'projection', 'partner', 'filter'
+                 }
+
+        for p in attrs:
             if p in kwargs:
                 params[p] = kwargs[p]
 
@@ -110,6 +120,11 @@ class Api(object):
 
 
 def title_task(title):
+    """
+    Return respponce from Api.BASEURL
+
+    :param title:
+    :return:
+    """
     req = f'intitle:{title}'
-    volumes = Api()
-    return volumes.list(req)
+    return Api().list(req)

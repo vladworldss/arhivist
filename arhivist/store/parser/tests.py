@@ -1,13 +1,22 @@
 # coding: utf-8
-import os
-import sys
-sys.dont_write_bytecode = True
-
-import pytest
-import subprocess as sp
 from collections import namedtuple
+import os
+import pytest
+from pprint import pprint
+import sys
+import subprocess as sp
 
-from . import local
+from .api.google import title_task
+from .executor import Executor
+from . local import book_raw_data
+
+__author__     = "Vladimir Gerasimenko"
+__copyright__  = "Copyright 2017, Vladimir Gerasimenko"
+__version__    = "0.0.1"
+__maintainer__ = "Vladimir Gerasimenko"
+__email__      = "vladworldss@yandex.ru"
+
+sys.dont_write_bytecode = True
 
 
 def call(cmd):
@@ -25,31 +34,36 @@ def call(cmd):
     return result
 
 
-@pytest.mark.skip(reason="no way of currently testing this")
-def test_get_book_title(test_book='test.pdf', test_path='/tmp'):
-    res = call(f'touch {os.path.join(test_path, test_book)}')
-    if not res.err:
-        res = tuple(x['name'] for x in local.get_book_title('/tmp'))
-        assert 'test' in res
-        call(f'rm {os.path.join(test_path, test_book)}')
-    else:
-        raise AssertionError("Test file had't been created!")
+@pytest.yield_fixture
+def tmp_book():
+    base_name = 'test'
+    book_type = '.pdf'
+    path = '/tmp'
+    abs_name = os.path.join(path, base_name+book_type)
+
+    call(f'touch {abs_name}')
+    yield base_name, path
+    call(f'rm {abs_name}')
 
 
-@pytest.mark.skip(reason="no way of currently testing this")
-def test_all_books(capsys):
-    res = len(list(local.get_book_title()))
-    with capsys.disabled():
-        print(f'\nlen:{res}')
+def test_get_book_title(tmp_book):
+    name, path = tmp_book
+    res = tuple(x['name'] for x in book_raw_data(path))
+    assert name in res
 
 
+def test_empty_folder(capsys):
+    res = len(list(book_raw_data()))
+    assert res != 0
+
+
+#@pytest.mark.skip(reason='No')
 def test_executor_class(capsys):
-    from .executor import Executor
-    from .api.google import title_task
 
     def callb(fn):
         with capsys.disabled():
-            print(f'\nCallback: {fn.result()}')
+            if fn.done:
+                print(f'\nCallback: {fn.result()}')
 
     titles = ['Темная башня. Стрелок',
               'Стивен Кинг. Темная башня. Извлечение троих',
@@ -58,17 +72,15 @@ def test_executor_class(capsys):
               'Стивен Кинг. Темная башня. Волки Кальи',
               'Стивен Кинг. Темная башня. Песнь Сюзанны',
               'Стивен Кинг. Темная башня. Тёмная Башня',
-              'Стивен Кинг. Темная башня. Ветер сквозь замочную скважину'
+              'Стивен Кинг. Темная башня. Ветер сквозь замочную скважину',
+              "Harry Potter and the Philosopher's Stone",
+              'Harry Potter and the Chamber of Secrets',
+              'Harry Potter and the Prisoner of Azkaban',
+              'Harry Potter and the Goblet of Fire',
+              'Harry Potter and the Order of the Phoenix',
+              'Harry Potter and the Half-Blood Prince',
+              'Harry Potter and the Deathly Hallows'
               ]
 
-    harry = ["Harry Potter and the Philosopher's Stone",
-             'Harry Potter and the Chamber of Secrets',
-             'Rowling - Harry Potter and the Prisoner of Azkaban',
-             'Rowling - Harry Potter and the Goblet of Fire',
-             'Rowling - Harry Potter and the Order of the Phoenix',
-             'Rowling - Harry Potter and the Half-Blood Prince',
-             'Harry Potter and the Deathly Hallows - 2007.epub'
-             ]
-
-    ex = Executor(10, title_task, callb, *harry)
+    ex = Executor(30, title_task, callb, *titles)
     ex.execute()

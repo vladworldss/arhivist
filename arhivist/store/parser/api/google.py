@@ -107,3 +107,9 @@ class Api(object):
                 params[p] = kwargs[p]
 
         return self._get(path, params)
+
+
+def title_task(title):
+    req = f'intitle:{title}'
+    volumes = Api()
+    return volumes.list(req)

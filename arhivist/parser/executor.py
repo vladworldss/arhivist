@@ -50,9 +50,7 @@ class BookExecutor(object):
 
     @classmethod
     def execute(cls, items, api_vendor):
-
         Api = cls.Api(api_vendor)
-
         with ThreadPoolExecutor(max_workers=1) as ex:
             for item in items:
                 f = ex.submit(cls.task, item, Api)

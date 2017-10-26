@@ -94,11 +94,11 @@ class Book(models.Model):
     isbn_13 = models.IntegerField(unique=True, blank=True, null=True)
     authors = models.ManyToManyField(Author)
     categories = models.ManyToManyField(Categories)
-    file_ext = models.CharField(max_length=8, default='')
 
     # Service data
-    raw_title = models.CharField(max_length=128)
     path = models.FilePathField(blank=True, null=True)
+    raw_title = models.CharField(max_length=128)
+    file_ext = models.CharField(max_length=8, default='')
     validate = models.BooleanField(default=False, db_index=True)
 
     class Meta:

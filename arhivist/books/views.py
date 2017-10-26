@@ -25,8 +25,6 @@ def post_update(request, publisher, language):
 
     request.POST.update({'publisher': publisher,
                          'language': language,
-                         'path': '/home/test/',
-                         'raw_title': 'xxx'
                          })
 
 
@@ -46,24 +44,11 @@ def get_categories_names(request=None):
     return categories_names
 
 
-def test_conf(publisher, language):
-    return {'publisher': publisher,
-            'description': '',
-            'language': language,
-            'published_date': '2005-01-01',
-            'title': 'How to Live Like You Were Dying- PDF',
-            'page_count': '0',
-            'canonical_volume_link': 'https://books.google.com/books/about/How_to_Live_Like_You_Were_Dying_PDF.html?hl=&id=gNFcTw52DPUC',
-            'path': '/home/test/',
-            'raw_title': 'xxx'
-            }
-
 def foo(post):
     d = {}
     for ke, value in post.items():
         d[ke] = value
     return d
-
 
 
 @api_view(['GET', 'POST'])
@@ -92,7 +77,6 @@ def book_list(request):
 
         except Exception as e:
             return Response(str(e))
-
 
         serializer = BookSerializer(book)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

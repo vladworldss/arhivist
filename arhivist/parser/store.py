@@ -62,8 +62,8 @@ class Store(object):
                 m = self._match(f)
                 if not m:
                     continue
-                book_name = m.pop()
-                book_type = ' '.join(m)
+                book_type = m.pop()
+                book_name = ' '.join(m)
                 yield self._request_data(path, book_name, book_type)
 
     def init(self):

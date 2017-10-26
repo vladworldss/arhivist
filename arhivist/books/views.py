@@ -65,7 +65,7 @@ def book_list(request):
 
         try:
             d = foo(request.POST)
-            book = Book.objects.create(**d)
+            book = Book.make(**d)
             for a in authors_names:
                 auth = Author.make(name=a)
                 book.authors.add(auth)

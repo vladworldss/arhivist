@@ -103,9 +103,23 @@ class Book(models.Model):
 
     class Meta:
         ordering = ["title"]
+        unique_together = ["title", "path", "raw_title", "file_ext"]
         verbose_name = "книга"
         verbose_name_plural = "книги"
 
     def __str__(self):
         authors = ', '.join([x.name for x in self.authors.all()])
-        return '{}. {}.'.format(authors, self.title)
+        return '{}. {}.{}'.format(authors, self.title, self.file_ext)
+
+    @classmethod
+    def make(cls, *args, **kw):
+        inst = None
+        try:
+            conf = {}
+            for x in ["title", "path", "raw_title", "file_ext"]:
+                conf[x] = kw.get(x, '')
+            inst = cls.objects.get(**conf)
+        except cls.DoesNotExist:
+            inst = cls(*args, **kw)
+            inst.save()
+        return inst

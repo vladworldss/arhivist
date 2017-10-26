@@ -24,5 +24,5 @@ class BookSerializer(serializers.ModelSerializer):
                   'published_date', 'title', 'page_count',
                   'canonical_volume_link', 'isbn_10', 'isbn_13',
                   'authors', 'categories', 'raw_title', 'path',
-                  'validate'
+                  'validate', 'file_ext'
                   )

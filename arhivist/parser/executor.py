@@ -13,11 +13,24 @@ class BookExecutor(object):
 
     @staticmethod
     def task(item, Api):
-        res = Api.list(item, maxResults=1)
-        return res
+        title = item.get('raw_title', '')
+        resp = Api.title_list(title, maxResults=1)
+        item_set = set(item)
+        result = []
 
-    @staticmethod
-    def callback(fn):
+        # через map
+        for r in resp:
+            _chain = {}
+            if not (item_set & set(r)) == set():
+                raise Exception
+            _chain.update(**item)
+            _chain.update(**r)
+            result.append(_chain)
+
+        return result
+
+    @classmethod
+    def callback(cls, fn):
         if fn.cancelled():
             print('{}: canceled'.format(fn.arg))
         elif fn.done():
@@ -27,20 +40,21 @@ class BookExecutor(object):
             else:
                 result = fn.result()
                 for r in result:
-                    # if not (set(r) & set(fn.arg)) == set():
-                    #     raise Exception
-                    # req = r.update({'path': fn.arg['path']})
                     resp = requests.post(url=POST_URL, data=r)
                     pprint(f'resp: {resp.content}')
 
-    @staticmethod
-    def execute(items, api_vendor):
-        api_module = getattr(api, api_vendor.lower())
-        Api = getattr(api_module, 'Book')()
+    @classmethod
+    def Api(cls, vendor):
+        _module = getattr(api, vendor.lower())
+        return getattr(_module, 'Book')()
+
+    @classmethod
+    def execute(cls, items, api_vendor):
+
+        Api = cls.Api(api_vendor)
 
         with ThreadPoolExecutor(max_workers=1) as ex:
-            for i in items:
-                title = f"intitle:{i['raw_title']}"
-                f = ex.submit(BookExecutor.task, title, Api)
-                f.arg = i
-                f.add_done_callback(BookExecutor.callback)
+            for item in items:
+                f = ex.submit(cls.task, item, Api)
+                f.arg = item
+                f.add_done_callback(cls.callback)

@@ -13,10 +13,10 @@ from settings import STORE_PATH, UNCHECKABLE_FOLDERS
 
 class Store(object):
 
-    SUPPORT_TYPES = {'pdf', 'djvu', 'djv', 'epub', 'fb2'}
+    SUPPORT_FILE_EXTENSION = {'pdf', 'djvu', 'djv', 'epub', 'fb2'}
     BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
     UNICODE_NAME_MASK = lambda self, f: re.findall(r'(?u)\w+', f)
-    REQ_KEYS = ('path', 'raw_title', 'type')
+    REQ_KEYS = ('path', 'raw_title', 'file_ext')
 
     def __init__(self, root_path=STORE_PATH):
         self.root_path = root_path
@@ -29,7 +29,7 @@ class Store(object):
         :param file: filename
         :return: list of result
         """
-        if any(file_name.endswith(s) for s in self.SUPPORT_TYPES):
+        if any(file_name.endswith(s) for s in self.SUPPORT_FILE_EXTENSION):
             # cyrillic titles
             return self.UNICODE_NAME_MASK(file_name)
 

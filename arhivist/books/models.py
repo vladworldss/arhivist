@@ -94,6 +94,7 @@ class Book(models.Model):
     isbn_13 = models.IntegerField(unique=True, blank=True, null=True)
     authors = models.ManyToManyField(Author)
     categories = models.ManyToManyField(Categories)
+    file_ext = models.CharField(max_length=8, default='')
 
     # Service data
     raw_title = models.CharField(max_length=128)

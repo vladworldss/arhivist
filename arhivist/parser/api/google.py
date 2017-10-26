@@ -167,3 +167,7 @@ class Book(AbsBook):
             params[p] = kwargs[p]
 
         return self._get(path, params)
+
+    def title_list(self, q, **kwargs):
+        q = f"intitle:{q}"
+        return self.list(q, **kwargs)

@@ -1,5 +1,12 @@
+# coding: utf-8
+"""
+Interface for Amazon API.
+"""
 import requests
 import json
+from functools import wraps
+
+from .base import AbsBook
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright 2017, Vladimir Gerasimenko"
@@ -7,9 +14,49 @@ __version__    = "0.0.1"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
+_volumeInfo = {'publisher', 'description', 'language'}
 
-class Api(object):
-    """Google Books Api
+
+def parsed(func):
+    @wraps(func)
+    def wrapper(*args, **kw):
+        res = func(*args, **kw)
+        result = []
+        for item in res.get('items', ''):
+            data = {}
+            volumeInfo = item.pop('volumeInfo', None)
+            if volumeInfo:
+                for key in _volumeInfo:
+                    data[key] = volumeInfo.pop(key, '')
+                # TODO: костыль!!!
+                data['description'] = data['description'][:1024]
+                data['published_date'] = volumeInfo.pop('publishedDate')
+
+                data['title'] = volumeInfo.pop('title', '')
+                data['page_count'] = volumeInfo.pop('pageCount', 0)
+                data['canonical_volume_link'] = volumeInfo.pop('canonicalVolumeLink', '')
+
+                identifiers = item.pop('volumeInfo', None)
+                if identifiers:
+                    for id in identifiers:
+                        _id = id['identifier']
+                        if len(_id) == 10:
+                            data['isbn_10'] = _id
+                        elif len(_id) == 13:
+                            data['isbn_13'] = _id
+                        else:
+                            raise Exception
+                data['authors'] = volumeInfo.pop('authors', '')
+                data['categories'] = volumeInfo.pop('categories', '')
+                result.append(data)
+        return result
+    return wrapper
+
+
+# TODO: добавить аутентификац
+class Book(AbsBook):
+    """
+    Google Books Api
 
     See: https://developers.google.com/books/
     """
@@ -49,8 +96,10 @@ class Api(object):
 
         return self._get(path)
 
+    @parsed
     def list(self, q, **kwargs):
-        """Performs a book search.
+        """
+        Performs a book search.
         q -- Full-text search query string.
 
             There are special keywords you can specify in the search terms to
@@ -112,19 +161,9 @@ class Api(object):
                  'printType', 'orderBy', 'startIndex', 'source', 'projection', 'partner', 'filter'
                  }
 
-        for p in attrs:
-            if p in kwargs:
-                params[p] = kwargs[p]
+        common = attrs & set(kwargs)
+
+        for p in common:
+            params[p] = kwargs[p]
 
         return self._get(path, params)
-
-
-def title_task(title):
-    """
-    Return respponce from Api.BASEURL
-
-    :param title:
-    :return:
-    """
-    req = f'intitle:{title}'
-    return Api().list(req)

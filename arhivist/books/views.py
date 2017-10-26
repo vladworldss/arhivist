@@ -44,13 +44,6 @@ def get_categories_names(request=None):
     return categories_names
 
 
-def foo(post):
-    d = {}
-    for ke, value in post.items():
-        d[ke] = value
-    return d
-
-
 @api_view(['GET', 'POST'])
 def book_list(request):
     """
@@ -64,8 +57,7 @@ def book_list(request):
         categories_names = get_categories_names(request)
 
         try:
-            d = foo(request.POST)
-            book = Book.make(**d)
+            book = Book.make(**request.POST.dict())
             for a in authors_names:
                 auth = Author.make(name=a)
                 book.authors.add(auth)

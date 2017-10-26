@@ -5,8 +5,10 @@ Interface for Amazon API.
 import requests
 import json
 from functools import wraps
+from apiclient.discovery import build
 
-from .base import AbsBook
+from arhivist.parser.api.base import AbsBook
+from .setting import API_KEY
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright 2017, Vladimir Gerasimenko"
@@ -62,8 +64,12 @@ class Book(AbsBook):
     """
     BASEURL = 'https://www.googleapis.com/books/v1'
 
-    def __init__(self):
-        pass
+    def __init__(self, auth=True):
+        self.authorized = False
+        if auth:
+            books_service = build('books', 'v1', developerKey=API_KEY)
+            self.volumes = books_service.volumes()
+            self.authorized = True
 
     def _get(self, path, params=None):
         if params is None:
@@ -155,6 +161,10 @@ class Book(AbsBook):
         startIndex -- Index of the first result to return (starts at 0)
         See: https://developers.google.com/books/docs/v1/reference/volumes/list
         """
+        if self.authorized:
+            res = self.volumes.list(q=q, **kwargs)
+            return res.execute()
+
         path = '/volumes'
         params = dict(q=q)
         attrs = {'maxResults', 'showPreorders', 'langRestrict', 'libraryRestrict', 'download',

@@ -45,7 +45,7 @@ class BookExecutor(object):
 
     @classmethod
     def Api(cls, vendor):
-        _module = getattr(api, vendor.lower())
+        _module = import_module('api.{}'.format(vendor))
         return getattr(_module, 'Book')()
 
     @classmethod

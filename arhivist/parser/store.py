@@ -10,9 +10,17 @@ from collections import OrderedDict
 from executor import BookExecutor
 from settings import STORE_PATH, UNCHECKABLE_FOLDERS
 
+__author__     = "Vladimir Gerasimenko"
+__copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
+__version__    = "0.0.1"
+__maintainer__ = "Vladimir Gerasimenko"
+__email__      = "vladworldss@yandex.ru"
+
 
 class Store(object):
-
+    """
+    Book store class.
+    """
     SUPPORT_FILE_EXTENSION = {'pdf', 'djvu', 'djv', 'epub', 'fb2'}
     BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
     UNICODE_NAME_MASK = lambda self, f: re.findall(r'(?u)\w+', f)

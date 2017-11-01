@@ -1,3 +1,4 @@
+# coding: utf-8
 import json
 from django.contrib.auth.models import User
 
@@ -9,8 +10,15 @@ from rest_framework import status
 from books.models import *
 from books.serializers import BookSerializer, UserSerializer
 
+__author__     = "Vladimir Gerasimenko"
+__copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
+__version__    = "0.0.1"
+__maintainer__ = "Vladimir Gerasimenko"
+__email__      = "vladworldss@yandex.ru"
+
 
 class BooksList(generics.ListCreateAPIView):
+
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
@@ -62,5 +70,6 @@ class BooksList(generics.ListCreateAPIView):
 
 
 class UserList(generics.ListAPIView):
+
     queryset = User.objects.all()
     serializer_class = UserSerializer

@@ -1,13 +1,17 @@
 # coding: utf-8
 from importlib import import_module
-import os
 from pprint import pprint
-import json
 import requests
 from requests.auth import HTTPBasicAuth
 from concurrent.futures import ThreadPoolExecutor
-import api
-from settings import POST_URL
+
+from settings import POST_URL, CREDENTIALS
+
+__author__     = "Vladimir Gerasimenko"
+__copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
+__version__    = "0.0.1"
+__maintainer__ = "Vladimir Gerasimenko"
+__email__      = "vladworldss@yandex.ru"
 
 
 class BookExecutor(object):
@@ -41,7 +45,7 @@ class BookExecutor(object):
             else:
                 result = fn.result()
                 for r in result:
-                    resp = requests.post(url=POST_URL, data=r, auth=HTTPBasicAuth('admin', 'password123'))
+                    resp = requests.post(url=POST_URL, data=r, auth=HTTPBasicAuth(*CREDENTIALS))
                     pprint(f'resp: {resp.content}')
 
     @classmethod

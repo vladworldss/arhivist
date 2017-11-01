@@ -4,6 +4,7 @@ import os
 from pprint import pprint
 import json
 import requests
+from requests.auth import HTTPBasicAuth
 from concurrent.futures import ThreadPoolExecutor
 import api
 from settings import POST_URL
@@ -40,7 +41,7 @@ class BookExecutor(object):
             else:
                 result = fn.result()
                 for r in result:
-                    resp = requests.post(url=POST_URL, data=r)
+                    resp = requests.post(url=POST_URL, data=r, auth=HTTPBasicAuth('admin', 'password123'))
                     pprint(f'resp: {resp.content}')
 
     @classmethod

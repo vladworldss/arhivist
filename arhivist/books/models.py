@@ -101,6 +101,9 @@ class Book(models.Model):
     file_ext = models.CharField(max_length=8, default='')
     validate = models.BooleanField(default=False, db_index=True)
 
+    # Auth data
+    owner = models.ForeignKey('auth.User', related_name='books', on_delete=models.CASCADE)
+
     class Meta:
         ordering = ["title"]
         unique_together = ["title", "path", "raw_title", "file_ext"]

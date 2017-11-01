@@ -20,3 +20,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^', include('books.urls')),
 ]
+
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls', )),
+]

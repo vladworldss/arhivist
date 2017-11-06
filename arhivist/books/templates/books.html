@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link type="text/css" href="main.css" rel="stylesheet">
+    <title>АрхиВист - библиотека электронных книг, вся информация о книге на ArhiVist</title>
+</head>
+
+<body>
+    <div id="header">
+        <div class="header-container">
+            <div id="logo">
+                <meta itemprop="logo" content="/static/arhivist/header/logo.png">
+                <meta itemprop="url" content="https://www.arhivist.com/">
+                <span class="arhivist" title="АрхиВист">АрхиВист</span>
+            </div>
+            <div class="topmenu">
+                <ul>
+                    <li class="genre">
+                        <a id="genres_popup" href="/books/categories/">Жанры</a>
+                        <ul>
+                            {% for cat in cats %}
+                            <li><a href="/books/{{ cat.id }}/">{{ cat.name }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </li>>
+                    <li class="author">
+                        <a id="authors" href="/books/authors/">Авторы</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="main">
+        <div class="books_box">
+            <ul>
+                {% for book in books %}
+                <div class="book_container">
+
+                </div>
+                {% endfor %}
+                <li></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="footer">
+
+    </div>
+
+</body>
+</html>

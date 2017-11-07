@@ -19,3 +19,4 @@ UNICODE_NAME_MASK = lambda f: re.findall(r'(?u)\w+', f)
 
 # __URLS
 POST_URL = 'http://127.0.0.1:8000/books/'
+ID_THUMBNAIL = re.compile(r"http://[\w\./]*\?id=(?P<id>\w+)&\w+")

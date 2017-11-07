@@ -4,6 +4,7 @@ Interface for Amazon API.
 """
 import requests
 import json
+import shutil
 from functools import wraps
 from apiclient.discovery import build
 
@@ -30,13 +31,12 @@ def parsed(func):
             if volumeInfo:
                 for key in _volumeInfo:
                     data[key] = volumeInfo.pop(key, '')
-                # TODO: костыль!!!
                 data['description'] = data['description'][:1024]
                 data['published_date'] = volumeInfo.pop('publishedDate')
-
                 data['title'] = volumeInfo.pop('title', '')
                 data['page_count'] = volumeInfo.pop('pageCount', 0)
                 data['canonical_volume_link'] = volumeInfo.pop('canonicalVolumeLink', '')
+                data['thumbnail'] = volumeInfo.get('imageLinks', {}).get('thumbnail', '')
 
                 identifiers = item.pop('volumeInfo', None)
                 if identifiers:
@@ -181,3 +181,37 @@ class Book(AbsBook):
     def title_list(self, q, **kwargs):
         q = f"intitle:{q}"
         return self.list(q, **kwargs)
+
+    @staticmethod
+    def get_thumbnail(url, w='w300'):
+        """
+        Save thumbnail from responce.
+
+        :param url: thumbnail url
+        like 'http://books.google.com/books/content?
+                    id=junUDQAAQBAJ&
+                    printsec=frontcover&
+                    img=1&
+                    zoom=1&
+                    edge=curl&
+                    source=gbs_api'
+
+        :param w: weight
+        :return:
+        """
+        url = '{}&fife={}'.format(url, w)
+        return requests.get(url, stream=True)
+
+    @staticmethod
+    def save_thumbnail(resp, path):
+        """
+        Save thumbnail.
+
+        :param resp: responce from request
+        :param path: path to save image
+        :return:
+        """
+        with open(path, 'wb') as f:
+            resp.raw.decode_content = True
+            shutil.copyfileobj(resp.raw, f)
+

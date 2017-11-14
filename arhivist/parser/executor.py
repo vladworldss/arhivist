@@ -4,8 +4,9 @@ from pprint import pprint
 import requests
 from requests.auth import HTTPBasicAuth
 from concurrent.futures import ThreadPoolExecutor
+from .api.google import Book
 
-from settings import POST_URL, CREDENTIALS
+from .settings import POST_URL, CREDENTIALS, THUMBNAIL_DIR
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -17,22 +18,18 @@ __email__      = "vladworldss@yandex.ru"
 class BookExecutor(object):
 
     @staticmethod
-    def task(item, Api):
-        title = item.get('raw_title', '')
-        resp = Api.title_list(title, maxResults=1)
-        item_set = set(item)
-        result = []
-
-        # через map
-        for r in resp:
-            _chain = {}
-            if not (item_set & set(r)) == set():
+    def task(item, Api, max_results=1):
+        def update(r):
+            if item_set.intersection(set(r)):
                 raise Exception
-            _chain.update(**item)
-            _chain.update(**r)
-            result.append(_chain)
+            r.update(**item)
 
-        return result
+        item_set = set(item)
+        resp = Api.title_list(item['raw_title'], maxResults=max_results)
+        for r in resp:
+            Api.download_thumbnail(r)
+        list(map(update, resp))
+        return resp
 
     @classmethod
     def callback(cls, fn):
@@ -50,14 +47,17 @@ class BookExecutor(object):
 
     @classmethod
     def Api(cls, vendor):
-        _module = import_module('api.{}'.format(vendor))
-        return getattr(_module, 'Book')()
+        # _module = import_module('api.{}'.format(vendor))
+        # BookApiCls = getattr(_module, 'Book')
+        # return BookApiCls(download_dir=THUMBNAIL_DIR)
+        return Book(download_dir=THUMBNAIL_DIR)
 
     @classmethod
-    def execute(cls, items, api_vendor):
+    def execute(cls, items, api_vendor, callback=True):
         Api = cls.Api(api_vendor)
         with ThreadPoolExecutor(max_workers=1) as ex:
             for item in items:
                 f = ex.submit(cls.task, item, Api)
                 f.arg = item
-                f.add_done_callback(cls.callback)
+                if callback:
+                    f.add_done_callback(cls.callback)

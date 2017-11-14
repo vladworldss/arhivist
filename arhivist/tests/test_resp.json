@@ -1,0 +1,918 @@
+{
+ "kind": "books#volumes",
+ "totalItems": 479,
+ "items": [
+  {
+   "kind": "books#volume",
+   "id": "gNFcTw52DPUC",
+   "etag": "nWpYrU4uZjw",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/gNFcTw52DPUC",
+   "volumeInfo": {
+    "title": "How to Live Like You Were Dying- PDF",
+    "authors": [
+     "Jay Irvin"
+    ],
+    "publisher": "Lulu.com",
+    "publishedDate": "2005-01-01",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9780976891215"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "0976891212"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "printType": "BOOK",
+    "categories": [
+     "Body, Mind & Spirit"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "0.2.2.0.preview.3",
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=gNFcTw52DPUC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=gNFcTw52DPUC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.ru/books?id=gNFcTw52DPUC&printsec=frontcover&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=1&source=gbs_api",
+    "infoLink": "http://books.google.ru/books?id=gNFcTw52DPUC&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/How_to_Live_Like_You_Were_Dying_PDF.html?hl=&id=gNFcTw52DPUC"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/How_to_Live_Like_You_Were_Dying_PDF-sample-epub.acsm?id=gNFcTw52DPUC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=gNFcTw52DPUC&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "WblcTrrWUJAC",
+   "etag": "pbVZYGZMhV8",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/WblcTrrWUJAC",
+   "volumeInfo": {
+    "title": "To Be Perfectly Honest",
+    "subtitle": "One Man's Year of Almost Living Truthfully Could Change Your Life. No Lie.",
+    "authors": [
+     "Phil Callaway"
+    ],
+    "publisher": "Multnomah",
+    "publishedDate": "2011-05-03",
+    "description": "Would I Lie to You? Not This Year. Veteran author and speaker Phil Callaway is no stranger to daunting challenges. He has been laughed at—repeatedly—by large crowds of people from Halifax to Hong Kong. He fathered three children in three years, spent much of last year on airplanes built by the lowest bidder, and flipped an out-of-control ATV, which doesn’t mean he sold it for a profit. So who better than Phil Callaway to boldly accept a challenge that would make the average person run and hide? Phil promised to tell the truth for an entire year, and he wasn’t joking. Twelve months later, his journal was crammed with successes, near-successes, and outright failures. During his year-long experiment with veracity, he made a disastrous financial investment, fielded hundreds of intrusive questions from friends and strangers, attended a thirty-year class reunion, and waded into possibly the most revealing—and hilarious—situations he has ever documented. Find out what happens when a follower of Jesus does his level best to always tell the truth. There is no doubt you’ll be entertained. But don’t be surprised if you are left with a question: how might your life be changed if you sold out to the truth—with no exceptions?",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9781601423856"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "1601423853"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": false
+    },
+    "pageCount": 208,
+    "printType": "BOOK",
+    "categories": [
+     "Religion"
+    ],
+    "averageRating": 4.0,
+    "ratingsCount": 41,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "0.2.0.0.preview.2",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=WblcTrrWUJAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=WblcTrrWUJAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.ru/books?id=WblcTrrWUJAC&pg=PA215&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=2&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=WblcTrrWUJAC&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-WblcTrrWUJAC"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 1034.16,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 930.74,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=WblcTrrWUJAC&rdid=book-WblcTrrWUJAC&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 1.03416E9,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 9.3074E8,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/To_Be_Perfectly_Honest-sample-epub.acsm?id=WblcTrrWUJAC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": false
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=WblcTrrWUJAC&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "One Man&#39;s Year of Almost Living Truthfully Could Change Your Life. No Lie. ... \u003cbr\u003e\nYou can read this family&#39;s moving story at http://www .wycliffe.ca/worda1ive/ \u003cb\u003epdf\u003c/b\u003e/\u003cbr\u003e\nwam_ZO10_penner.\u003cb\u003epdf\u003c/b\u003e. ... Tim l\\/1cGraw, “\u003cb\u003eLive Like You Were Dying\u003c/b\u003e,” by Notes \u003cbr\u003e\n215."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "sxS4BAAAQBAJ",
+   "etag": "p78TCzET/1g",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/sxS4BAAAQBAJ",
+   "volumeInfo": {
+    "title": "Psychotherapy for Families after Brain Injury",
+    "authors": [
+     "Pamela S. Klonoff"
+    ],
+    "publisher": "Springer Science & Business",
+    "publishedDate": "2014-04-18",
+    "description": "Whether caused by illness, accident, or incident, brain injury requires multi-tiered resources for the patient and considerable external care and support. When recovery is sidelined by depression, anger, grief, or turmoil, family members and the support network have critical roles to play and need their own guidance and compassionate therapeutic interventions. Psychotherapy for Families after Brain Injury offers theoretical frameworks and eclectic techniques for working effectively with adult patients and their families at the initial, active and post-treatment phases of rehabilitation. This practical reference clarifies roles and relationships of the support network in interfacing with the loved one and addresses the understandably devastating and sometimes derailing emotions and psychosocial adversities. The content promotes psychoeducation and guided exercises, delineates “helpful hints” and coping tools and proffers multimedia resources to overcome hurdles. Constructs of awareness, acceptance and realism for all parties are woven throughout, along with ideas to enhance the support network’s commitment, adjustment, positivity, hope and longevity. Case excerpts, instructive quotes from caregivers and nuggets of clinical advice assist in analyzing these and other topics in salient detail: The impact of brain injury on different family members. Treatment themes in early family sessions. Family therapy for moderate to severe brain injury, concussion and postconcussion syndrome. Family therapy after organic brain injury: stroke, anoxia, tumor, seizure disorders. Family group treatment during active rehabilitation. End-of-life and existential considerations and positive aspects of care giving. Aftercare group therapy for long-term needs. The hands-on approach demonstrated in Psychotherapy for Families after Brain Injury will enhance the demanding work of a range of professionals, including neuropsychologists, clinical psychologists, rehabilitation psychologists, family therapists, marriage and family counselors, psychiatrists, behavioral/mental health counselors, clinical social workers, rehabilitation specialists such as speech-language pathologists, physical and occupational therapists, and graduate students in the helping professions.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9781489980830"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "1489980830"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "pageCount": 492,
+    "printType": "BOOK",
+    "categories": [
+     "Psychology"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "2.2.2.0.preview.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=sxS4BAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=sxS4BAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.ru/books?id=sxS4BAAAQBAJ&pg=PA440&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=3&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=sxS4BAAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-sxS4BAAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 7038.6,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 7038.6,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=sxS4BAAAQBAJ&rdid=book-sxS4BAAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 7.0386E9,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 7.0386E9,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/Psychotherapy_for_Families_after_Brain_I-sample-epub.acsm?id=sxS4BAAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/Psychotherapy_for_Families_after_Brain_I-sample-pdf.acsm?id=sxS4BAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=sxS4BAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003eLive like you were dying\u003c/b\u003e [Recorded by Tim McGraw]. On Live like you were ... \u003cbr\u003e\nMindfulness for clients, their friends, and family members. http://ebookbrowse.\u003cbr\u003e\ncom/mindfulness-for-clients-and-family-members-\u003cb\u003epdf\u003c/b\u003e-d28312970. Accessed 19 \u003cbr\u003e\nAug&nbsp;..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "VYf2AAAAQBAJ",
+   "etag": "ZsJ/WNyf2oc",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/VYf2AAAAQBAJ",
+   "volumeInfo": {
+    "title": "Occupational Therapy Community-Based Practice Settings",
+    "authors": [
+     "Marjorie E Scaffa",
+     "S Maggie Reitz"
+    ],
+    "publisher": "F.A. Davis",
+    "publishedDate": "2013-08-20",
+    "description": "From basic principles and policy issues through the variety of settings to the future role of the OT, a noted authority in the field introduces you to all aspects of this rapidly expanding field of practice. You’ll be prepared to take on new roles, to take unusual risks, and to envision service in creative ways - See more at: http://www.fadavis.com/product/occupational-therapy-promotion-health-wellness-2-scaffa-reitz#sthash.BmZH3m6J.dpuf",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9780803640733"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "0803640730"
+     }
+    ],
+    "readingModes": {
+     "text": false,
+     "image": true
+    },
+    "pageCount": 478,
+    "printType": "BOOK",
+    "categories": [
+     "Medical"
+    ],
+    "averageRating": 5.0,
+    "ratingsCount": 1,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "preview-1.0.0",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=VYf2AAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=VYf2AAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "en",
+    "previewLink": "http://books.google.ru/books?id=VYf2AAAAQBAJ&pg=PA255&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=4&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=VYf2AAAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-VYf2AAAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 2810.45,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 2810.45,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=VYf2AAAAQBAJ&rdid=book-VYf2AAAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 2.81045E9,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 2.81045E9,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": false
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/Occupational_Therapy_Community_Based_Pra-sample-pdf.acsm?id=VYf2AAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=VYf2AAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "\u003cb\u003eLive like you were dying\u003c/b\u003e [Recorded by Tim McGraw]. On Live ... Resource \u003cbr\u003e\nCenters on Independent Living. ... Retrieved from http:/ l coe.ufl.edul copssel \u003cbr\u003e\ndocs/ IB-l/l/IB-1.\u003cb\u003epdf\u003c/b\u003e Ticket to Work and Work Incentive Improvement Act (TWWIIA) \u003cbr\u003e\n0f1999,&nbsp;..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "p6ssDwAAQBAJ",
+   "etag": "pmoYfwdtMBc",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/p6ssDwAAQBAJ",
+   "volumeInfo": {
+    "title": "Уолден, или Жизнь в лесу",
+    "authors": [
+     "Генри Дэвид Торо"
+    ],
+    "publisher": "Shelkoper.com",
+    "publishedDate": "2017-07-13",
+    "description": "Книга, которую вы открыли, поможет изучить последовательность и логическое развитие взглядов и воззрений американского философа и писателя-романтика Генри Дэвида Торо, «смотрителя ливней и снежных бурь», как окрестил себя он сам, или «бакалавра природы», как называл его глава трансценденталистского кружка философ Ральф Уолдо Эмерсон. Итак, весной 1845 года 27-летний автор, проникнувшись философскими идеями Эмерсона, концепциями свободы личности, взаимоотношения духа и природы, решил поставить эксперимент по изоляции от общества и сосредоточении на самом себе и своих нуждах. Он поселился на окраине Конкорда (штат Массачусетс) в построенной им самим хижине на берегу Уолденского пруда. Все необходимое для жизни он обеспечивал самостоятельно, проводя большую часть времени за огородничеством, рыбалкой, чтением классиков, плаванием и греблей. При этом он не прятался от людей и регулярно общался с жителями Конкорда, включая самого владельца пруда – Эмерсона. Своим экспериментом Торо стремился дать понять современникам с их культом материального преуспевания, что хорошо и счастливо жить можно и вне общества, удовлетворяя все естественные потребности собственным трудом. Промышленной революции и зарождающемуся обществу потребления он противопоставил свободу от материальных забот, независимость, уединение, самодостаточность, созерцательность и близость к природе. Одной из причин «затерянности» Торо в философской традиции, его недостаточной известности русскоязычному читателю, возможно, является сознательный вызов Торо философской традиции в той современной ему (и привычной нам) форме, предусматривающей обязательную включенность собственных произведений в так называемый философский контекст, дискурсивность, «ткань современности» и т. д. Торо – проповедник «практического изоляционизма», сознательного разрыва с обществом как единственной возможности самосохранения и самореализации личности Тем не менее, Торо активно участвовал в общественной жизни. Так, в 1846 году в знак протеста по отношению к войне США против Мексики он демонстративно отказался платить налоги, а также выступал за гражданское неповиновение правительству. Его творчество и общественная деятельность оказали заметное влияние на мировоззрение Льва Толстого, Махатмы Ганди и Мартина Лютера Кинга.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9788826481944"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "8826481946"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "printType": "BOOK",
+    "categories": [
+     "Philosophy"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "1.2.2.0.preview.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=p6ssDwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=p6ssDwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "ru",
+    "previewLink": "http://books.google.ru/books?id=p6ssDwAAQBAJ&pg=PP1&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=5&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=p6ssDwAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-p6ssDwAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 114.7,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 103.23,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=p6ssDwAAQBAJ&rdid=book-p6ssDwAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 1.147E8,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 1.0323E8,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true
+    },
+    "pdf": {
+     "isAvailable": true
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=p6ssDwAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Книга, которую вы открыли, поможет изучить последовательность и логическое развитие взглядов и воззрений американского философа ..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "AgUvCwAAQBAJ",
+   "etag": "S8YWDgwBZwk",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/AgUvCwAAQBAJ",
+   "volumeInfo": {
+    "title": "О дивный новый мир",
+    "authors": [
+     "Олдос Хаксли"
+    ],
+    "publisher": "Litres",
+    "publishedDate": "2017-09-05",
+    "description": "«О дивный новый мир» – изысканная и остроумная антиутопия о генетически программируемом «обществе потребления», в котором разворачивается трагическая история Дикаря – «Гамлета» этого мира.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9785457938687"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "5457938689"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "printType": "BOOK",
+    "categories": [
+     "Fiction"
+    ],
+    "averageRating": 5.0,
+    "ratingsCount": 1,
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "1.1.1.0.preview.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=AgUvCwAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=AgUvCwAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "ru",
+    "previewLink": "http://books.google.ru/books?id=AgUvCwAAQBAJ&printsec=frontcover&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=6&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=AgUvCwAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-AgUvCwAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 310.75,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 279.68,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=AgUvCwAAQBAJ&rdid=book-AgUvCwAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 3.1075E8,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 2.7968E8,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%9E_%D0%B4%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9_%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BC%D0%B8%D1%80-sample-epub.acsm?id=AgUvCwAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%9E_%D0%B4%D0%B8%D0%B2%D0%BD%D1%8B%D0%B9_%D0%BD%D0%BE%D0%B2%D1%8B%D0%B9_%D0%BC%D0%B8%D1%80-sample-pdf.acsm?id=AgUvCwAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=AgUvCwAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "«О дивный новый мир» – изысканная и остроумная антиутопия о генетически программируемом «обществе потребления», в котором ..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "g4X2CQAAQBAJ",
+   "etag": "JtCbWTruddk",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/g4X2CQAAQBAJ",
+   "volumeInfo": {
+    "title": "Луньюй. Изречения",
+    "authors": [
+     "Конфуций"
+    ],
+    "publisher": "Litres",
+    "publishedDate": "2017-09-05",
+    "description": "Во всей истории мировой философии найдется не много мыслителей, которых можно было бы поставить рядом с Конфуцием (VI-V вв. до н. э.). Легендарный великий Учитель, непререкаемый авторитет для китайской философской традиции, он давно уже перешагнул ее совсем не тесные рамки. Наследие Конфуция, если отбросить массу сомнительных и откровенно приписываемых ему текстов, выглядит очень лаконично. Книга изречений «Луньюй», записанных учениками Конфуция, относится к числу наиболее бесспорных книг знаменитого философа.До недавнего времени о Конфуции больше слышали, чем читали, поэтому в нашем издании «Луньюй» дополнен трудами учеников Конфуция, а также обширными комментариями и биографическими пояснениями, накопившимися за последние две тысячи лет.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9785457829831"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "5457829839"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "printType": "BOOK",
+    "categories": [
+     "Education"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "1.1.1.0.preview.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=g4X2CQAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=g4X2CQAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "ru",
+    "previewLink": "http://books.google.ru/books?id=g4X2CQAAQBAJ&printsec=frontcover&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=7&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=g4X2CQAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-g4X2CQAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 188.62,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 169.76,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=g4X2CQAAQBAJ&rdid=book-g4X2CQAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 1.8862E8,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 1.6976E8,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%9B%D1%83%D0%BD%D1%8C%D1%8E%D0%B9_%D0%98%D0%B7%D1%80%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-sample-epub.acsm?id=g4X2CQAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%9B%D1%83%D0%BD%D1%8C%D1%8E%D0%B9_%D0%98%D0%B7%D1%80%D0%B5%D1%87%D0%B5%D0%BD%D0%B8%D1%8F-sample-pdf.acsm?id=g4X2CQAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=g4X2CQAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Во всей истории мировой философии найдется не много мыслителей, которых можно было бы поставить рядом с Конфуцием (VI-V вв. до н. э.). ..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "mZjJAAAAQBAJ",
+   "etag": "szabCHxF76g",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/mZjJAAAAQBAJ",
+   "volumeInfo": {
+    "title": "Перси Джексон и похититель молний",
+    "authors": [
+     "Рик Риордан"
+    ],
+    "publisher": "Litres",
+    "publishedDate": "2017-09-05",
+    "description": "Не только в хогвартской Школе чародейства и волшебства происходят события загадочные и страшные. И не с одним только Гарри Поттером. Перси Джексон, двенадцатилетний американский школьник, едва не становится жертвой учительницы по математике. Хорошо, что ручка, которую дал ему мистер Браннер, учитель латинского языка, превращается в настоящий меч и поражает обезумевшую математичку. Но на этом беды Перси Джексона не кончаются. На побережье, куда они уезжают с мамой, на них нападает чудовище Минотавр. И друг Перси по школе, Гроувер, неожиданно пришедший на помощь, оказывается не мальчиком, а сатиром. Но главные приключения начинаются позже, когда они с Гроувером добираются до Лагеря полукровок...Цикл Рика Риордана о Перси Джексоне стал одним из супербестселлеров последних лет. По экранам всего мира прошел высокобюджетный фильм, снятый по произведениям этого цикла.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9785457192188"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "5457192180"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "pageCount": 1542,
+    "printType": "BOOK",
+    "categories": [
+     "Fiction"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "1.3.3.0.preview.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=mZjJAAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=mZjJAAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "ru",
+    "previewLink": "http://books.google.ru/books?id=mZjJAAAAQBAJ&printsec=frontcover&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=8&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=mZjJAAAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-mZjJAAAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 188.62,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 169.76,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=mZjJAAAAQBAJ&rdid=book-mZjJAAAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 1.8862E8,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 1.6976E8,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%9F%D0%B5%D1%80%D1%81%D0%B8_%D0%94%D0%B6%D0%B5%D0%BA%D1%81%D0%BE%D0%BD_%D0%B8_%D0%BF%D0%BE%D1%85%D0%B8%D1%82-sample-epub.acsm?id=mZjJAAAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%9F%D0%B5%D1%80%D1%81%D0%B8_%D0%94%D0%B6%D0%B5%D0%BA%D1%81%D0%BE%D0%BD_%D0%B8_%D0%BF%D0%BE%D1%85%D0%B8%D1%82-sample-pdf.acsm?id=mZjJAAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=mZjJAAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Не только в хогвартской Школе чародейства и волшебства происходят события загадочные и страшные. И не с одним только Гарри ..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "rZCPDAAAQBAJ",
+   "etag": "dDNHazNBUFE",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/rZCPDAAAQBAJ",
+   "volumeInfo": {
+    "title": "Дом странных детей",
+    "authors": [
+     "Ренсом Риггз"
+    ],
+    "publisher": "Family Leisure Club",
+    "publishedDate": "2016-06-01",
+    "description": "Премьера фильма в октябре! Таинственный остров. Покинутый приют. После ужасной семейной трагедии Джейкоб оказался в этом загадочном месте. Подросток нашел руины старого дома и выяснил, что здесь жили очень странные дети. Он начинает понимать, что на этом уединенном острове дети оказались неслучайно — их способности были поистине невероятными и опасными! И хотя дом давно разрушен, возможно, они до сих пор живы. А совсем скоро Джейкоб с ужасом осознает, что он — один из них... Книга проиллюстрирована уникальными старинными фотографиями.",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9786171212299"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "6171212296"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "printType": "BOOK",
+    "categories": [
+     "Fiction"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": true,
+    "contentVersion": "1.2.2.0.preview.3",
+    "panelizationSummary": {
+     "containsEpubBubbles": false,
+     "containsImageBubbles": false
+    },
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=rZCPDAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=rZCPDAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "ru",
+    "previewLink": "http://books.google.ru/books?id=rZCPDAAAQBAJ&pg=PP1&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=9&source=gbs_api",
+    "infoLink": "https://play.google.com/store/books/details?id=rZCPDAAAQBAJ&source=gbs_api",
+    "canonicalVolumeLink": "https://market.android.com/details?id=book-rZCPDAAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "FOR_SALE",
+    "isEbook": true,
+    "listPrice": {
+     "amount": 192.34,
+     "currencyCode": "RUB"
+    },
+    "retailPrice": {
+     "amount": 173.11,
+     "currencyCode": "RUB"
+    },
+    "buyLink": "https://play.google.com/store/books/details?id=rZCPDAAAQBAJ&rdid=book-rZCPDAAAQBAJ&rdot=1&source=gbs_api",
+    "offers": [
+     {
+      "finskyOfferType": 1,
+      "listPrice": {
+       "amountInMicros": 1.9234E8,
+       "currencyCode": "RUB"
+      },
+      "retailPrice": {
+       "amountInMicros": 1.7311E8,
+       "currencyCode": "RUB"
+      }
+     }
+    ]
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%94%D0%BE%D0%BC_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_%D0%B4%D0%B5%D1%82%D0%B5%D0%B9-sample-epub.acsm?id=rZCPDAAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%94%D0%BE%D0%BC_%D1%81%D1%82%D1%80%D0%B0%D0%BD%D0%BD%D1%8B%D1%85_%D0%B4%D0%B5%D1%82%D0%B5%D0%B9-sample-pdf.acsm?id=rZCPDAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=rZCPDAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "Премьера фильма в октябре! Таинственный остров. Покинутый приют. После ужасной семейной трагедии Джейкоб оказался в этом ..."
+   }
+  },
+  {
+   "kind": "books#volume",
+   "id": "6ZPJAAAAQBAJ",
+   "etag": "+7mSCYoZzjA",
+   "selfLink": "https://www.googleapis.com/books/v1/volumes/6ZPJAAAAQBAJ",
+   "volumeInfo": {
+    "title": "Царь Эдип",
+    "authors": [
+     "Софокл"
+    ],
+    "publisher": "Litres",
+    "publishedDate": "2014-06-26",
+    "description": "«О деда Кадма юные потомки!Зачем сидите здесь у алтарей,Держа в руках молитвенные ветви,В то время как весь город фимиамомНаполнен, и моленьями, и стоном?И потому, желая самоличноО всем узнать, я к вам сюда пришел, —Я, названный у вас Эдипом славным.Скажи мне, старец, – ибо речь вестиТебе за этих юных подобает, —Что привело вас? Просьба или страх?С охотой все исполню: бессердечноНе пожалеть явившихся с мольбой...»",
+    "industryIdentifiers": [
+     {
+      "type": "ISBN_13",
+      "identifier": "9785457096677"
+     },
+     {
+      "type": "ISBN_10",
+      "identifier": "545709667X"
+     }
+    ],
+    "readingModes": {
+     "text": true,
+     "image": true
+    },
+    "pageCount": 279,
+    "printType": "BOOK",
+    "categories": [
+     "Fiction"
+    ],
+    "maturityRating": "NOT_MATURE",
+    "allowAnonLogging": false,
+    "contentVersion": "1.5.5.0.preview.3",
+    "imageLinks": {
+     "smallThumbnail": "http://books.google.com/books/content?id=6ZPJAAAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+     "thumbnail": "http://books.google.com/books/content?id=6ZPJAAAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+    },
+    "language": "ru",
+    "previewLink": "http://books.google.ru/books?id=6ZPJAAAAQBAJ&printsec=frontcover&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&cd=10&source=gbs_api",
+    "infoLink": "http://books.google.ru/books?id=6ZPJAAAAQBAJ&dq=How+to+Live+Like+You+Were+Dying-+PDF&hl=&source=gbs_api",
+    "canonicalVolumeLink": "https://books.google.com/books/about/%D0%A6%D0%B0%D1%80%D1%8C_%D0%AD%D0%B4%D0%B8%D0%BF.html?hl=&id=6ZPJAAAAQBAJ"
+   },
+   "saleInfo": {
+    "country": "RU",
+    "saleability": "NOT_FOR_SALE",
+    "isEbook": false
+   },
+   "accessInfo": {
+    "country": "RU",
+    "viewability": "PARTIAL",
+    "embeddable": true,
+    "publicDomain": false,
+    "textToSpeechPermission": "ALLOWED",
+    "epub": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%A6%D0%B0%D1%80%D1%8C_%D0%AD%D0%B4%D0%B8%D0%BF-sample-epub.acsm?id=6ZPJAAAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "pdf": {
+     "isAvailable": true,
+     "acsTokenLink": "http://books.google.ru/books/download/%D0%A6%D0%B0%D1%80%D1%8C_%D0%AD%D0%B4%D0%B8%D0%BF-sample-pdf.acsm?id=6ZPJAAAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+    },
+    "webReaderLink": "http://play.google.com/books/reader?id=6ZPJAAAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+    "accessViewStatus": "SAMPLE",
+    "quoteSharingAllowed": false
+   },
+   "searchInfo": {
+    "textSnippet": "«О деда Кадма юные потомки!Зачем сидите здесь у алтарей,Держа в руках молитвенные ветви,В то время как весь город фимиамомНаполнен, ..."
+   }
+  }
+ ]
+}

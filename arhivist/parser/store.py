@@ -7,8 +7,8 @@ import re
 import argparse
 from collections import OrderedDict
 
-from executor import BookExecutor
-from settings import STORE_PATH, UNCHECKABLE_FOLDERS
+from .executor import BookExecutor
+from . import settings as st
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -21,14 +21,21 @@ class Store(object):
     """
     Book store class.
     """
-    SUPPORT_FILE_EXTENSION = {'pdf', 'djvu', 'djv', 'epub', 'fb2'}
-    BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
-    UNICODE_NAME_MASK = lambda self, f: re.findall(r'(?u)\w+', f)
+    SUPPORT_FILE_EXTENSION = {'pdf', 'djvu', '.djv', 'epub', 'fb2'}
+    _BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
     REQ_KEYS = ('path', 'raw_title', 'file_ext')
 
-    def __init__(self, root_path=STORE_PATH):
+    def __init__(self, root_path=st.STORE_PATH):
         self.root_path = root_path
         self.Executor = BookExecutor
+
+    @staticmethod
+    def BOOK_NAME_MASK(file_name):
+        return Store._BOOK_NAME_MASK.match(file_name)
+
+    @staticmethod
+    def UNICODE_NAME_MASK(file_name):
+        return re.findall(r'(?u)\w+', file_name)
 
     def _match(self, file_name):
         """
@@ -64,7 +71,7 @@ class Store(object):
         :return: generator-object of dict
         """
         for path, folders, files in os.walk(self.root_path):
-            if path.startswith(UNCHECKABLE_FOLDERS):
+            if path.startswith(st.UNCHECKABLE_FOLDERS):
                 continue
             for f in files:
                 m = self._match(f)

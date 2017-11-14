@@ -1,15 +1,17 @@
 # coding: utf-8
 """
-Interface for Amazon API.
+Interface for Google API.
 """
+import os
 import requests
+import re
 import json
 import shutil
-from functools import wraps
 from apiclient.discovery import build
 
 from arhivist.parser.api.base import AbsBook
 from .setting import API_KEY
+from .deco import parsed
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright 2017, Vladimir Gerasimenko"
@@ -17,45 +19,7 @@ __version__    = "0.0.1"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
-_volumeInfo = {'publisher', 'description', 'language'}
 
-
-def parsed(func):
-    @wraps(func)
-    def wrapper(*args, **kw):
-        res = func(*args, **kw)
-        result = []
-        for item in res.get('items', ''):
-            data = {}
-            volumeInfo = item.pop('volumeInfo', None)
-            if volumeInfo:
-                for key in _volumeInfo:
-                    data[key] = volumeInfo.pop(key, '')
-                data['description'] = data['description'][:1024]
-                data['published_date'] = volumeInfo.pop('publishedDate')
-                data['title'] = volumeInfo.pop('title', '')
-                data['page_count'] = volumeInfo.pop('pageCount', 0)
-                data['canonical_volume_link'] = volumeInfo.pop('canonicalVolumeLink', '')
-                data['thumbnail'] = volumeInfo.get('imageLinks', {}).get('thumbnail', '')
-
-                identifiers = item.pop('volumeInfo', None)
-                if identifiers:
-                    for id in identifiers:
-                        _id = id['identifier']
-                        if len(_id) == 10:
-                            data['isbn_10'] = _id
-                        elif len(_id) == 13:
-                            data['isbn_13'] = _id
-                        else:
-                            raise Exception
-                data['authors'] = volumeInfo.pop('authors', '')
-                data['categories'] = volumeInfo.pop('categories', '')
-                result.append(data)
-        return result
-    return wrapper
-
-
-# TODO: добавить аутентификац
 class Book(AbsBook):
     """
     Google Books Api
@@ -63,9 +27,11 @@ class Book(AbsBook):
     See: https://developers.google.com/books/
     """
     BASEURL = 'https://www.googleapis.com/books/v1'
+    ID_THUMBNAIL = re.compile(r"http://[\w\./]*\?id=(?P<id>\w+)&\w+")
 
-    def __init__(self, auth=True):
+    def __init__(self, auth=True, **kw):
         self.authorized = False
+        self.download_dir = kw.get('download_dir', '/var/www/api')
         if auth:
             books_service = build('books', 'v1', developerKey=API_KEY)
             self.volumes = books_service.volumes()
@@ -202,6 +168,12 @@ class Book(AbsBook):
         url = '{}&fife={}'.format(url, w)
         return requests.get(url, stream=True)
 
+    def get_id_thumbnail(self, url):
+        match = self.ID_THUMBNAIL.match(url)
+        if not match:
+            raise Exception
+        return match.groupdict()['id']
+
     @staticmethod
     def save_thumbnail(resp, path):
         """
@@ -215,3 +187,13 @@ class Book(AbsBook):
             resp.raw.decode_content = True
             shutil.copyfileobj(resp.raw, f)
 
+    def download_thumbnail(self, resp):
+        t_url = resp['thumbnail']['url']
+        t_id = self.get_id_thumbnail(t_url)
+
+        t_resp = self.get_thumbnail(t_url)
+        full_path = os.path.join(self.download_dir, f"{t_id}.png")
+        self.save_thumbnail(t_resp, full_path)
+
+        resp['thumbnail']['id'] = t_id
+        resp['thumbnail']['path'] = full_path

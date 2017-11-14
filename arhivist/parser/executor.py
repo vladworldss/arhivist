@@ -1,10 +1,12 @@
 # coding: utf-8
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from importlib import import_module
 from pprint import pprint
 import requests
 from requests.auth import HTTPBasicAuth
 from concurrent.futures import ThreadPoolExecutor
-from .api.google import Book
 
 from .settings import POST_URL, CREDENTIALS, THUMBNAIL_DIR
 
@@ -47,10 +49,9 @@ class BookExecutor(object):
 
     @classmethod
     def Api(cls, vendor):
-        # _module = import_module('api.{}'.format(vendor))
-        # BookApiCls = getattr(_module, 'Book')
-        # return BookApiCls(download_dir=THUMBNAIL_DIR)
-        return Book(download_dir=THUMBNAIL_DIR)
+        _module = import_module('api.{}'.format(vendor))
+        BookApiCls = getattr(_module, 'Book')
+        return BookApiCls(download_dir=THUMBNAIL_DIR)
 
     @classmethod
     def execute(cls, items, api_vendor, callback=True):

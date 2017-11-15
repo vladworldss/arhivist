@@ -1,6 +1,7 @@
 # coding: utf-8
 import json
 from django.contrib.auth.models import User
+from django.core.paginator import Paginator, InvalidPage
 
 from rest_framework import generics
 from rest_framework import permissions
@@ -34,9 +35,19 @@ class BooksList(generics.ListCreateAPIView):
         request.POST.pop(model_name)
         return vals
 
+    def get(self, request, cat_id, *args, **kwargs):
+        page_num = request.GET.get('page', 1)
+        paginator = Paginator(Book.objects.all(), 10)
+        try:
+            books = paginator.page(page_num)
+        except InvalidPage:
+            books = paginator.page(1)
+
+
+
     def post(self, request, *args, **kwargs):
         """
-        List all code snippets, or create a new snippet.
+        List all books, or create a new book.
         """
         try:
             publisher = Publisher.make(name=request.POST['publisher'])
@@ -67,6 +78,12 @@ class BooksList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
+
+class BookDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
 
 class UserList(generics.ListAPIView):

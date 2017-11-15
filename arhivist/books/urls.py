@@ -2,7 +2,7 @@
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from books.views import BooksList, UserList
+from books.views import *
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -12,10 +12,9 @@ __email__      = "vladworldss@yandex.ru"
 
 
 urlpatterns = [
-    url(r'^books/$', BooksList.as_view()),
+    url(r'^(?:(?P<cat_id>\d+)/)?$', BooksList.as_view(), name='index'),
+    url(r'^book/(?P<book_id>\d+)/$', BookDetail.as_view(), name='book'),
     url(r'^users/$', UserList.as_view()),
-
-    # url(r'^books/(?P<pk>[0-9]+)/$', views.books_detail),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -7,13 +7,12 @@ __email__      = "vladworldss@yandex.ru"
 
 
 # __FOLDER
-STORE_PATH = '/home/vladworld/books'
+STORE_PATH = '/home/test/books'
 UNCHECKABLE_FOLDERS = ()
 
 # __URLS
 POST_URL = 'http://127.0.0.1:8000/books/'
-CREDENTIALS = ('admin', 'admin123')
+CREDENTIALS = ('admin', 'admin123123')
 
 # __THUMBNAIL
-#TODO: переработать!!!
-THUMBNAIL_DIR = '/home/vladworld/PycharmProjects/arhivist/arhivist/books/static/thumbnail'
+THUMBNAIL_DIR = '../books/static/thumbnail'

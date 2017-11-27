@@ -73,7 +73,7 @@
                 {% for book in books %}
                 <div class="book_container">
                 <li>
-                    <img src="{{ book.thumbnail }}" width="300" height="300">
+                    <img src="{% static "thumbnail/" %}{{ book.thumbnail }}" width="300" height="300">
                     <p>{{ book.authors }}</p>
                     <span title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:60 }}</span>
                 </li>

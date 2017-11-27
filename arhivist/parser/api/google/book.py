@@ -192,8 +192,7 @@ class Book(AbsBook):
         t_id = self.get_id_thumbnail(t_url)
 
         t_resp = self.get_thumbnail(t_url)
-        full_path = os.path.join(self.download_dir, f"{t_id}.png")
+        t_name = f"{t_id}.png"
+        full_path = os.path.join(self.download_dir, t_name)
         self.save_thumbnail(t_resp, full_path)
-
-        resp['thumbnail']['id'] = t_id
-        resp['thumbnail']['path'] = full_path
+        resp['thumbnail'] = t_name

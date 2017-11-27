@@ -3,12 +3,15 @@
 Module for working with book store.
 """
 import os
+import sys
+sys.path.append(__file__)
+
 import re
 import argparse
 from collections import OrderedDict
 
-from .executor import BookExecutor
-from . import settings as st
+from executor import BookExecutor
+import settings as st
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -107,6 +110,8 @@ class Store(object):
 
 
 if __name__ == '__main__':
+
+
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--init",
                         help="initialize book store",

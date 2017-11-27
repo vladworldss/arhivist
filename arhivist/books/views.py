@@ -2,6 +2,7 @@
 import json
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage
+from django.shortcuts import render
 
 from rest_framework import generics
 from rest_framework import permissions
@@ -35,15 +36,20 @@ class BooksList(generics.ListCreateAPIView):
         request.POST.pop(model_name)
         return vals
 
-    def get(self, request, cat_id, *args, **kwargs):
+    def get(self, request, cat_id):
         page_num = request.GET.get('page', 1)
-        paginator = Paginator(Book.objects.all(), 10)
+        cats = Categories.objects.all().order_by("name")
+        if cat_id is None:
+            cat = Categories.objects.first()
+        else:
+            cat = Categories.objects.get(pk=cat_id)
+        paginator = Paginator(Book.objects.filter(categories=cat).order_by("title"), 10)
+
         try:
             books = paginator.page(page_num)
         except InvalidPage:
             books = paginator.page(1)
-
-
+        return render(request, "books.html", {"category": cat, "cats": cats, "books": books})
 
     def post(self, request, *args, **kwargs):
         """

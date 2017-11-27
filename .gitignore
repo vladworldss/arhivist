@@ -105,3 +105,4 @@ ENV/
 .idea
 arhivist/books/migrations
 arhivist/db.sqlite3
+*.png

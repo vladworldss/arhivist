@@ -8,7 +8,7 @@ import requests
 from requests.auth import HTTPBasicAuth
 from concurrent.futures import ThreadPoolExecutor
 
-from .settings import POST_URL, CREDENTIALS, THUMBNAIL_DIR
+from settings import POST_URL, CREDENTIALS, THUMBNAIL_DIR
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"

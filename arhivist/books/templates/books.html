@@ -1,8 +1,11 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link type="text/css" href="main.css" rel="stylesheet">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="{% static 'css/books.css' %}">
     <title>АрхиВист - библиотека электронных книг, вся информация о книге на ArhiVist</title>
 </head>
 
@@ -34,21 +37,55 @@
     <div id="main">
         <div class="books_box">
             <ul>
+                {% if books.paginator.num_pages > 1 %}
+                    <div id="pagination">
+                        {% if books.has_previous %}
+                            <div id="previous-page">
+                                <a href="{% url "books" cat_id=category.pk %}?page={{ books.previous_page_number }}">
+                                    &lt;
+                                </a>
+                            </div>
+                        {% endif %}
+                        {% if books.has_next %}
+                            <div id="next-page">
+                                <a href="{% url "books" cat_id=category.pk %}?page={{ books.next_page_number }}">&gt;</a>
+                            </div>
+                        {% endif %}
+                        <div id="num-pages">
+                            {% for pn in books.paginator.page_range %}
+                                {% if not forloop.first %}
+                                    &nbsp;&nbsp;|&nbsp;&nbsp;
+                                {% endif %}
+
+                                {% if books.number != pn %}
+                                    <a href="{% url "books" cat_id=category.pk %}?page={{ pn }}">
+                                {% endif %}
+                            {{ pn }}
+                            {% if books.number != pn %}
+                                </a>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+
+                <ul>
                 {% for book in books %}
                 <div class="book_container">
                 <li>
-                    
+                    <img src="{{ book.thumbnail }}" width="300" height="300">
+                    <p>{{ book.authors }}</p>
+                    <span title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:60 }}</span>
                 </li>
                 </div>
                 {% endfor %}
                 <li></li>
             </ul>
+            </ul>
         </div>
     </div>
-
     <div id="footer">
-
+        <p>Все права принадлежат разработчику сайта.</p>
     </div>
-
 </body>
 </html>

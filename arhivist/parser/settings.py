@@ -12,8 +12,8 @@ UNCHECKABLE_FOLDERS = ()
 
 # __URLS
 POST_URL = 'http://127.0.0.1:8000/books/'
-CREDENTIALS = ('admin', 'password123')
+CREDENTIALS = ('admin', 'admin123')
 
 # __THUMBNAIL
 #TODO: переработать!!!
-THUMBNAIL_DIR = '/home/vladworldss/PycharmProjects/arhivist/arhivist/books/static/thumbnail'
+THUMBNAIL_DIR = '/home/vladworld/PycharmProjects/arhivist/arhivist/books/static/thumbnail'

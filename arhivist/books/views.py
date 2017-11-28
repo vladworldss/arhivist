@@ -3,6 +3,7 @@ import json
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage
 from django.shortcuts import render
+from django.http import Http404
 
 from rest_framework import generics
 from rest_framework import permissions
@@ -49,7 +50,7 @@ class BooksList(generics.ListCreateAPIView):
             books = paginator.page(page_num)
         except InvalidPage:
             books = paginator.page(1)
-        return render(request, "books.html", {"category": cat, "cats": cats, "books": books})
+        return render(request, "index.html", {"category": cat, "cats": cats, "books": books})
 
     def post(self, request, *args, **kwargs):
         """
@@ -90,6 +91,14 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+
+    def get(self, request, book_id):
+        cats = Categories.objects.all().order_by("name")
+        try:
+            book = Book.objects.get(pk=book_id)
+        except Book.DoesNotExist:
+            raise Http404(f'Book does not exist')
+        return render(request, "book.html", {"cats": cats, "book": book})
 
 
 class UserList(generics.ListAPIView):

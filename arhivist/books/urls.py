@@ -12,7 +12,7 @@ __email__      = "vladworldss@yandex.ru"
 
 
 urlpatterns = [
-    url(r'^(?:(?P<cat_id>\d+)/)?$', BooksList.as_view(), name='books'),
+    url(r'^(?:(?P<cat_id>\d+)/)?$', BooksList.as_view(), name='index'),
     url(r'^book/(?P<book_id>\d+)/$', BookDetail.as_view(), name='book'),
     url(r'^users/$', UserList.as_view()),
 ]

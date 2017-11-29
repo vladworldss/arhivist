@@ -30,9 +30,7 @@
                 <div id="pagination">
                     {% if books.has_previous %}
                         <div id="previous-page">
-                            <a href="{% url "index" cat_id=category.pk %}?page={{ books.previous_page_number }}">
-                                &lt;
-                            </a>
+                            <a href="{% url "index" cat_id=category.pk %}?page={{ books.previous_page_number }}">&lt;</a>
                         </div>
                     {% endif %}
                     {% if books.has_next %}

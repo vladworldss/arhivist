@@ -9,14 +9,14 @@
                     <li>
                     <div class="container book-item">
                         <div class="seq_text">
-                            <a href="{% url "book"  book_id=book.pk%}" title="{{ book.title }}">{{ book.title}}</a>
+                            <a href="{% url "book"  book_id=book.pk%}?page={{ books.number }}" title="{{ book.title }}">{{ book.title}}</a>
                         </div>
                         {% for author in book.authors.all %}
                             {{ author }}
                         {% endfor %}
                         <p><img src="{% static "thumbnail/" %}{{ book.thumbnail }}"></p>
                         <div>
-                            <a href="{% url "book"  book_id=book.pk%}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
+                            <a href="{% url "book"  book_id=book.pk%}?page={{ books.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
 
                         </div>
                     </div>

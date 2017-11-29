@@ -44,7 +44,7 @@ class BooksList(generics.ListCreateAPIView):
             cat = Categories.objects.first()
         else:
             cat = Categories.objects.get(pk=cat_id)
-        paginator = Paginator(Book.objects.filter(categories=cat).order_by("title"), 10)
+        paginator = Paginator(Book.objects.filter(categories=cat).order_by("title"), 5)
 
         try:
             books = paginator.page(page_num)
@@ -93,12 +93,13 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def get(self, request, book_id):
+        page_num = request.GET.get("page", 1)
         cats = Categories.objects.all().order_by("name")
         try:
             book = Book.objects.get(pk=book_id)
         except Book.DoesNotExist:
-            raise Http404(f'Book does not exist')
-        return render(request, "book.html", {"cats": cats, "book": book})
+            raise Http404
+        return render(request, "book.html", {"cats": cats, "book": book, "pn": page_num})
 
 
 class UserList(generics.ListAPIView):

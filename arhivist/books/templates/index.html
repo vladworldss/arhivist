@@ -9,19 +9,19 @@
                     <li>
                     <div class="container book-item">
                         <div class="seq_text">
-                            <a href="{% url "book"  book_id=book.pk%}?page={{ books.number }}" title="{{ book.title }}">{{ book.title}}</a>
+                            {% url "book"  book_id=book.pk as book_url%}
+                            <a href="{{ book_url }}?page={{ books.number }}" title="{{ book.title }}">{{ book.title}}</a>
                         </div>
                         {% for author in book.authors.all %}
                             {{ author }}
                         {% endfor %}
                         <p><img src="{% static "thumbnail/" %}{{ book.thumbnail }}"></p>
                         <div>
-                            <a href="{% url "book"  book_id=book.pk%}?page={{ books.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
+                            <a href="{{ book_url }}?page={{ books.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
 
                         </div>
                     </div>
                     </li>
-
             {% endfor %}
         </div>
         </ul>
@@ -30,12 +30,13 @@
                 <div id="pagination">
                     {% if books.has_previous %}
                         <div id="previous-page">
-                            <a href="{% url "index" cat_id=category.pk %}?page={{ books.previous_page_number }}">&lt;</a>
+                            {% url "index" cat_id=category.pk as cat_url %}
+                            <a href="{{ cat_url }}?page={{ books.previous_page_number }}">&lt;</a>
                         </div>
                     {% endif %}
                     {% if books.has_next %}
                         <div id="next-page">
-                            <a href="{% url "index" cat_id=category.pk %}?page={{ books.next_page_number }}">&gt;</a>
+                            <a href="{{ cat_url }}?page={{ books.next_page_number }}">&gt;</a>
                         </div>
                     {% endif %}
                     <div id="num-pages">
@@ -45,7 +46,7 @@
                             {% endif %}
 
                             {% if books.number != pn %}
-                                <a href="{% url "index" cat_id=category.pk %}?page={{ pn }}">
+                                <a href="{{ cat_url }}?page={{ pn }}">
                             {% endif %}
                         {{ pn }}
                         {% if books.number != pn %}

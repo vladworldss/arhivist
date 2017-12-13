@@ -110,8 +110,6 @@ class Store(object):
 
 
 if __name__ == '__main__':
-
-
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--init",
                         help="initialize book store",

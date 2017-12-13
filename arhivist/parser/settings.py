@@ -11,7 +11,7 @@ STORE_PATH = '/home/test/books'
 UNCHECKABLE_FOLDERS = ()
 
 # __URLS
-POST_URL = 'http://127.0.0.1:8000/books/'
+POST_URL = 'http://vladworldss.pythonanywhere.com/books/'
 CREDENTIALS = ('admin', 'admin123123')
 
 # __THUMBNAIL

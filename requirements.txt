@@ -3,6 +3,7 @@ certifi==2017.7.27.1
 chardet==3.0.4
 Django==1.11.6
 djangorestframework==3.7.1
+djangorestframework-jwt==1.11.0
 google-api-python-client-py3==1.2
 httplib2==0.10.3
 idna==2.6
@@ -13,6 +14,7 @@ olefile==0.44
 Pillow==4.3.0
 py==1.4.34
 Pygments==2.2.0
+PyJWT==1.5.3
 pylint==1.7.4
 pytest==3.2.3
 pytz==2017.2

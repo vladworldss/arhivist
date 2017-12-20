@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework_jwt.views import obtain_jwt_token
-
+from books.views import CreateUserView
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -25,4 +25,5 @@ urlpatterns = [
 
 urlpatterns += [
     url(r'^api-auth/', obtain_jwt_token),
+    url('^api-register/$', CreateUserView.as_view()),
 ]

@@ -4,14 +4,22 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage
 from django.shortcuts import render
 from django.http import Http404
+from django.urls import reverse
 
 from rest_framework import generics
 from rest_framework import permissions
-from rest_framework.response import Response
-from rest_framework import status
+
 
 from books.models import *
-from books.serializers import BookSerializer, UserSerializer
+from books.serializers import *
+
+from rest_framework import status
+from rest_framework.generics import CreateAPIView
+from rest_framework.response import Response
+from rest_framework_jwt.settings import api_settings
+
+jwt_payload_handler = api_settings.JWT_PAYLOAD_HANDLER
+jwt_encode_handler = api_settings.JWT_ENCODE_HANDLER
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -36,6 +44,9 @@ class BooksList(generics.ListCreateAPIView):
         vals = request.POST.getlist(model_name)
         request.POST.pop(model_name)
         return vals
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
     def get(self, request, cat_id):
         page_num = request.GET.get('page', 1)
@@ -83,8 +94,7 @@ class BooksList(generics.ListCreateAPIView):
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
 
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
+
 
 
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
@@ -106,3 +116,33 @@ class UserList(generics.ListAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+
+
+
+
+
+class CreateUserView(CreateAPIView):
+
+    model = User.objects.all()
+    permission_classes = [
+        permissions.AllowAny # Or anon users can't register
+    ]
+    serializer_class = UserSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        user = self.model.get(username=serializer.data['username'])
+        payload = jwt_payload_handler(user)
+        token = jwt_encode_handler(payload)
+        return Response(
+            {
+                'confirmation_url': reverse(
+                    'activate-user', args=[token], request=request
+                )
+            },
+            status=status.HTTP_201_CREATED, headers=headers
+        )

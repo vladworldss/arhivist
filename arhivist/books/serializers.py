@@ -2,7 +2,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from books.models import Book
+from books.models import *
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -26,8 +26,19 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+
     books = serializers.PrimaryKeyRelatedField(many=True, queryset=Book.objects.all())
 
     class Meta:
         model = User
         fields = ('id', 'username', 'books')
+
+    def create(self, validated_data):
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.is_active = False
+        user.save()
+        return user

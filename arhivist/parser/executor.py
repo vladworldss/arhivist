@@ -1,14 +1,14 @@
 # coding: utf-8
 import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from functools import wraps
 
 from importlib import import_module
 from pprint import pprint
 import requests
-from requests.auth import HTTPBasicAuth
 from concurrent.futures import ThreadPoolExecutor
 
-from settings import POST_URL, CREDENTIALS, THUMBNAIL_DIR
+from settings import *
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -44,7 +44,10 @@ class BookExecutor(object):
             else:
                 result = fn.result()
                 for r in result:
-                    resp = requests.post(url=POST_URL, data=r, auth=HTTPBasicAuth(*CREDENTIALS))
+                    resp_json = requests.post(url=AUTH_URL, data=CREDENTIALS).json()
+                    token = resp_json["token"]
+                    resp = requests.post(url=POST_URL, data=r, headers={'Authorization': f'JWT {token}'})
+                    # resp = requests.post(url=POST_URL, data=r, auth=auth)
                     pprint(f'resp: {resp.content}')
 
     @classmethod

@@ -19,6 +19,12 @@ __email__      = "vladworldss@yandex.ru"
 
 class BookExecutor(object):
 
+    def validate(self, raw_titile, resp_title):
+        res = False
+        raw_set = frozenset(raw_titile.split())
+        resp_set = frozenset(resp_title.split())
+
+
     @staticmethod
     def task(item, Api, max_results=1):
         def update(r):

@@ -12,7 +12,7 @@
                             {% url "book"  book_id=book.pk as book_url%}
                             <a href="{{ book_url }}?page={{ books.number }}" title="{{ book.title }}">{{ book.title}}</a>
                         </div>
-                        {% for author in book.authors.all %}
+                        {% for author in book.author.all %}
                             {{ author }}
                         {% endfor %}
                         <p><img src="{% static "thumbnail/" %}{{ book.thumbnail }}"></p>

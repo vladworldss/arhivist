@@ -10,7 +10,7 @@ import re
 import argparse
 from collections import OrderedDict
 
-from executor import BookExecutor
+from .executor import BookExecutor
 import settings as st
 
 __author__     = "Vladimir Gerasimenko"

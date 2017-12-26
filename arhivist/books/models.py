@@ -75,7 +75,7 @@ class Language(models.Model):
         return _make(cls, *args, **kw)
 
 
-class Categories(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
 
     class Meta:
@@ -98,8 +98,8 @@ class Book(models.Model):
     canonical_volume_link = models.URLField()
     isbn_10 = models.IntegerField(unique=True, blank=True, null=True)
     isbn_13 = models.IntegerField(unique=True, blank=True, null=True)
-    authors = models.ManyToManyField(Author)
-    categories = models.ManyToManyField(Categories)
+    author = models.ManyToManyField(Author)
+    category = models.ManyToManyField(Category)
     thumbnail = models.CharField(max_length=128)
 
     # Service data
@@ -118,7 +118,7 @@ class Book(models.Model):
         verbose_name_plural = "книги"
 
     def __str__(self):
-        authors = ', '.join([x.name for x in self.authors.all()])
+        authors = ', '.join([x.name for x in self.author.all()])
         return '{}. {}.{}'.format(authors, self.title, self.file_ext)
 
     @classmethod
@@ -130,6 +130,34 @@ class Book(models.Model):
                 conf[x] = kw.get(x, '')
             inst = cls.objects.get(**conf)
         except cls.DoesNotExist:
-            inst = cls(*args, **kw)
-            inst.save()
+            inst = cls.objects.create(**kw)
+            # inst.save()
         return inst
+
+    @staticmethod
+    def from_request(owner, data):
+        def add_foreign(inst, ModelCls, name):
+            """
+            Add to instance foreign relations.
+
+            :param models.Model inst:
+            :param type ModelCls:
+            :param iter-obj names:
+            :return: updated inst
+            """
+            foreign_inst = ModelCls.make(name=name)
+            foreign_field_name = ModelCls.__name__.lower()
+            foreign_field = getattr(inst, foreign_field_name)
+            foreign_field.add(foreign_inst)
+
+        author_names = data.pop("author")
+        category_names = data.pop("category")
+
+        data["publisher"] = Publisher.make(name=data["publisher"])
+        data["language"] = Language.make(name=data["language"])
+        data["owner"] = owner
+        book = Book.make(**data)
+        [add_foreign(book, Author, x) for x in author_names]
+        [add_foreign(book, Category, x) for x in category_names]
+        book.save()
+        return book

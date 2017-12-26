@@ -50,12 +50,12 @@ class BooksList(generics.ListCreateAPIView):
 
     def get(self, request, cat_id):
         page_num = request.GET.get('page', 1)
-        cats = Categories.objects.all().order_by("name")
+        cats = Category.objects.all().order_by("name")
         if cat_id is None:
-            cat = Categories.objects.first()
+            cat = Category.objects.first()
         else:
-            cat = Categories.objects.get(pk=cat_id)
-        paginator = Paginator(Book.objects.filter(categories=cat).order_by("title"), 5)
+            cat = Category.objects.get(pk=cat_id)
+        paginator = Paginator(Book.objects.filter(Category=cat).order_by("title"), 5)
 
         try:
             books = paginator.page(page_num)
@@ -71,19 +71,19 @@ class BooksList(generics.ListCreateAPIView):
             publisher = Publisher.make(name=request.POST['publisher'])
             language = Language.make(name=request.POST['language'])
             self.update_post_request(request, publisher=publisher, language=language)
-            authors_names = self.get_values_from_request(request, 'authors')
-            categories_names = self.get_values_from_request(request, 'categories')
+            authors_names = self.get_values_from_request(request, 'author')
+            Category_names = self.get_values_from_request(request, 'category')
             owner = User.objects.get(pk=request.user.pk)
             request.POST.update({'owner':owner})
             try:
                 book = Book.make(**request.POST.dict())
                 for a in authors_names:
                     auth = Author.make(name=a)
-                    book.authors.add(auth)
+                    book.author.add(auth)
 
-                for c in categories_names:
-                    cat = Categories.make(name=c)
-                    book.categories.add(cat)
+                for c in Category_names:
+                    cat = Category.make(name=c)
+                    book.Category.add(cat)
                 book.save()
 
             except Exception as e:
@@ -104,7 +104,7 @@ class BookDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get(self, request, book_id):
         page_num = request.GET.get("page", 1)
-        cats = Categories.objects.all().order_by("name")
+        cats = Category.objects.all().order_by("name")
         try:
             book = Book.objects.get(pk=book_id)
         except Book.DoesNotExist:

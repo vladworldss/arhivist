@@ -44,8 +44,8 @@ def parsed(func):
                             data['isbn_13'] = _id
                         else:
                             raise Exception
-                data['authors'] = volumeInfo.pop('authors', '')
-                data['categories'] = volumeInfo.pop('categories', '')
+                data['author'] = volumeInfo.pop('author', '')
+                data['category'] = volumeInfo.pop('category', '')
                 result.append(data)
         return result
     return wrapper

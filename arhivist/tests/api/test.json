@@ -1,0 +1,24 @@
+{
+  "1":{
+    "req": [
+      {
+        "publisher": "Lulu.com",
+        "description": "Would I Lie to You? Not This Year. Veteran author and speaker Phil Callaway is no stranger to daunting challenges. He has been laughed at—repeatedly—by large crowds of people from Halifax to Hong Kong. He fathered three children in three years, spent much of last year on airplanes built by the lowest bidder, and flipped an out-of-control ATV, which doesn’t mean he sold it for a profit. So who better than Phil Callaway to boldly accept a challenge that would make the average person run and hide? Phil promised to tell the truth for an entire year, and he wasn’t joking. Twelve months later, his journal was crammed with successes, near-successes, and outright failures. During his year-long experiment with veracity, he made a disastrous financial investment, fielded hundreds of intrusive questions from friends and strangers, attended a thirty-year class reunion, and waded into possibly the most revealing—and hilarious—situations he has ever documented. Find out what happens when a follower of Jesus does his level best to always tell the truth. There is no doubt you’ll be entertained. But don’t be surprised if you are left with a question: how might your life be changed if you sold out to the truth—with no exceptions?",
+        "language": "ENG",
+        "published_date": "2005-01-01",
+        "title": "How to Live Like You Were Dying",
+        "page_count": "10",
+        "canonical_volume_link": "https://books.google.com/books/about/How_to_Live_Like_You_Were_Dying_PDF.html?hl=&id=gNFcTw52DPUC",
+        "isbn_10": "0976891212",
+        "isbn_13": "9780976891215",
+        "author": ["Jay Irvin"],
+        "category": ["Body, Mind & Spirit"],
+        "thumbnail": "",
+        "path": "/home/test/",
+        "raw_title": "How to Live Like You Were Dyin"
+
+      }
+    ],
+    "resp": "OK"
+  }
+}

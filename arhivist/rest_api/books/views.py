@@ -57,6 +57,7 @@ class BooksList(ListCreateAPIView):
             for data in json_payload:
                 book = Book.from_request(owner, data)
                 serializer = BookSerializer(book)
+                serializer.is_valid()
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
         except Exception as e:
             return Response(e, status=status.HTTP_400_BAD_REQUEST)

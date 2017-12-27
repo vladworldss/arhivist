@@ -24,8 +24,12 @@ def test_post_books():
     resp =requests.post(url=API_BOOKS_URL).json()
     assert non_auth_resp == resp
 
+    CREATED_STATUS = 201
     resp_json = requests.post(url=API_AUTH_URL, data=CREDENTIALS).json()
     token = resp_json["token"]
-    data_json = json.dumps(test_data["1"]["req"])
-    payload = {"books": data_json}
-    resp = requests.post(url=API_BOOKS_URL, data=payload, headers={'Authorization': f'JWT {token}'})
+    data_json = test_data["1"]["req"]
+    resp = requests.post(url=API_BOOKS_URL, json=data_json, headers={'Authorization': f'JWT {token}'})
+
+    assert resp.status_code == 201
+    json_resp = resp.json()
+    assert len(data_json["books"]) == len(json_resp)

@@ -26,3 +26,15 @@ class BookSerializer(ModelSerializer):
     class Meta:
         model = Book
         fields = "__all__"
+
+
+class CategorySerializer(ModelSerializer):
+    """
+    Book serializer class.
+    """
+
+    owner = ReadOnlyField(source='owner.username')
+
+    class Meta:
+        model = Category
+        fields = "__all__"

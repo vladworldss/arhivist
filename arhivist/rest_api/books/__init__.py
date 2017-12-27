@@ -1,1 +1,1 @@
-from .views import BooksList, BookDetail
+from .views import *

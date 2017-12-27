@@ -135,7 +135,7 @@ class Book(models.Model):
         return inst
 
     @staticmethod
-    def from_request(owner, data):
+    def from_request(data):
         def add_foreign(inst, ModelCls, name):
             """
             Add to instance foreign relations.
@@ -155,7 +155,6 @@ class Book(models.Model):
 
         data["publisher"] = Publisher.make(name=data["publisher"])
         data["language"] = Language.make(name=data["language"])
-        data["owner"] = owner
         book = Book.make(**data)
         [add_foreign(book, Author, x) for x in author_names]
         [add_foreign(book, Category, x) for x in category_names]

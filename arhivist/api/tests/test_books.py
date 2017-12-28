@@ -1,8 +1,7 @@
 """
-Tests /api/books
+Books app tests.
 """
 import json
-import requests
 
 from .conftest import *
 

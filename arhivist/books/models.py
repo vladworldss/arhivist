@@ -1,4 +1,7 @@
 # coding: utf-8
+"""
+Books-app models.
+"""
 from django.db import models
 
 __author__     = "Vladimir Gerasimenko"
@@ -9,13 +12,13 @@ __email__      = "vladworldss@yandex.ru"
 
 
 def _make(cls, *args, **kw):
-    inst = None
-    try:
-        inst = cls.objects.get(name=kw.get('name'))
-    except cls.DoesNotExist:
-        inst = cls(*args, **kw)
-        inst.save()
-    return inst
+        inst = None
+        try:
+            inst = cls.objects.get(name=kw.get('name'))
+        except cls.DoesNotExist:
+            inst = cls(*args, **kw)
+            inst.save()
+        return inst
 
 
 class Publisher(models.Model):
@@ -131,7 +134,6 @@ class Book(models.Model):
             inst = cls.objects.get(**conf)
         except cls.DoesNotExist:
             inst = cls.objects.create(**kw)
-            # inst.save()
         return inst
 
     @staticmethod

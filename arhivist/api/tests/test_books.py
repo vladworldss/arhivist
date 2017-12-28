@@ -2,7 +2,9 @@
 Tests /api/books
 """
 import json
-from tests.conftest import *
+import requests
+
+from .conftest import *
 
 with open("test.json", "r") as inp:
     test_data = json.load(inp)

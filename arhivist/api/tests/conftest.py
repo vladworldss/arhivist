@@ -10,7 +10,7 @@ import requests
 # from parser.settings import THUMBNAIL_DIR
 # from parser.api.google import Book as GoogleBook
 # from arhivist.parser.store import Store
-from api.settings import *
+from arhivist.api.settings import *
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"

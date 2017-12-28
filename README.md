@@ -1,11 +1,13 @@
 # Arhivist 
+Arhivist is a web application based on [Django](https://www.djangoproject.com).
+Also, it's supported REST web services based on [Django REST framework](http://www.django-rest-framework.org) with Authentication policies for [JSON Web Tokens](https://jwt.io/).
+The actual code of the app implements a store of books application with tests, demo project and documentation.
 
-#REST-API
-<p>We can get a json of all of the books.</p>
+##Example
+We can get a json of the books. We use Paginator for getting of part of all objects.
 
-<code>http http://127.0.0.1:8000/api/books/</code>
-<pre>
-HTTP/1.0 200 OK
+```http http://127.0.0.1:8000/api/books/```
+```HTTP/1.0 200 OK
 Allow: GET, POST, HEAD, OPTIONS
 Content-Length: 2168
 Content-Type: application/json
@@ -15,61 +17,49 @@ Vary: Accept
 X-Frame-Options: SAMEORIGIN
    
 {
-    "count": 2, 
-    "next": null, 
-    "previous": null, 
+    "count": 2,
+    "next": null,
+    "previous": null,
     "results": [
         {
+            "id": 1,
+            "owner": "admin",
+            "description": "Would I Lie to You? Not This Year. Veteran author and speaker ...",
+            "published_date": "2005-01-01",
+            "title": "How to Live Like You Were Dying",
+            "page_count": 10,
+            "canonical_volume_link": "https://books.google.com/books/about/How_to_Live_Like_You_Were_Dying_PDF.html?hl=&id=gNFcTw52DPUC",
+            "isbn_10": 976891212,
+            "isbn_13": 9780976891215,
+            "thumbnail": "",
+            "path": "/home/test/",
+            "raw_title": "How to Live Like You Were Dyin",
+            "file_ext": "",
+            "validate": false,
+            "publisher": 1,
+            "language": 1,
             "author": [
                 1
-            ], 
-            "canonical_volume_link": "https://books.google.com/books/about/How_to_Live_Like_You_Were_Dying_PDF.html?hl=&id=gNFcTw52DPUC", 
+            ],
             "category": [
                 1
-            ], 
-            "description": "Would I Lie to You? Not This ...", 
-            "file_ext": "", 
-            "id": 1, 
-            "isbn_10": 976891212, 
-            "isbn_13": 9780976891215, 
-            "language": 1, 
-            "owner": "admin", 
-            "page_count": 10, 
-            "path": "/home/test/", 
-            "published_date": "2005-01-01", 
-            "publisher": 2, 
-            "raw_title": "How to Live Like You Were Dyin", 
-            "thumbnail": "", 
-            "title": "How to Live Like You Were Dying", 
-            "validate": false
-        }, 
+            ]
+        },
         {
-            "author": [
-                2
-            ], 
-            "canonical_volume_link": "https://books.google.com/books/about/some.html?hl=&id=gNFcTw52DPUC", 
-            "category": [
-                2
-            ], 
-            "description": "Some descr", 
-            "file_ext": "", 
-            "id": 2, 
-            "isbn_10": 976891222, 
-            "isbn_13": 9780976891233, 
-            "language": 2, 
-            "owner": "admin", 
-            "page_count": 10, 
-            "path": "/home/test/", 
-            "published_date": "2015-01-01", 
-            "publisher": 1, 
-            "raw_title": "Some title", 
-            "thumbnail": "", 
-            "title": "Some_title", 
-            "validate": false
+            "id": 2,
+            "owner": "admin",
+            ...
         }
     ]
 }
-    
-</pre>
-any more, so go ahead and delete that.  
-Once that's done we can start refactoring our views slightly.
+```
+
+###Prerequisites
+What things you need to install the software and how to install them
+```
+git
+CPython 3.6.x
+pip, virtualenv or pyenv
+```
+###Installing
+

@@ -1,4 +1,7 @@
 # coding: utf-8
+"""
+Books-app views.
+"""
 import json
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, InvalidPage
@@ -95,8 +98,6 @@ class BooksList(generics.ListCreateAPIView):
             return Response(e, status=status.HTTP_400_BAD_REQUEST)
 
 
-
-
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
@@ -116,10 +117,6 @@ class UserList(generics.ListAPIView):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
-
-
-
 
 
 class CreateUserView(CreateAPIView):

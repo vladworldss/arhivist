@@ -1,4 +1,7 @@
 # coding: utf-8
+"""
+Books-app URL Configuration.
+"""
 from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 

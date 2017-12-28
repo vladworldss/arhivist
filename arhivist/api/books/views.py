@@ -17,7 +17,7 @@ from rest_framework.response import Response
 from books.models import (
     Book, Category
 )
-from rest_api import StandardResultsSetPagination
+from api.pagination import StandardResultsSetPagination
 from .serializers import BookSerializer, CategorySerializer
 
 __author__     = "Vladimir Gerasimenko"

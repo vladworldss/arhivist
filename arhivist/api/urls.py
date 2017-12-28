@@ -7,7 +7,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework_jwt.views import obtain_jwt_token
 from rest_framework.response import Response
 
-from rest_api.books import *
+from api.books import *
 from .user import CreateUserView
 
 __author__     = "Vladimir Gerasimenko"

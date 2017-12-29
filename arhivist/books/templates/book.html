@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}{{ book.title }} :: {{ book.categories.name }}{% endblock %}
+{% block title %}{{ book.title }} :: {{ book.category.name }}{% endblock %}
 {% block main %}
     <h2>{{ book.title }}</h2>
     <p><img src="{% static "thumbnail/" %}{{ book.thumbnail }}"></p>
-    <p class="category">Категория: {{ book.categories.name }}</p>
+    <p class="category">Категория: {{ book.category.name }}</p>
     <p>{{ book.description|linebreaksbr }}</p>
-    <p><a href="{% url "index" cat_id=book.categories.first.pk %}?page={{ pn }}">Назад</a></p>
+    <p><a href="{% url "index" cat_id=book.category.first.pk %}?page={{ pn }}">Назад</a></p>
 {% endblock %}

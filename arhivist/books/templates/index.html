@@ -5,19 +5,19 @@
     <div class="books_box">
         <ul>
         <div class="book-container">
-            {% for book in books %}
+            {% for book in object_list %}
                     <li>
                     <div class="container book-item">
                         <div class="seq_text">
                             {% url "book"  book_id=book.pk as book_url%}
-                            <a href="{{ book_url }}?page={{ books.number }}" title="{{ book.title }}">{{ book.title}}</a>
+                            <a href="{{ book_url }}?page={{ page_obj.number }}" title="{{ book.title }}">{{ book.title}}</a>
                         </div>
                         {% for author in book.authors.all %}
                             {{ author }}
                         {% endfor %}
                         <p><img src="{% static "thumbnail/" %}{{ book.thumbnail }}"></p>
                         <div>
-                            <a href="{{ book_url }}?page={{ books.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
+                            <a href="{{ book_url }}?page={{ page_obj.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
 
                         </div>
                     </div>
@@ -26,30 +26,30 @@
         </div>
         </ul>
         <ul>
-            {% if books.paginator.num_pages > 1 %}
+            {% if paginator.num_pages > 1 %}
                 <div id="pagination">
-                    {% if books.has_previous %}
+                    {% if page_obj.has_previous %}
                         <div id="previous-page">
                             {% url "index" cat_id=category.pk as cat_url %}
-                            <a href="{{ cat_url }}?page={{ books.previous_page_number }}">&lt;</a>
+                            <a href="{{ cat_url }}?page={{ page_obj.previous_page_number }}">&lt;</a>
                         </div>
                     {% endif %}
-                    {% if books.has_next %}
+                    {% if page_obj.has_next %}
                         <div id="next-page">
-                            <a href="{{ cat_url }}?page={{ books.next_page_number }}">&gt;</a>
+                            <a href="{{ cat_url }}?page={{ page_obj.next_page_number }}">&gt;</a>
                         </div>
                     {% endif %}
                     <div id="num-pages">
-                        {% for pn in books.paginator.page_range %}
+                        {% for pn in paginator.page_range %}
                             {% if not forloop.first %}
                                 &nbsp;&nbsp;|&nbsp;&nbsp;
                             {% endif %}
 
-                            {% if books.number != pn %}
+                            {% if page_obj.number != pn %}
                                 <a href="{{ cat_url }}?page={{ pn }}">
                             {% endif %}
                         {{ pn }}
-                        {% if books.number != pn %}
+                        {% if page_obj.number != pn %}
                             </a>
                         {% endif %}
                         {% endfor %}

@@ -54,6 +54,8 @@ class BooksList(ListCreateAPIView):
             json_payload = request.data["books"]
             owner = User.objects.get(pk=request.user.pk)
             result = []
+            if not isinstance(json_payload, (list, tuple)):
+                json_payload = (json_payload, )
             for data in json_payload:
                 data["owner"] = owner
                 book = Book.from_request(data)

@@ -25,3 +25,9 @@ def test_authorized_post(token):
 
     assert resp.status_code == requests.status_codes.codes.created
     assert len(data_json["books"]) == len(resp.json())
+
+
+def test_post_single_book(token):
+    book_json = test_data["2"]["req"]
+    resp = requests.post(url=BOOKS_URL, json=book_json, headers={'Authorization': f'JWT {token}'})
+    assert resp.status_code == requests.status_codes.codes.created

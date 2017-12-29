@@ -12,12 +12,15 @@ __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
 
-def _make(cls, *args, **kw):
+class CustomModel(object):
+
+    @classmethod
+    def make(cls, *args, **kw):
         inst, created = cls.objects.get_or_create(*args, **kw)
         return inst
 
 
-class Publisher(models.Model):
+class Publisher(models.Model, CustomModel):
     name = models.CharField(max_length=30, blank=True, default='')
     address = models.CharField(max_length=50, blank=True, default='')
     city = models.CharField(max_length=60, blank=True, default='')
@@ -34,12 +37,8 @@ class Publisher(models.Model):
     def __str__(self):
         return self.name
 
-    @classmethod
-    def make(cls, *args, **kw):
-        return _make(cls, *args, **kw)
 
-
-class Author(models.Model):
+class Author(models.Model, CustomModel):
     name = models.CharField(max_length=30)
     surname = models.CharField(max_length=40, blank=True, default='')
     email = models.EmailField(blank=True, default='')
@@ -53,12 +52,8 @@ class Author(models.Model):
         verbose_name_plural = "авторы"
         unique_together = ("name", "surname")
 
-    @classmethod
-    def make(cls, *args, **kw):
-        return _make(cls, *args, **kw)
 
-
-class Language(models.Model):
+class Language(models.Model, CustomModel):
     name = models.CharField(max_length=3, unique=True)
 
     class Meta:
@@ -69,12 +64,8 @@ class Language(models.Model):
     def __str__(self):
         return self.name
 
-    @classmethod
-    def make(cls, *args, **kw):
-        return _make(cls, *args, **kw)
 
-
-class Category(models.Model):
+class Category(models.Model, CustomModel):
     name = models.CharField(max_length=128, unique=True)
 
     class Meta:
@@ -83,12 +74,8 @@ class Category(models.Model):
         verbose_name_plural = "категории"
         unique_together = ("name", )
 
-    @classmethod
-    def make(cls, *args, **kw):
-        return _make(cls, *args, **kw)
 
-
-class Book(models.Model):
+class Book(models.Model, CustomModel):
     publisher = models.ForeignKey(Publisher, null=True)
     description = models.TextField(max_length=1024, blank=True, null=True)
     language = models.ForeignKey(Language)
@@ -120,10 +107,6 @@ class Book(models.Model):
     def __str__(self):
         authors = ', '.join([x.name for x in self.author.all()])
         return '{}. {}.{}'.format(authors, self.title, self.file_ext)
-
-    @classmethod
-    def make(cls, *args, **kw):
-        return _make(cls, *args, **kw)
 
     @staticmethod
     def from_request(data):

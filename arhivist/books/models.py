@@ -3,6 +3,7 @@
 Books-app models.
 """
 from django.db import models
+from django.core.exceptions import FieldError
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -12,12 +13,7 @@ __email__      = "vladworldss@yandex.ru"
 
 
 def _make(cls, *args, **kw):
-        inst = None
-        try:
-            inst = cls.objects.get(name=kw.get('name'))
-        except cls.DoesNotExist:
-            inst = cls(*args, **kw)
-            inst.save()
+        inst, created = cls.objects.get_or_create(*args, **kw)
         return inst
 
 
@@ -30,7 +26,7 @@ class Publisher(models.Model):
     website = models.URLField(blank=True, default='')
 
     class Meta:
-        ordering = ["name"]
+        ordering = ("name", )
         verbose_name = "издательство"
         verbose_name_plural = "издательства"
         unique_together = ("name", "city", "address")
@@ -52,7 +48,7 @@ class Author(models.Model):
         return "{} {}".format(self.name, self.surname)
 
     class Meta:
-        ordering = ["name", "surname"]
+        ordering = ("name", "surname")
         verbose_name = "автор"
         verbose_name_plural = "авторы"
         unique_together = ("name", "surname")
@@ -66,7 +62,7 @@ class Language(models.Model):
     name = models.CharField(max_length=3, unique=True)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ("name", )
         verbose_name = "язык"
         verbose_name_plural = "языки"
 
@@ -82,9 +78,10 @@ class Category(models.Model):
     name = models.CharField(max_length=128, unique=True)
 
     class Meta:
-        ordering = ["name"]
+        ordering = ("name", )
         verbose_name = "категория"
         verbose_name_plural = "категории"
+        unique_together = ("name", )
 
     @classmethod
     def make(cls, *args, **kw):
@@ -115,10 +112,10 @@ class Book(models.Model):
     owner = models.ForeignKey('auth.User', related_name='books', on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ["title"]
-        unique_together = ["title", "path", "raw_title", "file_ext"]
+        ordering = ("title", )
         verbose_name = "книга"
         verbose_name_plural = "книги"
+        unique_together = ("title", "raw_title", "file_ext")
 
     def __str__(self):
         authors = ', '.join([x.name for x in self.author.all()])
@@ -126,15 +123,7 @@ class Book(models.Model):
 
     @classmethod
     def make(cls, *args, **kw):
-        inst = None
-        try:
-            conf = {}
-            for x in ["title", "path", "raw_title", "file_ext"]:
-                conf[x] = kw.get(x, '')
-            inst = cls.objects.get(**conf)
-        except cls.DoesNotExist:
-            inst = cls.objects.create(**kw)
-        return inst
+        return _make(cls, *args, **kw)
 
     @staticmethod
     def from_request(data):

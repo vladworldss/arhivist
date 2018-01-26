@@ -9,6 +9,7 @@ __email__      = "vladworldss@yandex.ru"
 # __FOLDER
 STORE_PATH = '/home/test/books'
 UNCHECKABLE_FOLDERS = ()
+SUPPORT_BOOK_EXTENSION = {'pdf', 'djvu', '.djv', 'epub', 'fb2'}
 
 # __URLS
 POST_URL = 'http://127.0.0.1:8000/books/'

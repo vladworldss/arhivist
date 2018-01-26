@@ -4,6 +4,7 @@ Module of the Book class.
 """
 import re
 import json
+import requests
 
 from .settings import SUPPORT_BOOK_EXTENSION
 __author__     = "Vladimir Gerasimenko"
@@ -40,7 +41,7 @@ class Book(object):
 
         :return:
         """
-        raise NotImplementedError
+        return json.dumps({x: getattr(self, x) for x in self.__slots__})
 
     def get_meta(self):
         """
@@ -86,3 +87,61 @@ class Book(object):
                 book_type = m.pop()
                 book_name = " ".join(m)
                 return (book_name, book_type)
+
+
+class Thumbnail(object):
+
+    __slots__ = ("path", "volume_link")
+
+    def __init__(self, path, volume_link):
+        self.path = path
+        self.volume_link = volume_link
+
+    @staticmethod
+    def get_thumbnail(url, w='w300'):
+        """
+        Save thumbnail from responce.
+
+        :param url: thumbnail url
+        like 'http://books.google.com/books/content?
+                    id=junUDQAAQBAJ&
+                    printsec=frontcover&
+                    img=1&
+                    zoom=1&
+                    edge=curl&
+                    source=gbs_api'
+
+        :param w: weight
+        :return:
+        """
+        url = '{}&fife={}'.format(url, w)
+        return requests.get(url, stream=True)
+
+    def get_id_thumbnail(self, url):
+        match = self.ID_THUMBNAIL.match(url)
+        if not match:
+            raise Exception
+        return match.groupdict()['id']
+
+    @staticmethod
+    def save_thumbnail(resp, path):
+        """
+        Save thumbnail.
+
+        :param resp: responce from request
+        :param path: path to save image
+        :return:
+        """
+        with open(path, 'wb') as f:
+            resp.raw.decode_content = True
+            shutil.copyfileobj(resp.raw, f)
+
+    def download_thumbnail(self, resp):
+        t_url = resp['thumbnail']['url']
+        t_id = self.get_id_thumbnail(t_url)
+
+        t_resp = self.get_thumbnail(t_url)
+        t_name = f"{t_id}.png"
+        full_path = os.path.join(self.download_dir, t_name)
+        self.save_thumbnail(t_resp, full_path)
+        resp['thumbnail'] = t_name

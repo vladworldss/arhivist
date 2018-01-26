@@ -17,3 +17,13 @@ from arhivist.parser.book import Book
 def test_match_title(title, result):
     m = Book.match(title)
     assert  m == result
+
+
+def test_book_json():
+    kw = ["Harry Potter and the Philosopher's Stone",
+          "/home/books/Harry Potter and the Philosopher's Stone.pdf",
+          "pdf"
+          ]
+    b = Book(*kw)
+    json_book = b.to_json()
+    assert all([x in json_book for x in kw ])

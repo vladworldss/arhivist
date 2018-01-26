@@ -7,6 +7,8 @@ from importlib import import_module
 from pprint import pprint
 import requests
 from concurrent.futures import ThreadPoolExecutor
+from difflib import SequenceMatcher
+
 
 from settings import *
 
@@ -17,16 +19,31 @@ __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
 
-class BookExecutor(object):
 
-    def validate(self, raw_titile, resp_title):
-        res = False
-        raw_set = frozenset(raw_titile.split())
-        resp_set = frozenset(resp_title.split())
+class AbsExecutor(object):
 
+    def execute(self, req_type, vendor, data):
+        raise NotImplementedError
+
+
+class BookExecutor(AbsExecutor):
+
+    def __init__(self, store):
+        self.store = store
 
     @staticmethod
-    def task(item, Api, max_results=1):
+    def validate(raw_tile, resp_titles):
+
+        def similar(a, b):
+            return SequenceMatcher(None, a, b).ratio()
+
+        compare = map(lambda x: (x, similar(raw_tile, x), resp_titles))
+        sorted_titles = sorted(compare, key=lambda pair: pair[1])
+        best_title = sorted_titles[-1][0]
+        return best_title
+
+    @staticmethod
+    def task(item, Api, max_results=10):
         def update(r):
             if item_set.intersection(set(r)):
                 raise Exception

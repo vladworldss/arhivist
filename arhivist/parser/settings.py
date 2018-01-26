@@ -1,4 +1,6 @@
 # coding: utf-8
+from arhivist.api.settings import AUTH_URL, BOOKS_URL, CREDENTIALS
+
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
 __version__    = "0.0.1"
@@ -10,11 +12,13 @@ __email__      = "vladworldss@yandex.ru"
 STORE_PATH = '/home/test/books'
 UNCHECKABLE_FOLDERS = ()
 
-# __URLS
-POST_URL = 'http://127.0.0.1:8000/books/'
-AUTH_URL = 'http://127.0.0.1:8000/api-auth/'
+# __VENDORS
+vendors = ["google"]
 
-CREDENTIALS = {'username':'admin', 'password':'admin123123'}
+# __URLS
+AUTH_URL = AUTH_URL
+CREDENTIALS = CREDENTIALS
+POST_URL = BOOKS_URL
 
 # __THUMBNAIL
 THUMBNAIL_DIR = '../books/static/thumbnail'

@@ -28,9 +28,9 @@ class Store(object):
     _BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
     REQ_KEYS = ('path', 'raw_title', 'file_ext')
 
-    def __init__(self, root_path=st.STORE_PATH):
+    def __init__(self, root_path=st.STORE_PATH, ExecutorCls=BookExecutor):
         self.root_path = root_path
-        self.Executor = BookExecutor
+        self.executor = ExecutorCls(self)
 
     @staticmethod
     def BOOK_NAME_MASK(file_name):
@@ -65,9 +65,9 @@ class Store(object):
         """
         return OrderedDict(zip(self.REQ_KEYS, (path, b_name, b_type)))
 
-    def get_books(self):
+    def get_all_book_titles(self):
         """
-        Get books from store.
+        Get book titles from store.
         Check supported types of files.
         Make data for Executor's request.
 
@@ -84,21 +84,30 @@ class Store(object):
                 book_name = ' '.join(m)
                 yield self._request_data(path, book_name, book_type)
 
-    def init(self):
+    def get_new_book_titles(self):
+        """
+        Get new books from store from last check.
+
+        :return: generator-object of dict
+        """
+        raise NotImplementedError
+
+    def init(self, **kw):
         """
         Initialize of book store.
         :return:
         """
-        return 'init'
+        books = self.get_all_book_titles()
+        self.executor.execute(books, kw["vendor"])
 
-    def update(self):
+    def update(self, **kw):
         """
         Update book store.
 
         :return:
         """
-        books = self.get_books()
-        self.Executor.execute(books, 'google')
+        books = self.get_new_book_titles()
+        resp = self.executor.execute(books, kw["vendor"])
 
     def remove(self):
         """
@@ -123,14 +132,22 @@ if __name__ == '__main__':
                         help="stop monitoring of book store",
                         action="store_true"
                         )
-    args = parser.parse_args()
 
+    parser.add_argument("-vnd", "--vendor",
+                        type=str,
+                        default=st.vendors[0],
+                        choices=st.vendors,
+                        help="search book with vendor-api",
+                        )
+
+    args = parser.parse_args()
     store = Store()
+
     if args.init:
-        store.init()
+        store.init(vendor=args.vendor)
     elif args.update:
-        store.update()
+        store.update(vendor=args.vendor)
     elif args.remove:
         store.remove()
     else:
-        store.update()
+        store.init()

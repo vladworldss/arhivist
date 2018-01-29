@@ -1,4 +1,5 @@
 # coding: utf-8
+
 import sys, os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 from functools import wraps
@@ -6,7 +7,7 @@ from functools import wraps
 from importlib import import_module
 from pprint import pprint
 import requests
-from concurrent.futures import ThreadPoolExecutor
+
 from difflib import SequenceMatcher
 
 
@@ -20,10 +21,8 @@ __email__      = "vladworldss@yandex.ru"
 
 
 
-class AbsExecutor(object):
 
-    def execute(self, req_type, vendor, data):
-        raise NotImplementedError
+
 
 
 class BookExecutor(AbsExecutor):
@@ -88,3 +87,67 @@ class BookExecutor(AbsExecutor):
                 f.arg = item
                 if callback:
                     f.add_done_callback(cls.callback)
+
+
+def check_callable(method):
+    def foo(self, func):
+        if not callable(func):
+            raise TypeError
+        return method(func)
+    return foo
+
+
+
+
+
+
+
+
+class InitExecutor(PoolExecutor):
+
+    def __init__(self, task_api, callback_api, validator):
+        self.__task_api = task_api
+        self.__callback_api = callback_api
+        self.__validator = validator
+
+    def task(self, title, max_results=10):
+
+        resp = self.__task_api.title_list(title, max_results=max_results)
+        for r in resp:
+            Api.download_thumbnail(r)
+        list(map(update, resp))
+        return resp
+
+
+
+
+class ExecutorFactory(object):
+
+
+    def make_book_executor(self):
+        pass
+
+
+    class BookExecutor(object):
+
+
+
+        def init(self, *args, **kw):
+            pass
+
+        def update(self):
+            pass
+
+        def delete(self):
+            pass
+
+        @check_callable
+        def __set_task(self, func):
+            self.__task = func
+
+        @check_callable
+        def __set__callback(self, func):
+            self.__callback = func
+
+        def __execute(self, items, max_workers=10, callback=False):
+

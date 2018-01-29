@@ -6,12 +6,12 @@ import os
 import sys
 sys.path.append(__file__)
 
-import re
 import argparse
 from collections import OrderedDict
 
-from .executor import BookExecutor
-import settings as st
+from arhivist.parser.executor._executor import BookExecutor
+from .book import Book
+from . import settings as st
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -24,32 +24,13 @@ class Store(object):
     """
     Book store class.
     """
-    SUPPORT_FILE_EXTENSION = {'pdf', 'djvu', '.djv', 'epub', 'fb2'}
-    _BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
+
     REQ_KEYS = ('path', 'raw_title', 'file_ext')
 
-    def __init__(self, root_path=st.STORE_PATH, ExecutorCls=BookExecutor):
+    def __init__(self, root_path=st.STORE_PATH, ExecutorCls=BookExecutor, BookCls=Book):
         self.root_path = root_path
         self.executor = ExecutorCls(self)
-
-    @staticmethod
-    def BOOK_NAME_MASK(file_name):
-        return Store._BOOK_NAME_MASK.match(file_name)
-
-    @staticmethod
-    def UNICODE_NAME_MASK(file_name):
-        return re.findall(r'(?u)\w+', file_name)
-
-    def _match(self, file_name):
-        """
-        Regex for file name.
-
-        :param file: filename
-        :return: list of result
-        """
-        if any(file_name.endswith(s) for s in self.SUPPORT_FILE_EXTENSION):
-            # cyrillic titles
-            return self.UNICODE_NAME_MASK(file_name)
+        self.BookCls = BookCls
 
     def _request_data(self, path, b_name, b_type):
         """
@@ -77,12 +58,9 @@ class Store(object):
             if path.startswith(st.UNCHECKABLE_FOLDERS):
                 continue
             for f in files:
-                m = self._match(f)
-                if not m:
-                    continue
-                book_type = m.pop()
-                book_name = ' '.join(m)
-                yield self._request_data(path, book_name, book_type)
+                m = self.BookCls.match(f)
+                if m:
+                    yield self._request_data(path, *m)
 
     def get_new_book_titles(self):
         """

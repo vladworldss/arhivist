@@ -2,18 +2,18 @@
 import abc
 
 
-class AbsBook(metaclass=abc.ABCMeta):
+class AbsApi(metaclass=abc.ABCMeta):
     """
     Abstract base class for search book with api
     """
 
     @abc.abstractmethod
-    def get(self, volumeId, **kwargs):
+    def get(self, volume_id, **kwargs):
         """
         Retrieves a Volume resource based on ID
-        volumeId -- ID of volume to retrieve.
+        volume_id -- ID of volume to retrieve.
 
-        :param volumeId:
+        :param volume_id:
         :param kwargs:
         :return: responce (json)
         """
@@ -22,11 +22,50 @@ class AbsBook(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def list(self, q, **kwargs):
         """
-        Performs a book search.
+        Performs a volume search.
         q -- Full-text search query string.
 
         :param q:
         :param kwargs:
         :return: responce (json)
         """
+        pass
+
+    @abc.abstractmethod
+    def authorize(self, *args, **kw):
+        """
+        Authorization of client.
+
+        :param args:
+        :param kw:
+        :return:
+        """
+        pass
+
+
+class AbsBookApi(AbsApi):
+
+    @abc.abstractmethod
+    def get_book(self, book_id):
+        """
+        Get a Book resource based on ID.
+
+        :param book_id:
+        :return:
+        """
+        pass
+
+    @abc.abstractmethod
+    def search_book(self, *args, **kw):
+        """
+
+
+        :param args:
+        :param kw:
+        :return:
+        """
+        pass
+
+    @abc.abstractmethod
+    def download_thumbnail(self, volume_link):
         pass

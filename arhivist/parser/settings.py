@@ -11,6 +11,7 @@ __email__      = "vladworldss@yandex.ru"
 # __FOLDER
 STORE_PATH = '/home/test/books'
 UNCHECKABLE_FOLDERS = ()
+SUPPORT_BOOK_EXTENSION = {'pdf', 'djvu', '.djv', 'epub', 'fb2'}
 
 # __VENDORS
 vendors = ["google"]

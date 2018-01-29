@@ -22,7 +22,7 @@ class Book(object):
     __SUPPORTED = SUPPORT_BOOK_EXTENSION
 
     __slots__ = ("publisher", "description", "language", "published_date",
-                 "title", "page_count", "canonical_volume_link", "isbn_10",
+                 "title", "page_count", "volume_link", "isbn_10",
                  "isbn_13", "author", "category", "thumbnail", "path", "raw_title",
                  "file_ext"
                  )
@@ -34,6 +34,11 @@ class Book(object):
         self.raw_title = raw_title
         self.path = path
         self.file_ext = file_ext
+        self.thumbnail = Thumbnail()
+
+    @staticmethod
+    def from_json(_json):
+        raise NotImplementedError
 
     def to_json(self):
         """
@@ -43,9 +48,9 @@ class Book(object):
         """
         return json.dumps({x: getattr(self, x) for x in self.__slots__})
 
-    def from_json(self, resp_json):
+    def update(self, _json):
         """
-        Init book fields
+        Update book fields from json
 
         :param resp_json:
         :return:
@@ -100,10 +105,10 @@ class Book(object):
 
 class Thumbnail(object):
 
-    __slots__ = ("path", "volume_link")
+    __slots__ = ("id", "volume_link")
 
-    def __init__(self, path, volume_link):
-        self.path = path
+    def __init__(self, _id=None, volume_link=None):
+        self.id = _id
         self.volume_link = volume_link
 
     @staticmethod

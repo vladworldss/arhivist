@@ -61,11 +61,22 @@ class AbsBookApi(AbsApi):
 
 
         :param args:
-        :param kw:
+        :param kw: title
         :return:
         """
         pass
 
+    def post_book(self, book):
+        """
+
+        :param book:
+        :return:
+        """
+        raise NotImplementedError
+
+    def delete_book(self, book):
+        raise NotImplementedError
+
     @abc.abstractmethod
-    def download_thumbnail(self, volume_link):
+    def download_thumbnail(self, link, download_dir):
         pass

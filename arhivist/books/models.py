@@ -82,7 +82,7 @@ class Book(models.Model, CustomModel):
     published_date = models.DateField(blank=True, null=True)
     title = models.CharField(max_length=128)
     page_count = models.IntegerField(default=0)
-    canonical_volume_link = models.URLField()
+    volume_link = models.URLField()
     isbn_10 = models.IntegerField(unique=True, blank=True, null=True)
     isbn_13 = models.IntegerField(unique=True, blank=True, null=True)
     author = models.ManyToManyField(Author)

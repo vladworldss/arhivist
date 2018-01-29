@@ -9,7 +9,7 @@ sys.path.append(__file__)
 import argparse
 from collections import OrderedDict
 
-from arhivist.parser.executor._executor import BookExecutor
+from arhivist.parser.old._executor import BookExecutor
 from .book import Book
 from . import settings as st
 

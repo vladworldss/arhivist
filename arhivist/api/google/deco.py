@@ -27,7 +27,7 @@ def parsed(func):
                 data['published_date'] = volumeInfo.pop('publishedDate')
                 data['title'] = volumeInfo.pop('title', '')
                 data['page_count'] = volumeInfo.pop('pageCount', 0)
-                data['canonical_volume_link'] = volumeInfo.pop('canonicalVolumeLink', '')
+                data['volume_link'] = volumeInfo.pop('canonicalVolumeLink', '')
                 data['thumbnail'] = {
                     'url': volumeInfo.get('imageLinks', {}).get('thumbnail', ''),
                     'id': '',
@@ -49,3 +49,5 @@ def parsed(func):
                 result.append(data)
         return result
     return wrapper
+
+#TODO: thumbnail ["link", "id"]

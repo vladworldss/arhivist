@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Module of the Book class.
+Module of Common Arhivist DataType.
 """
 import re
 import json
@@ -105,10 +105,10 @@ class Book(object):
 
 class Thumbnail(object):
 
-    __slots__ = ("id", "volume_link")
+    __slots__ = ("name", "volume_link")
 
-    def __init__(self, _id=None, volume_link=None):
-        self.id = _id
+    def __init__(self, name=None, volume_link=None):
+        self.name = name
         self.volume_link = volume_link
 
     @staticmethod

@@ -42,6 +42,16 @@ class AbsApi(metaclass=abc.ABCMeta):
         """
         pass
 
+    def make_bad_responce(self, *args, **kw):
+        """
+        Authorization of client.
+
+        :param args:
+        :param kw:
+        :return:
+        """
+        raise NotImplementedError
+
 
 class AbsBookApi(AbsApi):
 

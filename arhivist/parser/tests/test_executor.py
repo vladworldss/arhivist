@@ -1,4 +1,4 @@
-from arhivist.parser.book import Book
+from arhivist.parser.models import Book
 from arhivist.parser.executor.book import BookExecutorFactory
 
 

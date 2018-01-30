@@ -10,7 +10,7 @@ import argparse
 from collections import OrderedDict
 
 from arhivist.parser.old._executor import BookExecutor
-from .book import Book
+from .models import Book
 from . import settings as st
 
 __author__     = "Vladimir Gerasimenko"

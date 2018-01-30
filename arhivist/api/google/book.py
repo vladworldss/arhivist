@@ -9,7 +9,7 @@ import json
 import shutil
 from apiclient.discovery import build
 
-from arhivist.api.template import AbsBook
+from arhivist.api.base import BaseBookApi
 from .setting import API_KEY
 from .deco import parsed
 
@@ -20,30 +20,30 @@ __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
 
-class Book(AbsBook):
+class Book(BaseBookApi):
     """
     Google Books Api
 
     See: https://developers.google.com/books/
     """
-    BASEURL = 'https://www.googleapis.com/books/v1'
-    ID_THUMBNAIL = re.compile(r"http://[\w\./]*\?id=(?P<id>\w+)&\w+")
+    BASE_URL = 'https://www.googleapis.com/books/v1'
 
-    def __init__(self, auth=True, **kw):
-        self.authorized = False
+    def __init__(self, *args, **kw):
+        super().__init__(*args, **kw)
         self.download_dir = kw.get('download_dir', '/var/www/api')
-        if auth:
-            books_service = build('books', 'v1', developerKey=API_KEY)
-            self.volumes = books_service.volumes()
-            self.authorized = True
+
+    def authorize(self, *args, **kw):
+        key = kw.get("developer_key", API_KEY)
+        books_service = build('books', 'v1', developerKey=key)
+        self.volumes = books_service.volumes()
+        self.authorized = True
 
     def _get(self, path, params=None):
         if params is None:
             params = {}
-        resp = requests.get(self.BASEURL + path, params=params)
-        if resp.status_code == 200:
+        resp = requests.get(self.BASE_URL + path, params=params)
+        if resp.status_code == requests.codes.ok:
             return json.loads(resp.content)
-
         return resp
 
     def get(self, volumeId, **kwargs):
@@ -144,55 +144,29 @@ class Book(AbsBook):
 
         return self._get(path, params)
 
-    def title_list(self, q, **kwargs):
-        q = f"intitle:{q}"
-        return self.list(q, **kwargs)
 
-    @staticmethod
-    def get_thumbnail(url, w='w300'):
-        """
-        Save thumbnail from responce.
+    def get_book(self, book_id):
+        return self.get(book_id)
 
-        :param url: thumbnail url
-        like 'http://books.google.com/books/content?
-                    id=junUDQAAQBAJ&
-                    printsec=frontcover&
-                    img=1&
-                    zoom=1&
-                    edge=curl&
-                    source=gbs_api'
+    def search_book(self, *args, **kw):
+        title = kw.get("title")
+        max_res = kw.get("max_results", 10)
+        if title:
+            q = f"intitle:{title}"
+            res = self.list(q, maxResults=max_res)
 
-        :param w: weight
-        :return:
-        """
-        url = '{}&fife={}'.format(url, w)
-        return requests.get(url, stream=True)
+    class ThumbnailApi(BaseBookApi.ThumbnailApi):
 
-    def get_id_thumbnail(self, url):
-        match = self.ID_THUMBNAIL.match(url)
-        if not match:
-            raise Exception
-        return match.groupdict()['id']
+        ID_THUMBNAIL = re.compile(r"http://[\w\./]*\?id=(?P<id>\w+)&\w+")
 
-    @staticmethod
-    def save_thumbnail(resp, path):
-        """
-        Save thumbnail.
+        @classmethod
+        def get_thumbnail_name(cls, url):
+            match = cls.ID_THUMBNAIL.match(url)
+            if not match:
+                raise Exception
+            _id = match.groupdict()['id']
+            return f"{_id}.png"
 
-        :param resp: responce from request
-        :param path: path to save image
-        :return:
-        """
-        with open(path, 'wb') as f:
-            resp.raw.decode_content = True
-            shutil.copyfileobj(resp.raw, f)
-
-    def download_thumbnail(self, resp):
-        t_url = resp['thumbnail']['url']
-        t_id = self.get_id_thumbnail(t_url)
-
-        t_resp = self.get_thumbnail(t_url)
-        t_name = f"{t_id}.png"
-        full_path = os.path.join(self.download_dir, t_name)
-        self.save_thumbnail(t_resp, full_path)
-        resp['thumbnail'] = t_name
+        @classmethod
+        def make_scale_url(cls, url, weight):
+            return '{}&fife={}'.format(url, weight)

@@ -39,7 +39,7 @@ class BookExecutorFactory(ExecutorFactory):
         def task(self, book):
             b_resp = self.task_api.search_book(title=book.raw_title)
             book.update(b_resp)
-            book.thumbnail.id = self.task_api.download_thumbnail(
+            book.thumbnail.name = self.task_api.download_thumbnail(
                 link=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
             )
             return book

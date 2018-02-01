@@ -4,9 +4,9 @@ Module of Common Arhivist DataType.
 """
 import re
 import json
-import requests
 
 from .settings import SUPPORT_BOOK_EXTENSION
+
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
 __version__    = "0.0.1"
@@ -15,7 +15,61 @@ __email__      = "vladworldss@yandex.ru"
 __all__        = ("BooksList", "BookDetail", "CategoryList")
 
 
-class Book(object):
+class Item(object):
+    """
+    Base class of supported Store items.
+    """
+    __slots__ = ()
+
+    def __init__(self):
+        for attr in self.__slots__:
+            setattr(self, attr, None)
+
+    @staticmethod
+    def from_json(_json):
+        """
+        Create Item instance from json.
+
+        :param _json:
+        :return:
+        """
+        raise NotImplementedError
+
+    def to_json(self):
+        """
+        Convert self-instance to json-str.
+        Result has only those attrs whose specified into __slots__.
+
+        :return: JSON serializable str of self
+        """
+        res = {}
+        for x in self.__slots__:
+            attr = getattr(self, x)
+            if isinstance(attr, Item):
+                attr = attr.to_json()
+            res[x] = attr
+        return json.dumps(res)
+
+    def update(self, _json):
+        """
+        Update item fields from json.
+
+        :param JSON serializable str _json:
+        :return:
+        """
+        obj = json.loads(_json)
+
+        # all keys must be in self.attrs
+        if not all(hasattr(self, x) for x in obj):
+            raise AttributeError
+        for key, value in obj.items():
+            setattr(self, key, value)
+
+
+class Book(Item):
+    """
+    Book class.
+    """
 
     __BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
 
@@ -27,35 +81,12 @@ class Book(object):
                  "file_ext"
                  )
 
-    def __init__(self, raw_title, path, file_ext):
-        for attr in self.__slots__:
-            setattr(self, attr, None)
-
-        self.raw_title = raw_title
+    def __init__(self, path, raw_title, file_ext):
+        super().__init__()
         self.path = path
+        self.raw_title = raw_title
         self.file_ext = file_ext
         self.thumbnail = Thumbnail()
-
-    @staticmethod
-    def from_json(_json):
-        raise NotImplementedError
-
-    def to_json(self):
-        """
-        Convert self-instance to json-str.
-
-        :return:
-        """
-        return json.dumps({x: getattr(self, x) for x in self.__slots__})
-
-    def update(self, _json):
-        """
-        Update book fields from json
-
-        :param resp_json:
-        :return:
-        """
-        raise NotImplementedError
 
     def get_meta(self):
         """
@@ -99,63 +130,15 @@ class Book(object):
             m = cls.__unicode_name_match(file_name)
             if m:
                 book_type = m.pop()
-                book_name = " ".join(m)
-                return (book_name, book_type)
+                book_title = " ".join(m)
+                return (book_title, book_type)
 
 
-class Thumbnail(object):
+class Thumbnail(Item):
 
     __slots__ = ("name", "volume_link")
 
     def __init__(self, name=None, volume_link=None):
+        super().__init__()
         self.name = name
         self.volume_link = volume_link
-
-    @staticmethod
-    def get_thumbnail(url, w='w300'):
-        """
-        Save thumbnail from responce.
-
-        :param url: thumbnail url
-        like 'http://books.google.com/books/content?
-                    id=junUDQAAQBAJ&
-                    printsec=frontcover&
-                    img=1&
-                    zoom=1&
-                    edge=curl&
-                    source=gbs_api'
-
-        :param w: weight
-        :return:
-        """
-        url = '{}&fife={}'.format(url, w)
-        return requests.get(url, stream=True)
-
-    def get_id_thumbnail(self, url):
-        match = self.ID_THUMBNAIL.match(url)
-        if not match:
-            raise Exception
-        return match.groupdict()['id']
-
-    @staticmethod
-    def save_thumbnail(resp, path):
-        """
-        Save thumbnail.
-
-        :param resp: responce from request
-        :param path: path to save image
-        :return:
-        """
-        with open(path, 'wb') as f:
-            resp.raw.decode_content = True
-            shutil.copyfileobj(resp.raw, f)
-
-    def download_thumbnail(self, resp):
-        t_url = resp['thumbnail']['url']
-        t_id = self.get_id_thumbnail(t_url)
-
-        t_resp = self.get_thumbnail(t_url)
-        t_name = f"{t_id}.png"
-        full_path = os.path.join(self.download_dir, t_name)
-        self.save_thumbnail(t_resp, full_path)
-        resp['thumbnail'] = t_name

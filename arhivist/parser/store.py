@@ -5,13 +5,11 @@ Module for working with book store.
 import os
 import sys
 sys.path.append(__file__)
-
 import argparse
-from collections import OrderedDict
 
-from arhivist.parser.old._executor import BookExecutor
-from .models import Book
-from . import settings as st
+from arhivist.parser.executor import BookExecutorFactory
+from arhivist.parser.models import Book
+from arhivist.parser import settings as st
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -25,34 +23,18 @@ class Store(object):
     Book store class.
     """
 
-    REQ_KEYS = ('path', 'raw_title', 'file_ext')
-
-    def __init__(self, root_path=st.STORE_PATH, ExecutorCls=BookExecutor, BookCls=Book):
+    def __init__(self, root_path=st.STORE_PATH, ExecutorFactory=BookExecutorFactory, BookCls=Book):
         self.root_path = root_path
-        self.executor = ExecutorCls(self)
+        self.ExecutorFactory = ExecutorFactory
         self.BookCls = BookCls
 
-    def _request_data(self, path, b_name, b_type):
+    def get_all_books(self):
         """
-        Make data for Executor's execute method (GET to API).
-
-        :param path: absolute path to folder, where is being the book.
-        :type path: str
-        :param b_name: book name
-        :type b_name: str
-        :param b_type: one of supported types:
-        type b_type: str
-        :return: dict
-        """
-        return OrderedDict(zip(self.REQ_KEYS, (path, b_name, b_type)))
-
-    def get_all_book_titles(self):
-        """
-        Get book titles from store.
+        Get books from store.
         Check supported types of files.
         Make data for Executor's request.
 
-        :return: generator-object of dict
+        :return: self.Book
         """
         for path, folders, files in os.walk(self.root_path):
             if path.startswith(st.UNCHECKABLE_FOLDERS):
@@ -60,23 +42,16 @@ class Store(object):
             for f in files:
                 m = self.BookCls.match(f)
                 if m:
-                    yield self._request_data(path, *m)
-
-    def get_new_book_titles(self):
-        """
-        Get new books from store from last check.
-
-        :return: generator-object of dict
-        """
-        raise NotImplementedError
+                    yield self.BookCls(path, *m)
 
     def init(self, **kw):
         """
         Initialize of book store.
         :return:
         """
-        books = self.get_all_book_titles()
-        self.executor.execute(books, kw["vendor"])
+        books = self.get_all_books()
+        ex = self.ExecutorFactory.make_init_executor(kw["vendor"])
+        res = ex.execute(books, callback=False)
 
     def update(self, **kw):
         """
@@ -84,16 +59,19 @@ class Store(object):
 
         :return:
         """
-        books = self.get_new_book_titles()
-        resp = self.executor.execute(books, kw["vendor"])
+        books = self.get_all_books()
+        ex = self.ExecutorFactory.make_update_executor(kw["vendor"])
+        ex.execute(books)
 
-    def remove(self):
+    def delete(self, **kw):
         """
         Remove of book store.
 
         :return:
         """
-        return 'remove'
+        books = self.get_all_books()
+        ex = self.ExecutorFactory.make_delete_executor(kw["vendor"])
+        ex.execute(books)
 
 
 if __name__ == '__main__':
@@ -126,6 +104,6 @@ if __name__ == '__main__':
     elif args.update:
         store.update(vendor=args.vendor)
     elif args.remove:
-        store.remove()
+        store.delete(vendor=args.vendor)
     else:
         store.init()

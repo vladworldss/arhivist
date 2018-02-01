@@ -33,10 +33,12 @@ class Book(BaseBookApi):
         self.download_dir = kw.get('download_dir', '/var/www/api')
 
     def authorize(self, *args, **kw):
-        key = kw.get("developer_key", API_KEY)
-        books_service = build('books', 'v1', developerKey=key)
-        self.volumes = books_service.volumes()
+        self.api_key = kw.get("developer_key", API_KEY)
         self.authorized = True
+
+    def get_volumes(self):
+        books_service = build('books', 'v1', developerKey=self.api_key)
+        return books_service.volumes()
 
     def _get(self, path, params=None):
         if params is None:
@@ -128,7 +130,8 @@ class Book(BaseBookApi):
         See: https://developers.google.com/books/docs/v1/reference/volumes/list
         """
         if self.authorized:
-            res = self.volumes.list(q=q, **kwargs)
+            vols = self.get_volumes()
+            res = vols.list(q=q, **kwargs)
             return res.execute()
 
         path = '/volumes'

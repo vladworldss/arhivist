@@ -7,7 +7,8 @@ def test_book_executor_factory():
         "Harry Potter and the Philosopher's Stone",
           "pdf"
           ]
-    book = Book(*kw)
+
+    books = [Book(*kw) for _ in range(100)]
     ex = BookExecutorFactory.make_init_executor("google")
-    res = ex.execute([book], callback=False)
+    res = ex.execute(books, max_workers=100, callback=False)
     assert res

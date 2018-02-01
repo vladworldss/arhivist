@@ -3,15 +3,16 @@ import shutil
 import requests
 
 from .template import AbsBookApi
+from arhivist.api.choiser import Choiser
 
 
 class BaseBookApi(AbsBookApi):
 
     BASE_URL = None
 
-    def __init__(self, auth=True, **kw):
+    def __init__(self, auth=True, choiser=Choiser, **kw):
         self.authorized = False
-        self.choiser = None
+        self.choiser = choiser
         if auth:
             self.authorize()
 

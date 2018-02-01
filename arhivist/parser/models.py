@@ -75,9 +75,20 @@ class Book(Item):
 
     __SUPPORTED = SUPPORT_BOOK_EXTENSION
 
-    __slots__ = ("publisher", "description", "language", "published_date",
-                 "title", "page_count", "volume_link", "isbn_10",
-                 "isbn_13", "author", "category", "thumbnail", "path", "raw_title",
+    __slots__ = ("publisher",
+                 "description",
+                 "language",
+                 "published_date",
+                 "title",
+                 "page_count",
+                 "volume_link",
+                 "isbn_10",
+                 "isbn_13",
+                 "author",
+                 "category",
+                 "thumbnail",
+                 "path",
+                 "raw_title",
                  "file_ext"
                  )
 
@@ -136,7 +147,9 @@ class Book(Item):
 
 class Thumbnail(Item):
 
-    __slots__ = ("name", "volume_link")
+    __slots__ = ("name",
+                 "volume_link"
+                 )
 
     def __init__(self, name=None, volume_link=None):
         super().__init__()

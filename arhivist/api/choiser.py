@@ -21,7 +21,22 @@ class Choiser(object):
         return SequenceMatcher(None, a, b).ratio()
 
     @classmethod
-    def best_choise(cls, raw_value, resp_values):
-        compare = map(lambda x: (x, cls.similar(raw_value, x), resp_values))
-        sorted_titles = sorted(compare, key=lambda pair: pair[1])
-        return sorted_titles[-1][0]
+    def best_choise(cls, value, choises, field):
+        """
+
+        :param value: etalon value
+        :param list choises: responces
+        :param str field: resp attr whose will be based for compare values
+
+        :return: best responce
+        """
+        compare = map(
+            lambda x: (x, cls.similar(value, x[field])),
+            choises
+        )
+        resp, rat_value = max(compare, key=lambda pair: pair[1])
+        return resp
+
+    @classmethod
+    def best_book_choise(cls, value, choises, field="title"):
+        return cls.best_choise(value, choises, field)

@@ -62,6 +62,9 @@ class BaseBookApi(AbsBookApi):
             :return:
             """
             full_path = os.path.join(download_dir, file_name)
+
+
+
             with open(full_path, 'wb') as f:
                 stream_resp.raw.decode_content = True
                 shutil.copyfileobj(stream_resp.raw, f)

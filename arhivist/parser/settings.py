@@ -1,4 +1,8 @@
 # coding: utf-8
+import os
+
+from arhivist import books
+
 from arhivist.api.settings import AUTH_URL, BOOKS_URL, CREDENTIALS
 
 __author__     = "Vladimir Gerasimenko"
@@ -22,4 +26,5 @@ CREDENTIALS = CREDENTIALS
 POST_URL = BOOKS_URL
 
 # __THUMBNAIL
-THUMBNAIL_DIR = '../books/static/thumbnail'
+BOOKS_DIR = os.path.abspath(books.__path__[-1])
+THUMBNAIL_DIR = os.path.join(BOOKS_DIR, "static", "thumbnail")

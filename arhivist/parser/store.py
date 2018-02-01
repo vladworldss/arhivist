@@ -8,7 +8,7 @@ sys.path.append(__file__)
 import argparse
 
 from arhivist.parser.executor import BookExecutorFactory
-from arhivist.parser.models import Book
+from arhivist.parser.item import Book
 from arhivist.parser import settings as st
 
 __author__     = "Vladimir Gerasimenko"
@@ -27,6 +27,10 @@ class Store(object):
         self.root_path = root_path
         self.ExecutorFactory = ExecutorFactory
         self.BookCls = BookCls
+
+    def make_thumbnail_folder(self):
+        if not os.path.exists(st.THUMBNAIL_DIR):
+            os.makedirs(st.THUMBNAIL_DIR, exist_ok=True)
 
     def get_all_books(self):
         """

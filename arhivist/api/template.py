@@ -7,7 +7,7 @@ class AbsApi(metaclass=abc.ABCMeta):
     Abstract base class for search book with api
     """
 
-    @abc.abstractmethod
+    # @abc.abstractmethod
     def get(self, volume_id, **kwargs):
         """
         Retrieves a Volume resource based on ID
@@ -17,9 +17,9 @@ class AbsApi(metaclass=abc.ABCMeta):
         :param kwargs:
         :return: responce (json)
         """
-        pass
+        raise NotImplementedError
 
-    @abc.abstractmethod
+    # @abc.abstractmethod
     def list(self, q, **kwargs):
         """
         Performs a volume search.
@@ -29,9 +29,9 @@ class AbsApi(metaclass=abc.ABCMeta):
         :param kwargs:
         :return: responce (json)
         """
-        pass
+        raise NotImplementedError
 
-    @abc.abstractmethod
+    # @abc.abstractmethod
     def authorize(self, *args, **kw):
         """
         Authorization of client.
@@ -40,7 +40,7 @@ class AbsApi(metaclass=abc.ABCMeta):
         :param kw:
         :return:
         """
-        pass
+        raise NotImplementedError
 
     def make_bad_responce(self, *args, **kw):
         """
@@ -55,7 +55,7 @@ class AbsApi(metaclass=abc.ABCMeta):
 
 class AbsBookApi(AbsApi):
 
-    @abc.abstractmethod
+    # @abc.abstractmethod
     def get_book(self, book_id):
         """
         Get a Book resource based on ID.
@@ -63,9 +63,9 @@ class AbsBookApi(AbsApi):
         :param book_id:
         :return:
         """
-        pass
+        raise NotImplementedError
 
-    @abc.abstractmethod
+    # @abc.abstractmethod
     def search_book(self, *args, **kw):
         """
 
@@ -74,7 +74,7 @@ class AbsBookApi(AbsApi):
         :param kw: title
         :return:
         """
-        pass
+        raise NotImplementedError
 
     def post_book(self, book):
         """
@@ -87,6 +87,6 @@ class AbsBookApi(AbsApi):
     def delete_book(self, book):
         raise NotImplementedError
 
-    @abc.abstractmethod
+    # @abc.abstractmethod
     def download_thumbnail(self, link, download_dir):
-        pass
+        raise NotImplementedError

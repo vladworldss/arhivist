@@ -36,6 +36,7 @@ class PoolExecutor(BaseExecutor):
                 if kw.get("callback", False):
                     f.add_done_callback(self.callback)
                 results.append(f)
+            return [f.result() for f in results]
 
 
 def init_api(meth):
@@ -53,7 +54,7 @@ def init_api(meth):
 
 class ExecutorFactory(object):
 
-    __ApiPath = "api"
+    __ApiPath = "arhivist.api"
     __ArhivistApi = None
     ItemType = None
 

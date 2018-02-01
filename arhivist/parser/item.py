@@ -54,15 +54,18 @@ class Item(object):
         """
         Update item fields from json.
 
-        :param JSON serializable str _json:
+        :param str or dict _json:
         :return:
         """
-        obj = json.loads(_json)
+        if isinstance(_json, str):
+            _json = json.loads(_json)
+        elif not isinstance(_json, dict):
+            raise TypeError
 
         # all keys must be in self.attrs
-        if not all(hasattr(self, x) for x in obj):
+        if not all(hasattr(self, x) for x in _json):
             raise AttributeError
-        for key, value in obj.items():
+        for key, value in _json.items():
             setattr(self, key, value)
 
 
@@ -97,7 +100,6 @@ class Book(Item):
         self.path = path
         self.raw_title = raw_title
         self.file_ext = file_ext
-        self.thumbnail = Thumbnail()
 
     def get_meta(self):
         """
@@ -143,6 +145,10 @@ class Book(Item):
                 book_type = m.pop()
                 book_title = " ".join(m)
                 return (book_title, book_type)
+
+    def update(self, _json):
+        super().update(_json)
+        self.thumbnail = Thumbnail(**self.thumbnail)
 
 
 class Thumbnail(Item):

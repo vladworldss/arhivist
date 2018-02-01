@@ -1,6 +1,6 @@
 import pytest
 
-from arhivist.parser.models import Book
+from arhivist.parser.item import Book
 
 
 @pytest.mark.parametrize(

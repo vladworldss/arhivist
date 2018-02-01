@@ -2,6 +2,8 @@
 """
 Module of BookExecutor classes.
 """
+import sys, os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from .base import ExecutorFactory, init_api, PoolExecutor
 from arhivist.parser.settings import THUMBNAIL_DIR
@@ -12,6 +14,8 @@ __version__    = "0.0.1"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
+if not os.path.exists(os.path.exists(THUMBNAIL_DIR)):
+    os.makedirs(THUMBNAIL_DIR, exist_ok=True)
 
 class BookExecutorFactory(ExecutorFactory):
 
@@ -40,7 +44,7 @@ class BookExecutorFactory(ExecutorFactory):
             b_resp = self.task_api.search_book(title=book.raw_title)
             book.update(b_resp)
             book.thumbnail.name = self.task_api.download_thumbnail(
-                link=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
+                url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
             )
             return book
 

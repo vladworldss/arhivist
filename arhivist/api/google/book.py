@@ -144,8 +144,13 @@ class Book(BaseBookApi):
 
         return self._get(path, params)
 
-
     def get_book(self, book_id):
+        """
+        Get the Book volume based book_id
+
+        :param int book_id:
+        :return:
+        """
         return self.get(book_id)
 
     def search_book(self, *args, **kw):
@@ -153,7 +158,8 @@ class Book(BaseBookApi):
         max_res = kw.get("max_results", 10)
         if title:
             q = f"intitle:{title}"
-            res = self.list(q, maxResults=max_res)
+            resps = self.list(q, maxResults=max_res)
+            return self.choiser.best_book_choise(value=title, choises=resps)
 
     class ThumbnailApi(BaseBookApi.ThumbnailApi):
 

@@ -30,10 +30,14 @@ class Choiser(object):
 
         :return: best responce
         """
+
+        if not choises:
+            raise TypeError("Empty choises")
         compare = map(
             lambda x: (x, cls.similar(value, x[field])),
             choises
         )
+
         resp, rat_value = max(compare, key=lambda pair: pair[1])
         return resp
 

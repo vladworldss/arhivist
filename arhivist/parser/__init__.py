@@ -1,2 +1,2 @@
 from .store import Store
-from .models import Book, Thumbnail
+from .item import Book, Thumbnail

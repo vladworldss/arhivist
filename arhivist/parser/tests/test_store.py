@@ -1,7 +1,7 @@
 import pytest
 import os
 
-from arhivist.parser.models import Book
+from arhivist.parser.item import Book
 
 
 def test_get_books(store, book_files):

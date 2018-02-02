@@ -15,7 +15,7 @@ __email__      = "vladworldss@yandex.ru"
 __all__        = ("BooksList", "BookDetail", "CategoryList")
 
 
-class Item(object):
+class Item(json.JSONEncoder):
     """
     Base class of supported Store items.
     """
@@ -42,13 +42,8 @@ class Item(object):
 
         :return: JSON serializable str of self
         """
-        res = {}
-        for x in self.__slots__:
-            attr = getattr(self, x)
-            if isinstance(attr, Item):
-                attr = attr.to_json()
-            res[x] = attr
-        return json.dumps(res)
+
+        return json.dumps(self.to_dict())
 
     def update(self, _json):
         """
@@ -67,6 +62,15 @@ class Item(object):
             return
         for key, value in _json.items():
             setattr(self, key, value)
+
+    def to_dict(self):
+        res = {}
+        for x in self.__slots__:
+            attr = getattr(self, x)
+            if isinstance(attr, Item):
+                attr = attr.to_dict()
+            res[x] = attr
+        return res
 
 
 class Book(Item):

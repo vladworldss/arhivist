@@ -43,8 +43,8 @@ def parse_responce(resp_json):
                 else:
                     raise Exception
 
-        data["author"] = volumeInfo.pop("author", "")
-        data["category"] = volumeInfo.pop("category", "")
+        data["author"] = volumeInfo.pop("authors", "")
+        data["category"] = volumeInfo.pop("categories", "")
     return data
 
 

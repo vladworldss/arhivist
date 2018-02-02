@@ -2,6 +2,8 @@
 """
 API-app views.
 """
+import json
+
 from django.contrib.auth.models import User
 from django.http import Http404
 from rest_framework import status
@@ -51,7 +53,11 @@ class BooksList(ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            json_payload = request.data["books"]
+            json_data = request.data
+            if isinstance(json_data, str):
+                json_data = json.loads(json_data)
+
+            json_payload = json_data["books"]
             owner = User.objects.get(pk=request.user.pk)
             result = []
             if not isinstance(json_payload, (list, tuple)):

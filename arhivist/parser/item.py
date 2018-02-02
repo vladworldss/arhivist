@@ -1,6 +1,6 @@
 # coding: utf-8
 """
-Module of Common Arhivist DataType.
+Module of Common Arhivist Data Type.
 """
 import re
 import json
@@ -9,13 +9,12 @@ from .settings import SUPPORT_BOOK_EXTENSION
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
-__version__    = "0.0.1"
+__version__    = "0.0.2"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
-__all__        = ("BooksList", "BookDetail", "CategoryList")
 
 
-class Item(json.JSONEncoder):
+class Item(object):
     """
     Base class of supported Store items.
     """
@@ -25,19 +24,24 @@ class Item(json.JSONEncoder):
         for attr in self.__slots__:
             setattr(self, attr, None)
 
-    @staticmethod
-    def from_json(_json):
+    @classmethod
+    def from_json(cls, _json):
         """
-        Create Item instance from json.
+        Creating Item instance from json.
 
-        :param _json:
+        :param str _json: JSON serializable str
         :return:
         """
-        raise NotImplementedError
+        dict_fields = json.loads(_json)
+        item = cls.__new__(cls)
+        item.__init__(**dict_fields)
+
+        item.update(dict_fields)
+        return item
 
     def to_json(self):
         """
-        Convert self-instance to json-str.
+        Convert self-instance to JSON serializable str.
         Result has only those attrs whose specified into __slots__.
 
         :return: JSON serializable str of self
@@ -45,25 +49,28 @@ class Item(json.JSONEncoder):
 
         return json.dumps(self.to_dict())
 
-    def update(self, _json):
+    def update(self, dict_fields):
         """
-        Update item fields from json.
+        Update item fields from or dict.
+        Only attr-fields will be updated.
 
-        :param str or dict _json:
+        :param dict dict_fields:
         :return:
         """
-        if isinstance(_json, str):
-            _json = json.loads(_json)
-        elif not isinstance(_json, dict):
+
+        if not isinstance(dict_fields, dict):
             raise TypeError
 
-        # all keys must be in self.attrs
-        if not all(hasattr(self, x) for x in _json):
-            return
-        for key, value in _json.items():
-            setattr(self, key, value)
+        for key, value in dict_fields.items():
+            if hasattr(self, key):
+                setattr(self, key, value)
 
     def to_dict(self):
+        """
+        Creating dict implement of instance.
+
+        :return: dict
+        """
         res = {}
         for x in self.__slots__:
             attr = getattr(self, x)
@@ -157,7 +164,9 @@ class Book(Item):
 
 
 class Thumbnail(Item):
-
+    """
+    Thumbnail class.
+    """
     __slots__ = ("name",
                  "volume_link"
                  )

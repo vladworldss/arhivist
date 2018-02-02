@@ -5,6 +5,7 @@ import requests
 from .template import AbsBookApi
 from arhivist.api.choiser import Choiser
 
+bad_status = requests.status_codes.codes.bad
 
 class BaseBookApi(AbsBookApi):
 
@@ -18,6 +19,12 @@ class BaseBookApi(AbsBookApi):
 
     def download_thumbnail(self, url, download_dir):
         return self.ThumbnailApi.download(url, download_dir)
+
+    def make_bad_responce(self, *args, **kw):
+        # r = requests.Response()
+        # r.status_code = bad_status
+        r = {}
+        return r
 
     class ThumbnailApi(object):
         """

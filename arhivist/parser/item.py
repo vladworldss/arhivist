@@ -64,7 +64,7 @@ class Item(object):
 
         # all keys must be in self.attrs
         if not all(hasattr(self, x) for x in _json):
-            raise AttributeError
+            return
         for key, value in _json.items():
             setattr(self, key, value)
 
@@ -148,7 +148,8 @@ class Book(Item):
 
     def update(self, _json):
         super().update(_json)
-        self.thumbnail = Thumbnail(**self.thumbnail)
+        if self.thumbnail:
+            self.thumbnail = Thumbnail(**self.thumbnail)
 
 
 class Thumbnail(Item):

@@ -14,8 +14,10 @@ __version__    = "0.0.1"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
+# TODO: включить в конструктор store или manage.py
 if not os.path.exists(os.path.exists(THUMBNAIL_DIR)):
     os.makedirs(THUMBNAIL_DIR, exist_ok=True)
+
 
 class BookExecutorFactory(ExecutorFactory):
 
@@ -42,10 +44,11 @@ class BookExecutorFactory(ExecutorFactory):
 
         def task(self, book):
             b_resp = self.task_api.search_book(title=book.raw_title)
-            book.update(b_resp)
-            book.thumbnail.name = self.task_api.download_thumbnail(
-                url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
-            )
+            if b_resp:
+                book.update(b_resp)
+                book.thumbnail.name = self.task_api.download_thumbnail(
+                    url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
+                )
             return book
 
         def callback(self, fn):

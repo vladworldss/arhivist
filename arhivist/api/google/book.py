@@ -162,7 +162,10 @@ class Book(BaseBookApi):
         if title:
             q = f"intitle:{title}"
             resps = self.list(q, maxResults=max_res)
-            return self.choiser.best_book_choise(value=title, choises=resps)
+            if resps:
+                return self.choiser.best_book_choise(value=title, choises=resps)
+            else:
+                return self.make_bad_responce()
 
     class ThumbnailApi(BaseBookApi.ThumbnailApi):
 

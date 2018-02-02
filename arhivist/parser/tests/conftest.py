@@ -51,3 +51,12 @@ def harry_unicode_book_args():
         "Гарри Поттер и Узник Азкабана",
         "djv"
     ]
+
+@pytest.yield_fixture(scope='module')
+def bad_title_book_kwarg():
+    yield {
+        "raw_title": "01 J K Rowling Harry Potter and the Sorcerer\\'s Stone 1998",
+        "path": "01 J.K. Rowling - Harry Potter and the Sorcerer's Stone - 1998.epub",
+        "file_ext": "epub"
+
+    }

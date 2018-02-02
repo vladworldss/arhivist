@@ -49,7 +49,9 @@ class BookExecutorFactory(ExecutorFactory):
                 book.thumbnail.name = self.task_api.download_thumbnail(
                     url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
                 )
-            return book
+                return book
+            else:
+                raise Exception(f"Bad book {book.to_dict()}")
 
         def callback(self, fn):
             if fn.cancelled():

@@ -53,8 +53,8 @@ def parsed(func):
     def wrapper(*args, **kw):
         res = func(*args, **kw)
         if res:
-            items = res.get("items")
-            if items:
+            if res.get("totalItems"):
+                items = res.get("items")
                 res = [parse_responce(x) for x in items]
-        return res
+                return res
     return wrapper

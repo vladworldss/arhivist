@@ -95,8 +95,8 @@ if __name__ == '__main__':
 
     parser.add_argument("-vnd", "--vendor",
                         type=str,
-                        default=st.vendors[0],
-                        choices=st.vendors,
+                        default=st.VENDORS[0],
+                        choices=st.VENDORS,
                         help="search book with vendor-api",
                         )
 

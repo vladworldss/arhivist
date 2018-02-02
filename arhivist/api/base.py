@@ -23,8 +23,7 @@ class BaseBookApi(AbsBookApi):
     def make_bad_responce(self, *args, **kw):
         # r = requests.Response()
         # r.status_code = bad_status
-        r = {}
-        return r
+        return {}
 
     class ThumbnailApi(object):
         """

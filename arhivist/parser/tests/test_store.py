@@ -26,7 +26,7 @@ def make_test_books(title, folder):
 
 @pytest.mark.skip(reason="no way of currently testing this")
 def test_get_books(store, book_files):
-    root_path = "/home/vladworld/tmp"
+    root_path = "/home/test/books"
 
     ex_books = set()
     for file in book_files:
@@ -43,7 +43,7 @@ def test_get_books(store, book_files):
 
 
 def test_init(store, book_files):
-    root_path = "/home/vladworld/tmp"
+    root_path = "/home/test/books"
 
     ex_books = set()
     for file in book_files:

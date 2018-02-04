@@ -18,7 +18,6 @@ __email__      = "vladworldss@yandex.ru"
 if not os.path.exists(os.path.exists(THUMBNAIL_DIR)):
     os.makedirs(THUMBNAIL_DIR, exist_ok=True)
 
-
 class BookExecutorFactory(ExecutorFactory):
 
     ItemType = "Book"
@@ -44,26 +43,30 @@ class BookExecutorFactory(ExecutorFactory):
 
         def task(self, book):
             b_resp = self.task_api.search_book(title=book.raw_title)
-            if b_resp:
+            if not b_resp:
+                book._bad = self.task_api.make_bad_responce(204, "No Content")
+            else:
                 book.update(b_resp)
                 book.thumbnail.name = self.task_api.download_thumbnail(
                     url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
                 )
-                return book
-            else:
-                raise Exception(f"Bad book {book.to_dict()}")
+            return book
 
         def callback(self, fn):
             if fn.cancelled():
-                resp = self.callback_api.make_bad_responce(f"{fn.arg}: canceled")
+                fn.arg._bad = self.callback_api.make_bad_responce(205, "Reset Content. Cancelled")
             elif fn.done():
                 error = fn.exception()
-                if error:
-                    resp = self.callback_api.make_bad_responce(f"{fn.arg}: error returned: {error}")
-                else:
-                    result = fn.result()
-                    resp = self.callback_api.post_book(result)
-            return resp
+                if not error:
+                    book = fn.result()
+                    if book._bad:
+                        return
+                    resp = self.callback_api.post_book(book)
+                    if resp.status_code != self.callback_api.status_codes.created:
+                        book._bad = self.callback_api.make_bad_responce(
+                            resp.status_code,
+                            resp.content.decode("utf-8")
+                        )
 
     # ---------
     class __UpdateExecutor(PoolExecutor):

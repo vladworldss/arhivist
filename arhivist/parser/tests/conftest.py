@@ -21,12 +21,13 @@ def store():
 
 @pytest.yield_fixture(scope='module')
 def book_files():
-    yield ["Harry Potter and the Philosopher's Stone.pdf",
-           "Harry Potter and the Chamber of Secrets.djvu",
-           "Гарри Поттер и Узник Азкабана.djv",
-           "01 Harry Potter and the Goblet of Fire.epub",
-           "Harry_Potter_and_the_Order of the Phoenix.fb2"
-           ]
+    yield [
+        "Harry Potter and the Philosopher's Stone.pdf",
+        "Harry Potter and the Chamber of Secrets.djvu",
+        "Гарри Поттер и Узник Азкабана.djv",
+        "01 Harry Potter and the Goblet of Fire.epub",
+        "Harry_Potter_and_the_Order of the Phoenix.fb2"
+    ]
 
 @pytest.yield_fixture(scope='module')
 def harry_book_args():
@@ -58,5 +59,4 @@ def bad_title_book_kwarg():
         "raw_title": "01 J K Rowling Harry Potter and the Sorcerer\\'s Stone 1998",
         "path": "01 J.K. Rowling - Harry Potter and the Sorcerer's Stone - 1998.epub",
         "file_ext": "epub"
-
     }

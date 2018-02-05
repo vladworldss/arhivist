@@ -3,7 +3,11 @@
 {% block title %}{{ book.title }} :: {{ book.category.name }}{% endblock %}
 {% block main %}
     <h2>{{ book.title }}</h2>
-    <p><img src="{% static "thumbnail/" %}{{ book.thumbnail }}"></p>
+    {% if book.thumbnail.name %}
+        <p><img src="{% static "thumbnail/" %}{{ book.thumbnail.name }}"></p>
+    {% elif book.thumbnail.volume_link %}
+        <p><img src="{{ book.thumbnail.volume_link }}"></p>
+    {% endif %}
     <p class="category">Категория: {{ book.category.name }}</p>
     <p>{{ book.description|linebreaksbr }}</p>
     <p><a href="{% url "index" cat_id=book.category.first.pk %}?page={{ pn }}">Назад</a></p>

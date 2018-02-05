@@ -15,7 +15,7 @@
                         {% for author in book.authors.all %}
                             {{ author }}
                         {% endfor %}
-                        <p><img src="{% static "thumbnail/" %}{{ book.thumbnail }}"></p>
+                        <p><img src="{% static "thumbnail/" %}{{ book.thumbnail.name }}"></p>
                         <div>
                             <a href="{{ book_url }}?page={{ page_obj.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
 

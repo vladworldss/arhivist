@@ -75,6 +75,17 @@ class Category(models.Model, CustomModel):
         unique_together = ("name", )
 
 
+class Thumbnail(models.Model, CustomModel):
+    name = models.CharField(max_length=128, unique=True)
+    volume_link = models.URLField()
+
+    class Meta:
+        ordering = ("name", )
+        verbose_name = "обложка"
+        verbose_name_plural = "обложки"
+        unique_together = ("name", "volume_link")
+
+
 class Book(models.Model, CustomModel):
     publisher = models.ForeignKey(Publisher, null=True)
     description = models.TextField(max_length=1024, blank=True, null=True)
@@ -87,7 +98,7 @@ class Book(models.Model, CustomModel):
     isbn_13 = models.IntegerField(unique=True, blank=True, null=True)
     author = models.ManyToManyField(Author)
     category = models.ManyToManyField(Category)
-    thumbnail = models.CharField(max_length=128)
+    thumbnail = models.ForeignKey(Thumbnail, null=True)
 
     # Service data
     path = models.FilePathField(blank=True, null=True)
@@ -129,6 +140,7 @@ class Book(models.Model, CustomModel):
 
         data["publisher"] = Publisher.make(name=data["publisher"])
         data["language"] = Language.make(name=data["language"])
+        data["thumbnail"] = Thumbnail.make(**data["thumbnail"])
         book = Book.make(**data)
         [add_foreign(book, Author, x) for x in author_names]
         [add_foreign(book, Category, x) for x in category_names]

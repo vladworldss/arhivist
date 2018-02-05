@@ -55,7 +55,13 @@ class Store(object):
         """
         books = self.get_all_books()
         ex = self.ExecutorFactory.make_init_executor(kw["vendor"])
-        res = ex.execute(books, callback=False)
+        res = ex.execute(books, callback=True)
+        print("BAD BOOKS:")
+        for b in res["bad"]:
+            print(b._bad, b.raw_title)
+        print("OK BOOKS:")
+        for b in res["ok"]:
+            print(b._bad, b.to_dict())
 
     def update(self, **kw):
         """
@@ -65,7 +71,7 @@ class Store(object):
         """
         books = self.get_all_books()
         ex = self.ExecutorFactory.make_update_executor(kw["vendor"])
-        ex.execute(books)
+        ex.execute(books, callback=True)
 
     def delete(self, **kw):
         """

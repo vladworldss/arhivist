@@ -4,8 +4,9 @@ Module of Base Executor classes.
 """
 import os
 from importlib import import_module
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from functools import wraps
+from collections import defaultdict
 
 from .template import AbsExecutor
 
@@ -29,14 +30,25 @@ class PoolExecutor(BaseExecutor):
 
     def execute(self, items, **kw):
         with self.__ExecCls(max_workers=kw.get("max_workers", os.cpu_count())) as ex:
-            results = []
+            wait_for = []
             for item in items:
                 f = ex.submit(self.task, item)
                 f.arg = item
                 if kw.get("callback", False):
                     f.add_done_callback(self.callback)
-                results.append(f)
-            return [f.result() for f in results]
+                wait_for.append(f)
+
+            results = defaultdict(list)
+            for f in as_completed(wait_for):
+                try:
+                    book = f.result()
+                    if book._bad:
+                        results["bad"].append(book)
+                    else:
+                        results["ok"].append(book)
+                except:
+                    results["bad"].append(f.arg)
+            return results
 
 
 def init_api(meth):

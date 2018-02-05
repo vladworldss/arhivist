@@ -21,12 +21,13 @@ class Choiser(object):
         return SequenceMatcher(None, a, b).ratio()
 
     @classmethod
-    def best_choise(cls, value, choises, field):
+    def best_choise(cls, value, choises, field, expect_val=0.6):
         """
 
         :param value: etalon value
         :param list choises: responces
         :param str field: resp attr whose will be based for compare values
+        :param float expect_val: minimal value of comparation of matching
 
         :return: best responce
         """
@@ -39,10 +40,12 @@ class Choiser(object):
                 choises
             )
             resp, rat_value = max(compare, key=lambda pair: pair[1])
-        except:
+            if rat_value >= expect_val:
+                return resp
+        except Exception as e:
+            # debag
             res = value, choises, field
-            print(res)
-        return resp
+            pass
 
     @classmethod
     def best_book_choise(cls, value, choises, field="title"):

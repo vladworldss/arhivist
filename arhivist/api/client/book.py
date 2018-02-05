@@ -25,9 +25,7 @@ class Book(BaseBookApi):
         if not isinstance(book, BookItem):
             raise TypeError
         json_data = {"books": [book.to_dict()]}
-        resp = requests.post(url=BOOKS_URL,
+        return requests.post(url=BOOKS_URL,
                              json=json_data,
                              headers={'Authorization': f'JWT {self.token}'}
                              )
-        assert resp.status_code == requests.status_codes.codes.created
-        return resp

@@ -14,7 +14,7 @@ __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
 # __FOLDER
-STORE_PATH = '/home/test/books'
+STORE_PATH = "/home/test/books"
 UNCHECKABLE_FOLDERS = ()
 SUPPORT_BOOK_EXTENSION = {'pdf', 'djvu', '.djv', 'epub', 'fb2'}
 

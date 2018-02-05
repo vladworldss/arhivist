@@ -3,6 +3,7 @@
 Decorators for Google API.
 """
 from functools import wraps
+from datetime import datetime
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright 2017, Vladimir Gerasimenko"
@@ -11,6 +12,14 @@ __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
 _volumeInfo = {"publisher", "description", "language"}
+
+
+def make_datetime(raw_dt_str):
+    try:
+        dt_obj = datetime.strptime(raw_dt_str, '%Y-%M-%d')
+    except:
+        dt_obj = datetime.strptime(f"{raw_dt_str}-01-01", '%Y-%M-%d')
+    return dt_obj.strftime("%Y-%M-%d")
 
 
 def parse_responce(resp_json):
@@ -23,7 +32,11 @@ def parse_responce(resp_json):
             data[key] = volumeInfo.pop(key, "")
 
         data["description"] = data.pop("description", "")[:1024]
-        data["published_date"] = volumeInfo.pop("publishedDate", "")
+
+        raw_pd = volumeInfo.pop("publishedDate", "")
+        if raw_pd:
+            data["published_date"] = make_datetime(raw_pd)
+
         data["title"] = volumeInfo.pop("title", "")
         data["page_count"] = volumeInfo.pop("pageCount", 0)
         data["volume_link"] = volumeInfo.pop("canonicalVolumeLink", "")

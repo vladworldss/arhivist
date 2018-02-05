@@ -73,6 +73,8 @@ class Item(object):
         """
         res = {}
         for x in self.__slots__:
+            if x.startswith("_"):
+                continue
             attr = getattr(self, x)
             if isinstance(attr, Item):
                 attr = attr.to_dict()
@@ -88,7 +90,6 @@ class Book(Item):
     __BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
 
     __SUPPORTED = SUPPORT_BOOK_EXTENSION
-
     __slots__ = ("publisher",
                  "description",
                  "language",
@@ -103,7 +104,8 @@ class Book(Item):
                  "thumbnail",
                  "path",
                  "raw_title",
-                 "file_ext"
+                 "file_ext",
+                 "_bad"
                  )
 
     def __init__(self, path, raw_title, file_ext):

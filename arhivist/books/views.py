@@ -2,6 +2,8 @@
 """
 Books-app views.
 """
+import random
+
 from django.views.generic import ListView, DetailView
 
 from .models import *
@@ -11,6 +13,12 @@ __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
 __version__    = "0.0.1"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
+
+
+def random_book():
+    number_of_records = Book.objects.count()
+    random_index = int(random.random() * number_of_records) + 1
+    return Book.objects.get(pk=random_index)
 
 
 class BooksList(ListView):
@@ -32,6 +40,7 @@ class BooksList(ListView):
         context = super().get_context_data(**kwargs)
         context["cats"] = Category.objects.order_by("name")
         context["category"] = self.cat
+        context["random_book"] = random_book()
         return context
 
     def get_queryset(self):
@@ -48,4 +57,5 @@ class BookDetail(DetailView):
         context = super().get_context_data(**kwargs)
         context["pn"] = self.request.GET.get("page", "1")
         context["cats"] = Category.objects.order_by("name")
+        context["random_book"] = random_book()
         return context

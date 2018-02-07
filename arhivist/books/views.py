@@ -33,7 +33,7 @@ class BooksList(ListView):
         if cat_id is None:
             self.cat = Category.objects.first()
         else:
-            self.cat = Category.objects.get(pk = cat_id)
+            self.cat = Category.objects.get(pk=cat_id)
         return super().get(request, *args, **kw)
 
     def get_context_data(self, **kwargs):

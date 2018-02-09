@@ -1,3 +1,7 @@
+# coding: utf-8
+"""
+Interface for Arhivist API.
+"""
 import requests
 
 from arhivist.api.settings import AUTH_URL, CREDENTIALS, BOOKS_URL
@@ -8,18 +12,22 @@ from arhivist.parser.item import Book as BookItem
 class Book(BaseBookApi):
     """
     Arhivist Books Api.
-    See: https://developers.google.com/books/
+    See: localhost/api
     """
 
     BASE_URL = BOOKS_URL
 
     def __init__(self, *args, **kw):
-        self.token = None
+        self.__token = None
         super().__init__(*args, **kw)
+
+    @property
+    def token_header(self):
+        return {'Authorization': f'JWT {self.__token}'}
 
     def authorize(self, *args, **kw):
         resp_json = requests.post(url=AUTH_URL, data=CREDENTIALS).json()
-        self.token = resp_json["token"]
+        self.__token = resp_json["token"]
 
     def post_book(self, book):
         if not isinstance(book, BookItem):
@@ -27,5 +35,18 @@ class Book(BaseBookApi):
         json_data = {"books": [book.to_dict()]}
         return requests.post(url=BOOKS_URL,
                              json=json_data,
-                             headers={'Authorization': f'JWT {self.token}'}
+                             headers=self.token_header
                              )
+
+    def get_book(self, book_id):
+        if not isinstance(book_id, int):
+            raise TypeError
+        book_url = f"{BOOKS_URL}/{book_id}"
+        return requests.get(url=book_url,
+                            headers=self.token_header
+                            )
+
+    def get_all_books(self):
+        return requests.get(url=BOOKS_URL,
+                            headers=self.token_header
+                            )

@@ -10,13 +10,14 @@
           "title": "How to Live Like You Were Dying",
           "page_count": "10",
           "volume_link": "https://books.google.com/books/about/How_to_Live_Like_You_Were_Dying_PDF.html?hl=&id=gNFcTw52DPUC",
-          "isbn_10": "0976891212",
-          "isbn_13": "9780976891215",
+          "isbn_10": "",
+          "isbn_13": "",
           "author": ["Jay Irvin"],
           "category": ["Body, Mind & Spirit"],
-          "thumbnail": "",
+          "thumbnail": {"name": "", "volume_link": ""},
           "path": "/home/test/",
-          "raw_title": "How to Live Like You Were Dyin"
+          "raw_title": "How to Live Like You Were Dyin",
+          "file_ext": "PDF"
         },
         {
           "publisher": "OReally",
@@ -26,13 +27,14 @@
           "title": "Some_title",
           "page_count": "10",
           "volume_link": "https://books.google.com/books/about/some.html?hl=&id=gNFcTw52DPUC",
-          "isbn_10": "0976891222",
-          "isbn_13": "9780976891233",
+          "isbn_10": "",
+          "isbn_13": "",
           "author": ["I Ivanov"],
           "category": ["Health"],
-          "thumbnail": "",
+          "thumbnail": {"name": "", "volume_link": ""},
           "path": "/home/test/",
-          "raw_title": "Some title"
+          "raw_title": "Some title",
+          "file_ext": "PDF"
         }
       ]
     },
@@ -48,17 +50,18 @@
         "title": "How to Live Like You Were Dying",
         "page_count": "10",
         "volume_link": "https://books.google.com/books/about/How_to_Live_Like_You_Were_Dying_PDF.html?hl=&id=gNFcTw52DPUC",
-        "isbn_10": "0976891212",
-        "isbn_13": "9780976891215",
+        "isbn_10": "",
+        "isbn_13": "",
         "author": [
           "Jay Irvin"
         ],
         "category": [
           "Body, Mind & Spirit"
         ],
-        "thumbnail": "",
+        "thumbnail": {"name": "", "volume_link": ""},
         "path": "/home/test/",
-        "raw_title": "How to Live Like You Were Dyin"
+        "raw_title": "How to Live Like You Were Dyin",
+        "file_ext": "PDF"
       }
     }
   }

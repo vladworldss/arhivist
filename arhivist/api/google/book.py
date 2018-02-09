@@ -2,11 +2,9 @@
 """
 Interface for Google API.
 """
-import os
 import requests
 import re
 import json
-import shutil
 from apiclient.discovery import build
 
 from arhivist.api.base import BaseBookApi

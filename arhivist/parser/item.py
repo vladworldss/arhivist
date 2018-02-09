@@ -32,7 +32,10 @@ class Item(object):
         :param str _json: JSON serializable str
         :return:
         """
-        dict_fields = json.loads(_json)
+        if isinstance(_json, str):
+            dict_fields = json.loads(_json)
+        elif isinstance(_json, dict):
+            dict_fields = dict(**_json)
         item = cls.__new__(cls)
         item.__init__(**dict_fields)
 
@@ -90,7 +93,10 @@ class Book(Item):
     __BOOK_NAME_MASK = re.compile(r'(?P<name>\w+)\.(?P<type>\w+)')
 
     __SUPPORTED = SUPPORT_BOOK_EXTENSION
-    __slots__ = ("publisher",
+    __slots__ = ("path",
+                 "raw_title",
+                 "file_ext",
+                 "publisher",
                  "description",
                  "language",
                  "published_date",
@@ -108,7 +114,7 @@ class Book(Item):
                  "_bad"
                  )
 
-    def __init__(self, path, raw_title, file_ext):
+    def __init__(self, path=None, raw_title=None, file_ext=None, **kw):
         super().__init__()
         self.path = path
         self.raw_title = raw_title

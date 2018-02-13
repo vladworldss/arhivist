@@ -25,7 +25,7 @@ class BooksList(ListView):
 
     queryset = Book.objects.all()
     template_name = "index.html"
-    paginate_by = 10
+    paginate_by = 3
     cat = None
 
     def get(self, request, *args, **kw):
@@ -44,7 +44,8 @@ class BooksList(ListView):
         return context
 
     def get_queryset(self):
-        return Book.objects.filter(category=self.cat).order_by("title")
+        return Book.objects.all().order_by("title")
+        # return Book.objects.filter(category=self.cat).order_by("title")
 
 
 class BookDetail(DetailView):

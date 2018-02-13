@@ -2,13 +2,35 @@
 {% load staticfiles %}
 {% block title %}{{ book.title }} :: {{ book.category.name }}{% endblock %}
 {% block main %}
-    <h2>{{ book.title }}</h2>
-    {% if book.thumbnail.name %}
-        <p><img src="{% static "thumbnail/" %}{{ book.thumbnail.name }}"></p>
-    {% elif book.thumbnail.volume_link %}
-        <p><img src="{{ book.thumbnail.volume_link }}"></p>
-    {% endif %}
-    <p class="category">Категория: {{ book.category.name }}</p>
-    <p>{{ book.description|linebreaksbr }}</p>
-    <p><a href="{% url "index" cat_id=book.category.first.pk %}?page={{ pn }}">Назад</a></p>
+     <div class="container">
+         <p></p>
+         <div class="row center-img">
+            {% url "book"  book_id=book.pk as book_url%}
+            {% if not book.thumbnail.name %}
+                <a><img class="center-img" src="http://placehold.it/700x400" alt=""></a>
+            {% else %}
+                <a><img class="center-img" src="{% static "thumbnail/" %}{{ book.thumbnail.name }}" alt="{{ book.title }}"></a>
+            {% endif %}
+        </div>
+
+        <div class="card-body">
+            <div class="fig">
+                {% for author in book.author.all %}
+                    <h5>{{ author }}</h5>
+                {% endfor %}
+
+                <h3 class="card-title">
+                    <a>{{ book.title }}</a>
+                </h3>
+
+                {% if  book.category.name %}
+                    <p class="category">Category: {{ book.category.name }}</p>
+                {% endif %}
+            </div>
+
+            <p></p>
+            <p class="card-text">{{ book.description|linebreaksbr }}</p>
+            <p><a href="{% url "index" cat_id=book.category.first.pk %}?page={{ pn }}">Назад</a></p>
+        </div>
+     </div>
 {% endblock %}

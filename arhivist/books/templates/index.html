@@ -1,61 +1,72 @@
 {% extends "base.html" %}
 {% load staticfiles %}
-{% block title %}HOME{{ cat.name }}{% endblock %}
-
 {% block main %}
-    <div class="jumbotron">
-        <blockquote>
-            <p>&ldquo;A room without books is like a body without a soul.&rdquo;</p>
-            <small>Marcus Tullius Cicero</small>
-        </blockquote>
-    </div>
-    <div class="team">
+    <div class="container">
+        <!-- Page Heading -->
+        <h1 class="my-4">{% block title %}{% endblock %}</h1>
+        {% if cat.name %}
+            <small>{{ cat.name }}</small>
+        {% else %}
+        {% endif %}
 
-            <div class="row">
-                <div class="col col-md-4">
-                {% for book in object_list %}
-                    {% url "book"  book_id=book.pk as book_url%}
-                    <img src="{% static "thumbnail/" %}{{ book.thumbnail.name }}" alt="{{ book.title }}" class="thumbnail">
-                    <div class="caption">
-                        {% for author in book.author.all %}
-                            <h3>{{ author }}</h3>
-                            <a href="{{ book_url }}?page={{ page_obj.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"60" }}</a>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-                </div>
-            </div>
-
-            <ul>
-            {% if paginator.num_pages > 1 %}
-                <div id="pagination">
-                    {% if page_obj.has_previous %}
-                        <div id="previous-page">
-                            {% url "index" cat_id=category.pk as cat_url %}
-                            <a href="{{ cat_url }}?page={{ page_obj.previous_page_number }}">&lt;</a>
-                        </div>
-                    {% endif %}
-                    {% if page_obj.has_next %}
-                        <div id="next-page">
-                            <a href="{{ cat_url }}?page={{ page_obj.next_page_number }}">&gt;</a>
-                        </div>
-                    {% endif %}
-                    <div id="num-pages">
-                        {% for pn in paginator.page_range %}
-                            {% if not forloop.first %}
-                                &nbsp;&nbsp;|&nbsp;&nbsp;
-                            {% endif %}
-
-                            {% if page_obj.number != pn %}
-                                <a href="{{ cat_url }}?page={{ pn }}">
-                            {% endif %}
-                        {{ pn }}
-                        {% if page_obj.number != pn %}
-                            </a>
+        <div class="row">
+            {% for book in object_list %}
+                <div class="col-lg-4 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        {% url "book"  book_id=book.pk as book_url%}
+                        {% if not book.thumbnail.name %}
+                            <a href="{{ book_url }}?page={{ page_obj.number }}"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+                        {% else %}
+                            <a href="{{ book_url }}?page={{ page_obj.number }}"><img class="card-img-top" src="{% static "thumbnail/" %}{{ book.thumbnail.name }}" alt="{{ book.title }}"></a>
                         {% endif %}
-                        {% endfor %}
+
+                        <div class="card-body">
+                            {% for author in book.author.all %}
+                                <h5>{{ author }}</h5>
+                            {% endfor %}
+                            <h4 class="card-title"><a href="{{ book_url }}?page={{ page_obj.number }}">{{ book.title }}</a></h4>
+                            <p href="{{ book_url }}?page={{ page_obj.number }}" title="{{ book.description|linebreaksbr }}">{{ book.description|truncatechars:"120" }}</p>
+                        </div>
                     </div>
                 </div>
-            {% endif %}
-        </ul>
+            {% endfor %}
+        </div>
+        <!-- /.row -->
+
+        <!-- Pagination -->
+        {% if paginator.num_pages > 1 %}
+            <ul class="pagination justify-content-center">
+
+                <!-- Previous -->
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        {% url "index" cat_id=category.pk as cat_url %}
+                        <a class="page-link" href="{{ cat_url }}?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for pn in paginator.page_range %}
+                    <li class="page-item">
+                        <a class="page-link"
+                                {% if page_obj.number != pn %} href="{{ cat_url }}?page={{ pn }}"{% endif %}
+                        >{{ pn }}</a>
+                    </li>
+                {% endfor %}
+
+                <!-- Next -->
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ cat_url }}?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        {% endif %}
+    </div>
+    <!-- /.container -->
 {% endblock %}

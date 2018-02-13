@@ -4,7 +4,7 @@ Books-app views.
 """
 import random
 
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import *
 
@@ -60,6 +60,9 @@ class BookDetail(DetailView):
         context["cats"] = Category.objects.order_by("name")
         context["random_book"] = random_book()
         return context
+
+
+
 
 
 class CategoryList(ListView):

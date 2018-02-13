@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block main %}
+    <div class="card-body">
+        <p>We can test our API using <a href="https://curl.haxx.se/">curl</a> or <a href="https://github.com/jakubroztocil/httpie#installation">httpie</a>. Httpie is a user friendly http client that's written in Python. Let's install that.</p>
+        <p>You can install httpie using pip:</p>
+        <pre class="prettyprint well"><code><span class="pln">pip install httpie</span></code></pre>
+        <p>Finally, we can get a list of all of the books:</p>
+        <pre class="prettyprint well"><code><span class="pln">
+        http http://127.0.0.1:8000/api/books/
+
+        HTTP/1.0 200 OK
+
+        ...
+
+        {
+        "count": 1,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+            "author": [
+                2
+            ],
+            "category": [
+                2
+            ],
+            "description": "In Harry Potter and the Chamber of Secrets, ...",
+            "file_ext": "djvu",
+            "id": 2,
+            "isbn_10": null,
+            "isbn_13": null,
+            "language": 2,
+            "owner": "admin",
+            "page_count": 0,
+            "path": "/home/test/books",
+            "published_date": "2012-10-24",
+            "publisher": 1,
+            "raw_title": "Harry Potter and the Chamber of Secrets",
+            "thumbnail": 2,
+            "title": "Harry Potter and the Chamber of Secrets",
+            "validate": false,
+            "volume_link": "https://books.google.com/books/about/Harry_Potter_and_the_Chamber_of_Secrets.html?hl=&id=h1sFswEACAAJ"
+            },
+            {
+            "author": [
+                4
+            ],
+            ...
+            }
+            ]
+            }
+        </span></code></pre>
+
+        <p>Or we can get a list of book was filtered by category:</p>
+        <pre class="prettyprint well"><code><span class="pln">
+        http http://127.0.0.1:8000/api/books/2/
+
+        HTTP/1.0 200 OK
+
+        {
+        "count": 1,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "author": [
+                    5
+                ],
+                "category": [
+                    5
+                ],
+                "description": "Some descr",
+                "file_ext": "",
+                "id": 5,
+                "isbn_10": 976891222,
+                "isbn_13": 9780976891233,
+                "language": 4,
+                "owner": "admin",
+                "page_count": 10,
+                "path": "/home/test/",
+                "published_date": "2015-01-01",
+                "publisher": 5,
+                "raw_title": "Some title",
+                "thumbnail": 4,
+                "title": "Some_title",
+                "validate": false,
+                "volume_link": "https://books.google.com/books/about/some.html?hl=&id=gNFcTw52DPUC"
+            }
+            ]
+            }
+            </span></code></pre>
+
+        Or we can get a particular snippet by referencing its id:
+        <pre class="prettyprint well"><code><span class="pln">http http://127.0.0.1:8000/api/books/book/4/</span></code></pre>
+
+        <p>Also, we can get a list of all categories of the books:</p>
+        <pre class="prettyprint well"><code><span class="pln">
+        http http://127.0.0.1:8000/api/books/category/
+
+        HTTP/1.0 200 OK
+
+        {
+        "count": 5,
+        "next": null,
+        "previous": null,
+        "results": [
+            {
+                "id": 4,
+                "name": "Body, Mind & Spirit"
+            },
+            {
+                "id": 3,
+                "name": "Computers"
+            },
+            {
+                "id": 5,
+                "name": "Health"
+            },
+            {
+                "id": 2,
+                "name": "Juvenile Fiction"
+            },
+            {
+                "id": 1,
+                "name": "Literary Collections"
+            }
+        ]
+        }
+
+        </span></code></pre>
+        <p>Similarly, you can have the same json displayed by visiting these URLs in a web browser.</p>
+    </div>
+{% endblock %}

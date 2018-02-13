@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block main %}
+    <p></p>
+    <div class="container section">
+        <div class="row">
+            {% for cat in object_list %}
+                <div class="col-lg-4 col-sm-6 portfolio-item">
+                    <div class="card h-100">
+                        {% url "index"  cat_id=cat.pk as cat_books_url%}
+                        <a href="{{ cat_books_url }}?page={{ page_obj.number }}" class="center-img">{{ cat.name }}</a>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -30,9 +30,7 @@ class BooksList(ListView):
 
     def get(self, request, *args, **kw):
         cat_id = self.kwargs["cat_id"]
-        if cat_id is None:
-            self.cat = Category.objects.first()
-        else:
+        if cat_id:
             self.cat = Category.objects.get(pk=cat_id)
         return super().get(request, *args, **kw)
 
@@ -44,8 +42,10 @@ class BooksList(ListView):
         return context
 
     def get_queryset(self):
-        return Book.objects.all().order_by("title")
-        # return Book.objects.filter(category=self.cat).order_by("title")
+        if self.cat:
+            return Book.objects.filter(category=self.cat).order_by("title")
+        else:
+            return Book.objects.all().order_by("title")
 
 
 class BookDetail(DetailView):
@@ -60,3 +60,10 @@ class BookDetail(DetailView):
         context["cats"] = Category.objects.order_by("name")
         context["random_book"] = random_book()
         return context
+
+
+class CategoryList(ListView):
+
+    queryset = Category.objects.all().order_by("name")
+    template_name = "category.html"
+    paginate_by = 10

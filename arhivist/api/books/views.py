@@ -23,7 +23,7 @@ __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
 __version__    = "0.0.1"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
-__all__        = ("BooksList", "BookDetail", "CategoryList")
+__all__        = ("BooksList", "BookDetail", "CategoryList", "BookSearch")
 
 
 class BooksList(ListCreateAPIView):
@@ -81,6 +81,18 @@ class BookDetail(RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+
+class BookSearch(RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+    lookup_field = "raw_title"
+
+    def get_queryset(self):
+        book_title = self.kwargs.get(self.lookup_field)
+        book = Book.objects.filter(raw_title=book_title)
+        return book
 
 
 class CategoryList(ListCreateAPIView):

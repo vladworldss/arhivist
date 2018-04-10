@@ -29,6 +29,8 @@ urlpatterns = [
     url(r'^books/(?:(?P<cat_id>\d+)/)?$', BooksList.as_view(), name="api-books"),
     url(r'^books/book/(?P<pk>\d+)/$', BookDetail.as_view(), name='api-book'),
     url(r'^books/category/$', CategoryList.as_view(), name='api-category'),
+
+    url(r'^books/search/(?P<raw_title>.+)/$', BookSearch.as_view(), name='api-search'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

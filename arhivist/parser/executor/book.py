@@ -41,12 +41,23 @@ class BookExecutorFactory(ExecutorFactory):
     # ---------
     class __InitExecutor(PoolExecutor):
 
+        """
+        TASK_API == VENDOR_API
+        CALLBACK_API == OWN_API
+        """
+
         def task(self, book):
-            b_resp = self.task_api.search_book(title=book.raw_title)
-            if not b_resp:
+            """
+            Searching book with Vendor Api.
+            If hasn't found, set bad responce status into book-attr.
+            :param book:
+            :return:
+            """
+            vendor_resp = self.task_api.search_book(title=book.raw_title)
+            if not vendor_resp:
                 book._bad = self.task_api.make_bad_responce(204, "No Content")
             else:
-                book.update(b_resp)
+                book.update(vendor_resp)
                 book.thumbnail.name = self.task_api.download_thumbnail(
                     url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
                 )
@@ -61,24 +72,69 @@ class BookExecutorFactory(ExecutorFactory):
                     book = fn.result()
                     if book._bad:
                         return
-                    resp = self.callback_api.post_book(book)
-                    if resp.status_code != self.callback_api.status_codes.created:
+                    own_resp = self.callback_api.post_book(book)
+                    if own_resp.status_code != self.callback_api.status_codes.created:
                         book._bad = self.callback_api.make_bad_responce(
-                            resp.status_code,
-                            resp.content.decode("utf-8")
+                            own_resp.status_code,
+                            own_resp.content.decode("utf-8")
                         )
 
     # ---------
     class __UpdateExecutor(PoolExecutor):
 
-        def task(self):
-            pass
+        """
+        TASK_API == OWN_API
+        CALLBACK_API == VENDOR_API + OWN_API
+        """
 
-        def callback(self):
-            pass
+        def task(self, book):
+            own_resp = self.task_api.search_book(title=book.raw_title)
+            if not own_resp:
+                book._bad = self.task_api.make_bad_responce(204, "No Content")
+            return book
+
+        def callback(self, fn):
+            if fn.cancelled():
+                fn.arg._bad = self.callback_api.make_bad_responce(205, "Reset Content. Cancelled")
+            elif fn.done():
+                error = fn.exception()
+                if error:
+                    return
+
+                book = fn.result()
+                # if the book doesnt' exist in own store, search into VendorApi
+                if not book._bad:
+                    return
+                vendor_resp = self.callback_api.search_book(title=book.raw_title)
+                if vendor_resp:
+                    book._bad = None
+                    book.update(vendor_resp)
+                    book.thumbnail.name = self.task_api.download_thumbnail(
+                        url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
+                    )
+
+                    # POST into own store
+                    own_resp = self.task_api.post_book(book)
+                    if own_resp.status_code != self.callback_api.status_codes.created:
+                        book._bad = self.callback_api.make_bad_responce(
+                            own_resp.status_code,
+                            own_resp.content.decode("utf-8")
+                        )
 
     # ---------
     class __DeleteExecutor(PoolExecutor):
 
-        def task(self):
-            pass
+        """
+        TASK_API == OWN_API
+        CALLBACK_API == NONE
+        """
+
+        def task(self, book):
+            # получить id-книги
+            # если она есть - удалить по id
+
+
+            own_resp = self.task_api.delete_book(title=book.raw_title)
+            if not own_resp:
+                book._bad = self.task_api.make_bad_responce(204, "No Content")
+            return book

@@ -62,9 +62,6 @@ class BookDetail(DetailView):
         return context
 
 
-
-
-
 class CategoryList(ListView):
 
     queryset = Category.objects.all().order_by("name")

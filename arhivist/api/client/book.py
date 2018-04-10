@@ -50,3 +50,23 @@ class Book(BaseBookApi):
         return requests.get(url=BOOKS_URL,
                             headers=self.token_header
                             )
+
+    def delete_book(self, book):
+        if not isinstance(book, BookItem):
+            raise TypeError
+        json_data = {"books": [book.to_dict()]}
+        book_url = f"{BOOKS_URL}/{book.raw_title}"
+
+        return requests.delete(url=book_url,
+                               headers=self.token_header
+                             )
+
+    def search_book(self, **kw):
+        book_title = kw.get("title")
+        if book_title:
+            search_url = BOOKS_URL + "search/" + book_title
+            book = requests.get(url=search_url,
+                                headers=self.token_header
+                                )
+            book = book.json()
+            pass

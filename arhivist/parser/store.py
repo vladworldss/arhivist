@@ -83,37 +83,43 @@ class Store(object):
         ex = self.ExecutorFactory.make_delete_executor(kw["vendor"])
         ex.execute(books)
 
+    @classmethod
+    def execute(cls):
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-i", "--init",
+                            help="initialize book store",
+                            action="store_true"
+                            )
+        parser.add_argument("-u", "--update",
+                            help="update book store",
+                            action="store_true"
+                            )
+        parser.add_argument("-r", "--remove",
+                            help="stop monitoring of book store",
+                            action="store_true"
+                            )
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-i", "--init",
-                        help="initialize book store",
-                        action="store_true"
-                        )
-    parser.add_argument("-u", "--update",
-                        help="update book store",
-                        action="store_true"
-                        )
-    parser.add_argument("-r", "--remove",
-                        help="stop monitoring of book store",
-                        action="store_true"
-                        )
+        parser.add_argument("-vnd", "--vendor",
+                            type=str,
+                            default=st.VENDORS[0],
+                            choices=st.VENDORS,
+                            help="search book with vendor-api",
+                            )
 
-    parser.add_argument("-vnd", "--vendor",
-                        type=str,
-                        default=st.VENDORS[0],
-                        choices=st.VENDORS,
-                        help="search book with vendor-api",
-                        )
+        args = parser.parse_args()
+        store = Store()
 
-    args = parser.parse_args()
-    store = Store()
+        if args.init:
+            store.init(vendor=args.vendor)
+        elif args.update:
+            store.update(vendor=args.vendor)
+        elif args.remove:
+            store.delete(vendor=args.vendor)
+        else:
+            store.init()
 
-    if args.init:
-        store.init(vendor=args.vendor)
-    elif args.update:
-        store.update(vendor=args.vendor)
-    elif args.remove:
-        store.delete(vendor=args.vendor)
-    else:
-        store.init()
+
+def execute_from_command_line(argv=None):
+    """Run a ManagementUtility."""
+
+    Store.execute()

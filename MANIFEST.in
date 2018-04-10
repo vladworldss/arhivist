@@ -1,0 +1,10 @@
+include INSTALL
+include LICENSE
+include MANIFEST.in
+include README.md
+include requirements.txt
+graft arhivist
+graft tests
+global-exclude __pycache__
+global-exclude *.py[co]
+prune arhivist/doc/*

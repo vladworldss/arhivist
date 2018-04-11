@@ -4,7 +4,7 @@ Interface for Arhivist API.
 """
 import requests
 
-from arhivist.api.settings import AUTH_URL, CREDENTIALS, BOOKS_URL
+from arhivist.api.settings import AUTH_URL, CREDENTIALS, BOOKS_URL, BOOK_URL
 from arhivist.api.base import BaseBookApi
 from arhivist.parser.item import Book as BookItem
 
@@ -41,7 +41,7 @@ class Book(BaseBookApi):
     def get_book(self, book_id):
         if not isinstance(book_id, int):
             raise TypeError
-        book_url = f"{BOOKS_URL}/{book_id}"
+        book_url = f"{BOOKS_URL}{book_id}"
         return requests.get(url=book_url,
                             headers=self.token_header
                             )
@@ -51,12 +51,8 @@ class Book(BaseBookApi):
                             headers=self.token_header
                             )
 
-    def delete_book(self, book):
-        if not isinstance(book, BookItem):
-            raise TypeError
-        json_data = {"books": [book.to_dict()]}
-        book_url = f"{BOOKS_URL}/{book.raw_title}"
-
+    def delete_book(self, book_id):
+        book_url = f"{BOOK_URL}{book_id}"
         return requests.delete(url=book_url,
                                headers=self.token_header
                              )

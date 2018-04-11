@@ -130,8 +130,12 @@ class BookExecutorFactory(ExecutorFactory):
             # получить id-книги
             # если она есть - удалить по id
 
-
-            own_resp = self.task_api.delete_book(title=book.raw_title)
-            if not own_resp:
+            book_json = self.task_api.search_book(title=book.raw_title)
+            if not book_json:
                 book._bad = self.task_api.make_bad_responce(204, "No Content")
+            else:
+                book_id = book_json["id"]
+                resp = self.task_api.delete_book(book_id)
+                if resp.status_code != self.task_api.status_codes.no_content:
+                    book._bad = resp.status_code
             return book

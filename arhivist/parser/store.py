@@ -75,7 +75,7 @@ class Store(object):
 
     def delete(self, **kw):
         """
-        Remove of book store.
+        Remove of all books store.
 
         :return:
         """

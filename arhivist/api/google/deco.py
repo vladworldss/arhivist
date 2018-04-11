@@ -15,11 +15,19 @@ _volumeInfo = {"publisher", "description", "language"}
 
 
 def make_datetime(raw_dt_str):
+    dt_obj = datetime.today()
     try:
-        dt_obj = datetime.strptime(raw_dt_str, '%Y-%M-%d')
-    except:
-        dt_obj = datetime.strptime(f"{raw_dt_str}-01-01", '%Y-%M-%d')
-    return dt_obj.strftime("%Y-%M-%d")
+        if not isinstance(raw_dt_str, str):
+            raise TypeError
+        count_dash = raw_dt_str.count("-")
+        if count_dash == 2:
+            dt_obj = datetime.strptime(raw_dt_str, '%Y-%M-%d')
+        elif count_dash == 1:
+            dt_obj = datetime.strptime(f"{raw_dt_str}-01", '%Y-%M-%d')
+        elif count_dash == 0:
+            dt_obj = datetime.strptime(f"{raw_dt_str}-01-01", '%Y-%M-%d')
+    finally:
+        return dt_obj.strftime("%Y-%M-%d")
 
 
 def parse_responce(resp_json):

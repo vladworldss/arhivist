@@ -56,7 +56,7 @@ install_reqs = [str(ir.req) for ir in install_reqs]
 
 setup(
     name='Arhivist',
-    version="1.1.0",
+    version="1.1.1",
 
     python_requires='>={}.{}'.format(*REQUIRED_PYTHON),
     install_requires=install_reqs,

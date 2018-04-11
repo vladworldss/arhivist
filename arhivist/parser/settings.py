@@ -14,6 +14,8 @@ __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
 # __FOLDER
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 STORE_PATH = "/home/test/books/"
 UNCHECKABLE_FOLDERS = ()
 SUPPORT_BOOK_EXTENSION = {'pdf', 'djvu', '.djv', 'epub', 'fb2'}
@@ -24,5 +26,5 @@ CREDENTIALS = CREDENTIALS
 POST_URL = BOOKS_URL
 
 # __THUMBNAIL
-BOOKS_DIR = os.path.abspath(books.__path__[-1])
+BOOKS_DIR = os.path.join(PROJECT_DIR, "books")
 THUMBNAIL_DIR = os.path.join(BOOKS_DIR, "static", "thumbnail")

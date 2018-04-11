@@ -3,7 +3,7 @@ Arhivist is a web application based on [Django](https://www.djangoproject.com).
 Also, it's supported REST web services based on [Django REST framework](http://www.django-rest-framework.org) with Authentication policies for [JSON Web Tokens](https://jwt.io/).
 The actual code of the app implements a store of books application with tests, demo project and documentation.
 
-##Example
+## Example
 We can get a json of the books. We use Paginator for getting of part of all objects.
 
 ```http http://127.0.0.1:8000/api/books/```
@@ -54,12 +54,26 @@ X-Frame-Options: SAMEORIGIN
 }
 ```
 
-###Prerequisites
+### Prerequisites
 What things you need to install the software and how to install them
 ```
 git
 CPython 3.6.x
 pip, virtualenv or pyenv
 ```
-###Installing
+### Installing
+I prefere pyenv.
+```
+$ pyenv virtualenv 3.6.2 arhivist
+$ pyenv local arhivist && pip install --upgrade pip
+$ git clone https://github.com/vladworldss/arhivist.git && cd arhivist
+$ pip install -r requirements.txt
+```
 
+### Run
+Default store folder == "/home/test/books". For another folder please change arhivist/parser/settings.py::STORE_PATH 
+```
+$ cd arhivist
+$ nohup manage.py runserver 0.0.0.0:8000
+$ cd parser &&  python store.py -i --vendor google
+```

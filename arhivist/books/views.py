@@ -4,7 +4,7 @@ Books-app views.
 """
 import random
 
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DetailView
 
 from .models import *
 

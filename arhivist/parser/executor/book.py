@@ -88,8 +88,8 @@ class BookExecutorFactory(ExecutorFactory):
         """
 
         def task(self, book):
-            own_resp = self.task_api.search_book(title=book.raw_title)
-            if not own_resp:
+            book_json = self.task_api.search_book(title=book.raw_title)
+            if not book_json:
                 book._bad = self.task_api.make_bad_responce(204, "No Content")
             return book
 
@@ -98,28 +98,25 @@ class BookExecutorFactory(ExecutorFactory):
                 fn.arg._bad = self.callback_api.make_bad_responce(205, "Reset Content. Cancelled")
             elif fn.done():
                 error = fn.exception()
-                if error:
-                    return
+                if not error:
+                    book = fn.result()
+                    # if the book doesnt' exist in own store, search into VendorApi
+                    if book._bad:
+                        vendor_resp = self.callback_api.search_book(title=book.raw_title)
+                        if vendor_resp:
+                            book._bad = None
+                            book.update(vendor_resp)
+                            book.thumbnail.name = self.callback_api.download_thumbnail(
+                                url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
+                            )
 
-                book = fn.result()
-                # if the book doesnt' exist in own store, search into VendorApi
-                if not book._bad:
-                    return
-                vendor_resp = self.callback_api.search_book(title=book.raw_title)
-                if vendor_resp:
-                    book._bad = None
-                    book.update(vendor_resp)
-                    book.thumbnail.name = self.task_api.download_thumbnail(
-                        url=book.thumbnail.volume_link, download_dir=THUMBNAIL_DIR
-                    )
-
-                    # POST into own store
-                    own_resp = self.task_api.post_book(book)
-                    if own_resp.status_code != self.callback_api.status_codes.created:
-                        book._bad = self.callback_api.make_bad_responce(
-                            own_resp.status_code,
-                            own_resp.content.decode("utf-8")
-                        )
+                            # POST into own store
+                            own_resp = self.task_api.post_book(book)
+                            if own_resp.status_code != self.task_api.status_codes.created:
+                                book._bad = self.task_api.make_bad_responce(
+                                    own_resp.status_code,
+                                    own_resp.content.decode("utf-8")
+                                )
 
     # ---------
     class __DeleteExecutor(PoolExecutor):

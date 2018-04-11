@@ -61,12 +61,17 @@ class Book(BaseBookApi):
                                headers=self.token_header
                              )
 
-    def search_book(self, **kw):
-        book_title = kw.get("title")
-        if book_title:
-            search_url = BOOKS_URL + "search/" + book_title
-            book = requests.get(url=search_url,
-                                headers=self.token_header
-                                )
-            book = book.json()
-            pass
+    def search_book(self, title):
+        """
+        Searching book from book_title.
+        If book had found, return json.
+
+        :return:
+        """
+
+        search_url = BOOKS_URL + "search/" + title
+        book_resp = requests.get(url=search_url,
+                                 headers=self.token_header
+                                 )
+        if book_resp.status_code in {self.status_codes.created, self.status_codes.ok}:
+            return book_resp.json()

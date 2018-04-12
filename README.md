@@ -65,7 +65,8 @@ pip, virtualenv or pyenv
 I prefere pyenv.
 ```
 $ pyenv virtualenv 3.6.2 arhivist
-$ pyenv local arhivist && pip install --upgrade pip
+$ pyenv local arhivist
+$ pip install --upgrade pip
 $ pip install wheel
 $ git clone https://github.com/vladworldss/arhivist.git && cd arhivist
 $ pip install -r requirements.txt
@@ -73,12 +74,21 @@ $ pip install -r requirements.txt
 
 ### Run
 Default store folder == "/home/test/books". For another folder please change arhivist/parser/settings.py::STORE_PATH.
-Default credentials for superuser - "api.settings".
+Default credentials for superuser - <b>arhivist.api.settings.py</b>.
 ```
 $ cd arhivist
-$ python manage.py createsuperuser
 $ python manage.py makemigrations
 $ python migrate
-$ nohup manage.py runserver 0.0.0.0:8000
-$ cd parser &&  python store.py -i --vendor google
+$ python manage.py createsuperuser
+$ python manage.py runserver 0.0.0.0:8000
 ```
+From another terminal:
+```
+$ cd parser
+$ python store.py -i --vendor google
+```
+
+### DevApi
+If you want to use your DeveloperKey (e.g. console.developers.google), add file in path <b>$HOME_DIR/.google/api_key</b> 
+with <b>API_KEY</b>.
+See more in <b>arhivist.api.<vendor>.settings.py</b>

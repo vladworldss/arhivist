@@ -8,7 +8,7 @@ import json
 from apiclient.discovery import build
 
 from arhivist.api.base import BaseBookApi
-from .setting import API_KEY
+from .settings import API_KEY
 from .deco import parsed
 
 __author__     = "Vladimir Gerasimenko"
@@ -27,7 +27,7 @@ class Book(BaseBookApi):
     BASE_URL = 'https://www.googleapis.com/books/v1'
 
     def __init__(self, *args, **kw):
-        super().__init__(*args, **kw)
+        super().__init__(auth=False, *args, **kw)
         self.download_dir = kw.get('download_dir', '/var/www/api')
 
     def authorize(self, *args, **kw):

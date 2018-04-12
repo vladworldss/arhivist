@@ -10,6 +10,7 @@ import argparse
 from arhivist.parser.executor import BookExecutorFactory
 from arhivist.parser.item import Book
 from arhivist.parser import settings as st
+from arhivist.parser.logger import Logger
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2017, Vladimir Gerasimenko"
@@ -22,11 +23,30 @@ class Store(object):
     """
     Book store class.
     """
+    __LoggerCls = Logger
 
     def __init__(self, root_path=st.STORE_PATH, ExecutorFactory=BookExecutorFactory, BookCls=Book):
         self.root_path = root_path
         self.ExecutorFactory = ExecutorFactory
         self.BookCls = BookCls
+
+        self.__set_logger()
+
+        self.logger.info("*" * 50)
+        self.logger.info("Init store.")
+        self.logger.info(f"Store dir: {root_path}")
+        self.logger.info(f"Thumbnail dir: {st.THUMBNAIL_DIR}")
+
+    def __del__(self):
+        self.logger.info("*" * 50)
+
+    def __set_logger(self, log_file_name="parser"):
+        logger_dir = os.path.dirname(__file__)
+        self.__logger = self.__LoggerCls(logger_dir, log_file_name)
+
+    @property
+    def logger(self):
+        return self.__logger
 
     def make_thumbnail_folder(self):
         if not os.path.exists(st.THUMBNAIL_DIR):
@@ -53,15 +73,26 @@ class Store(object):
         Initialize of book store.
         :return:
         """
+        vendor = kw["vendor"]
+        self.logger.info("-" * 50)
+        self.logger.info(f"Init of store for vendor={vendor} has started.")
         books = self.get_all_books()
-        ex = self.ExecutorFactory.make_init_executor(kw["vendor"])
+        ex = self.ExecutorFactory.make_init_executor(vendor)
         res = ex.execute(books, callback=True)
-        print("BAD BOOKS:")
+
+        # Unknown books
+        self.logger.info("-"*50)
+        self.logger.info("[Unknown books:]")
         for b in res["bad"]:
-            print(b._bad, b.raw_title)
-        print("OK BOOKS:")
+            self.logger.info(f"{b.raw_title}, {b._bad}")
+
+        # Known books
+        self.logger.info("-" * 50)
+        self.logger.info("[Known books:]")
         for b in res["ok"]:
-            print(b._bad, b.to_dict())
+            self.logger.info(f"{b.raw_title}")
+        self.logger.info("-" * 50)
+
 
     def update(self, **kw):
         """
@@ -69,9 +100,26 @@ class Store(object):
 
         :return:
         """
+        vendor = kw["vendor"]
+        self.logger.info("-" * 50)
+        self.logger.info(f"Updating of store for vendor={vendor} has started.")
         books = self.get_all_books()
-        ex = self.ExecutorFactory.make_update_executor(kw["vendor"])
-        ex.execute(books, callback=True)
+        ex = self.ExecutorFactory.make_update_executor(vendor)
+        res = ex.execute(books, callback=True)
+
+        # Unknown books
+        self.logger.info("-" * 50)
+        self.logger.info("[Unknown books:]")
+        for b in res["bad"]:
+            self.logger.info(f"{b.raw_title}, {b._bad}")
+
+        # Known books
+        self.logger.info("-" * 50)
+        self.logger.info("[Known books:]")
+        for b in res["ok"]:
+            self.logger.info(f"{b.raw_title}")
+        self.logger.info("-" * 50)
+
 
     def delete(self, **kw):
         """
@@ -79,9 +127,24 @@ class Store(object):
 
         :return:
         """
+        vendor = kw["vendor"]
+        self.logger.info("-" * 50)
+        self.logger.info(f"Deleting of store for vendor={vendor} has started.")
         books = self.get_all_books()
-        ex = self.ExecutorFactory.make_delete_executor(kw["vendor"])
-        ex.execute(books)
+        ex = self.ExecutorFactory.make_delete_executor(vendor)
+        res = ex.execute(books)
+
+        # Undeleted books
+        self.logger.info("-" * 50)
+        self.logger.info("[Undeleted books:]")
+        for b in res["bad"]:
+            self.logger.info(f"{b.raw_title}, {b._bad}")
+
+        # Deleted books
+        self.logger.info("-" * 50)
+        self.logger.info("[Deleted books:]")
+        for b in res["ok"]:
+            self.logger.info(f"{b.raw_title}")
 
     @classmethod
     def execute(cls):

@@ -66,14 +66,19 @@ I prefere pyenv.
 ```
 $ pyenv virtualenv 3.6.2 arhivist
 $ pyenv local arhivist && pip install --upgrade pip
+$ pip install wheel
 $ git clone https://github.com/vladworldss/arhivist.git && cd arhivist
 $ pip install -r requirements.txt
 ```
 
 ### Run
-Default store folder == "/home/test/books". For another folder please change arhivist/parser/settings.py::STORE_PATH 
+Default store folder == "/home/test/books". For another folder please change arhivist/parser/settings.py::STORE_PATH.
+Default credentials for superuser - "api.settings".
 ```
 $ cd arhivist
+$ python manage.py createsuperuser
+$ python manage.py makemigrations
+$ python migrate
 $ nohup manage.py runserver 0.0.0.0:8000
 $ cd parser &&  python store.py -i --vendor google
 ```

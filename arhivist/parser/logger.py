@@ -1,7 +1,7 @@
 # coding: utf-8
 # flake8: noqa
 """
-Модуль логирования.
+Logging module
 """
 import os
 import logging
@@ -10,7 +10,7 @@ from hashlib import md5
 
 __author__     = "Vladimir Gerasimenko"
 __copyright__  = "Copyright (C) 2018, Vladimir Gerasimenko"
-__version__    = "1.0.2"
+__version__    = "1.1.2"
 __maintainer__ = "Vladimir Gerasimenko"
 __email__      = "vladworldss@yandex.ru"
 
@@ -43,7 +43,9 @@ def get_unique_name(name, hex_id=False):
 
 class Logger(object):
     """
-    Обертка над Logging.
+    Logging wrapper cls.
+    Handling of create, write into a log-file.
+
     """
     __LogCls = logging
     __LOG_FILE_EXT = "log"

@@ -37,16 +37,37 @@ class Store(object):
         self.logger.info(f"Store dir: {root_path}")
         self.logger.info(f"Thumbnail dir: {st.THUMBNAIL_DIR}")
 
+        self.__LOG_MSG = {"init": ("[Unknown books:]", "[Known books:]"),
+                          "update": ("[Unknown books:]", "[Known books:]"),
+                          "delete": ("[Undeleted books:]", "[Deleted books:]")
+                          }
+
     def __del__(self):
         self.logger.info("*" * 50)
+
+    @property
+    def logger(self):
+        return self.__logger
 
     def __set_logger(self, log_file_name="parser"):
         logger_dir = os.path.dirname(__file__)
         self.__logger = self.__LoggerCls(logger_dir, log_file_name)
 
-    @property
-    def logger(self):
-        return self.__logger
+    def __log_result(self, meth, result):
+        error_msg, ok_msg  = self.__LOG_MSG[meth]
+
+        # Error
+        self.logger.info("-" * 50)
+        self.logger.info(error_msg)
+        for bad_book in result["bad"]:
+            self.logger.info(f"{bad_book.raw_title}, {bad_book._bad}")
+
+        # Ok
+        self.logger.info("-" * 50)
+        self.logger.info(ok_msg)
+        for good_book in result["ok"]:
+            self.logger.info(f"{good_book.raw_title}")
+        self.logger.info("-" * 50)
 
     def make_thumbnail_folder(self):
         if not os.path.exists(st.THUMBNAIL_DIR):
@@ -69,82 +90,37 @@ class Store(object):
                     yield self.BookCls(path, *m)
 
     def init(self, **kw):
-        """
-        Initialize of book store.
-        :return:
-        """
+        """Initialize of the book store."""
+
         vendor = kw["vendor"]
         self.logger.info("-" * 50)
         self.logger.info(f"Init of store for vendor={vendor} has started.")
         books = self.get_all_books()
         ex = self.ExecutorFactory.make_init_executor(vendor)
         res = ex.execute(books, callback=True)
-
-        # Unknown books
-        self.logger.info("-"*50)
-        self.logger.info("[Unknown books:]")
-        for b in res["bad"]:
-            self.logger.info(f"{b.raw_title}, {b._bad}")
-
-        # Known books
-        self.logger.info("-" * 50)
-        self.logger.info("[Known books:]")
-        for b in res["ok"]:
-            self.logger.info(f"{b.raw_title}")
-        self.logger.info("-" * 50)
-
+        self.__log_result("init", res)
 
     def update(self, **kw):
-        """
-        Update book store.
+        """Update of the book store."""
 
-        :return:
-        """
         vendor = kw["vendor"]
         self.logger.info("-" * 50)
         self.logger.info(f"Updating of store for vendor={vendor} has started.")
         books = self.get_all_books()
         ex = self.ExecutorFactory.make_update_executor(vendor)
         res = ex.execute(books, callback=True)
-
-        # Unknown books
-        self.logger.info("-" * 50)
-        self.logger.info("[Unknown books:]")
-        for b in res["bad"]:
-            self.logger.info(f"{b.raw_title}, {b._bad}")
-
-        # Known books
-        self.logger.info("-" * 50)
-        self.logger.info("[Known books:]")
-        for b in res["ok"]:
-            self.logger.info(f"{b.raw_title}")
-        self.logger.info("-" * 50)
-
+        self.__log_result("update", res)
 
     def delete(self, **kw):
-        """
-        Remove of all books store.
+        """Remove of all books store."""
 
-        :return:
-        """
         vendor = kw["vendor"]
         self.logger.info("-" * 50)
         self.logger.info(f"Deleting of store for vendor={vendor} has started.")
         books = self.get_all_books()
         ex = self.ExecutorFactory.make_delete_executor(vendor)
         res = ex.execute(books)
-
-        # Undeleted books
-        self.logger.info("-" * 50)
-        self.logger.info("[Undeleted books:]")
-        for b in res["bad"]:
-            self.logger.info(f"{b.raw_title}, {b._bad}")
-
-        # Deleted books
-        self.logger.info("-" * 50)
-        self.logger.info("[Deleted books:]")
-        for b in res["ok"]:
-            self.logger.info(f"{b.raw_title}")
+        self.__log_result("delete", res)
 
     @classmethod
     def execute(cls):

@@ -57,9 +57,11 @@ X-Frame-Options: SAMEORIGIN
 ### Prerequisites
 What things you need to install the software and how to install them
 ```
+OS — Linux (Debian family)
 git
 CPython 3.6.x
 pip, virtualenv or pyenv
+pyenv for test
 ```
 ### Installing
 I prefere pyenv.
@@ -68,7 +70,8 @@ $ pyenv virtualenv 3.6.2 arhivist
 $ pyenv local arhivist
 $ pip install --upgrade pip
 $ pip install wheel
-$ git clone https://github.com/vladworldss/arhivist.git && cd arhivist
+$ git clone https://github.com/vladworldss/arhivist.git
+$ cd arhivist
 $ pip install -r requirements.txt
 ```
 
@@ -88,7 +91,20 @@ $ cd parser
 $ python store.py -i --vendor google
 ```
 
-### DevApi
+### Arhivist API
+store.py flags:
++ -i --init - initialize of store
++ -u --update - updating of store
++ -d --delete - deleting of store
++ -v --vendor - use api_vendor (e.g. google_api)
+
+### For Developers
 If you want to use your DeveloperKey (e.g. console.developers.google), add file in path <b>$HOME_DIR/.google/api_key</b> 
 with <b>API_KEY</b>.
-See more in <b>arhivist.api.<vendor>.settings.py</b>
+See more in <b>arhivist.api.__vendor__.settings.py</b>
+
+### Test
+```
+$ cd ./arhivist/parser/tests
+$ pytest -v
+```

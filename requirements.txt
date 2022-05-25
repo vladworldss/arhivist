@@ -15,7 +15,7 @@ olefile==0.44
 Pillow==4.3.0
 py==1.4.34
 Pygments==2.2.0
-PyJWT==1.5.3
+PyJWT==2.4.0
 pylint==1.7.4
 pytest==3.2.3
 pytz==2017.2
